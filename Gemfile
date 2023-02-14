@@ -28,6 +28,9 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.2"
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
 
+# Simple, efficient background processing for Ruby (https://sidekiq.org)
+gem "sidekiq", "~> 7.0.4"
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 

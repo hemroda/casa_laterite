@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  require "sidekiq/web"
+  # TODO: uncomment when Devise is set up and User model created
+  # authenticate :user do
+  #   mount Sidekiq::Web => "/sidekiq"
+  # end
 
   # Defines the root path route ("/")
   root "website/pages#homepage"
