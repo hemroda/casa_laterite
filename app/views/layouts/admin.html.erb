@@ -12,11 +12,27 @@
     <div class="admin flex max-h-screen">
       <%= render "admin/shared/sidenav" %>
       <main class="admin flex flex-col w-full pt-16 md:pt-0 md:ml-48 px-1 md:px-3 bg-slate-500">
-        <div class="notifications">
-          <%# TODO: style this: Should be floating and closable %>
-          <p class="notice"><%= notice %></p>
-          <p class="alert"><%= alert %></p>
-        </div>
+        <% if notice || alert %>
+          <div
+            data-controller="notification"
+            data-notification-delay-value="2000"
+            class="transition transform duration-1000 hidden fixed top-4 bg-slate-300 p-4 rounded-md w-10/12"
+            data-transition-enter-from="opacity-0 translate-x-8"
+            data-transition-enter-to="opacity-100 translate-x-0"
+            data-transition-leave-from="opacity-100 translate-x-0"
+            data-transition-leave-to="opacity-0 translate-x-8"
+          >
+            <div class="flex justify-between">
+              <div>
+                <p class="notice"><%= notice %></p>
+                <p class="alert"><%= alert %></p>
+              </div>
+              <div>
+                <button data-action="notification#hide">Close</button>
+              </div>
+            </div>
+          </div>
+        <% end %>
         <%= yield %>
       </main>
     </div>
