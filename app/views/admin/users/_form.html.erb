@@ -2,34 +2,33 @@
   <div class="flex mt-3">
     <%= f.input :first_name, label: false, placeholder: "First name",
                 wrapper_html: { class: "mr-3" },
-                input_html: { class: "w-full appearance-none border border-gray-300 py-1 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparen" } %>
+                input_html: { class: "basic-field" } %>
     <%= f.input :last_name, label: false, placeholder: "Last name",
-                input_html: { class: "w-full appearance-none border border-gray-300 py-1 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparen" } %>
+                input_html: { class: "basic-field" } %>
   </div>
   <div class="flex mt-3">
     <%= f.input :email, label: false, placeholder: "Email",
             wrapper_html: { class: "mr-3" },
-            error_html: { class: "text-sm font-medium text-red-700" },
-            input_html: { class: "w-full appearance-none border border-gray-300 py-1 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparen" } %>
+            error_html: { class: "" },
+            input_html: { class: "basic-field" } %>
     <%= f.input :phone_number, label: false, placeholder: "Phone number",
                 wrapper_html: { class: "mr-3" },
-                input_html: { class: "w-full appearance-none border border-gray-300 py-1 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparen" } %>
+                input_html: { class: "basic-field" } %>
   </div>
   <% if current_user.admin? %>
     <%= f.input :role, as: :select, label: false, placeholder: "Role",
                 collection: User.roles.keys.collect { |s| [s.humanize, s] },
                 wrapper_html: { class: "mt-4" },
-                input_html: { class: "focus:outline-none focus:ring-2 focus:ring-sky-600 text-gray-700 py-1 px-3 border border-gray-300 bg-white cursor-pointe w-44" } %>
+                input_html: { class: "select-field" } %>
   <% end %>
   <div class="flex mt-3">
     <%= f.input :password, label: false, placeholder: "Password",
                 wrapper_html: { class: "mr-4" },
-                error_html: { class: "text-sm font-medium text-red-700" },
-                input_html: { class: "w-full appearance-none border border-gray-300 py-1 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparen" } %>
+                error_html: { class: "error-message" },
+                input_html: { class: "basic-field" } %>
     <%= f.input :password_confirmation, label: false, placeholder: "Password confirmation",
-                error_html: { class: "text-sm font-medium text-red-700" },
-                input_html: { class: "w-full appearance-none border border-gray-300 py-1 px-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparen" } %>
+                error_html: { class: "error-message" },
+                input_html: { class: "basic-field" } %>
   </div>
-  <%= f.button :submit, class: "text-sm md:text-base mt-4 py-1 px-2 transition duration-300 border text-white
-                                hover:text-orange-800 bg-orange-900 hover:bg-white cursor-pointer" %>
+  <%= f.button :submit, class: "submit-btn bg-orange-900" %>
 <% end %>

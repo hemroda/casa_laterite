@@ -1,11 +1,7 @@
 @import 'actiontext.css';
 @import 'pagy.css';
+@import 'admin.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-/* -------------------------
-  ADMIN
-------------------------- */
