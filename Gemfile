@@ -9,12 +9,20 @@ gem "bootsnap", require: false
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails"
 
+# Flexible authentication solution for Rails with Warden (https://github.com/heartcombo/devise)
+gem "devise", "~> 4.8.1"
+
+# Rails View Helpers for Heroicons. (https://github.com/bharget/heroicon)
+gem "heroicon", "~> 1.0.0"
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
 
+# The kick-ass pagination ruby gem (https://github.com/ddnexus/pagy)
+gem "pagy", "~> 6.0.0"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
@@ -25,11 +33,17 @@ gem "puma", "~> 5.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.2"
 
+# Object-based searching for Active Record. (https://github.com/activerecord-hackery/ransack)
+gem "ransack", "~> 3.2.1"
+
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
 
 # Simple, efficient background processing for Ruby (https://sidekiq.org)
 gem "sidekiq", "~> 7.0.4"
+
+# Forms made easy! (https://github.com/heartcombo/simple_form)
+gem "simple_form", "~> 5.1.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -58,6 +72,9 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+
+  # Easily generate fake data (https://github.com/faker-ruby/faker)
+  gem "faker", "~> 2.19.0"
 end
 
 group :development do

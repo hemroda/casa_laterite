@@ -8,6 +8,16 @@
   <nav>
     <ul class="text-slate-300">
       <li class="border my-3"></li>
+      <li class="mb-2">
+        <% if @user %>
+          <%= link_to "Users", admin_users_path,
+                      class: "#{ 'text-orange-800' unless @user.id == current_user.id }" %>
+        <% else %>
+          <%= link_to "Users", admin_users_path,
+                      class: "#{ 'text-orange-800' if (%w[users].include?(controller_name) && %w[index].include?(action_name)) }" %>
+        <% end %>
+      </li>
+      <li class="border my-3"></li>
     </ul>
   </nav>
   <!-- Profile & System -->
@@ -18,6 +28,9 @@
       </li>
       <li class="mb-2">
         <%= link_to "System", admin_system_path, target: "_blank" %>
+      </li>
+      <li>
+        <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "text-red-500", form: { data: { turbo_confirm: 'Are you sure?' } } %>
       </li>
     </ul>
   </nav>

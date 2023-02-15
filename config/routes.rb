@@ -1,18 +1,27 @@
 Rails.application.routes.draw do
-  require "sidekiq/web"
-  # TODO: uncomment when Devise is set up and User model created
-  # authenticate :user do
-  #   mount Sidekiq::Web => "/sidekiq"
-  # end
-
   # Defines the root path route ("/")
   root "website/pages#homepage"
 
   # ADMIN
+  require "sidekiq/web"
+  authenticate :user do
+    mount Sidekiq::Web => "/sidekiq"
+  end
+
+  devise_for :users, controllers: {
+    sessions: "admin/users/sessions",
+    passwords: "admin/users/passwords",
+    registrations: "admin/users/registrations",
+    confirmations: "admin/users/confirmations",
+    invitations: "admin/users/invitations"
+  }
+
   namespace :admin, path: "/admin" do
     root "pages#dashboard"
     get "/system", to: "pages#system"
     post "check_background_jobs", to: "pages#check_background_jobs"
+
+    resources :users
   end
 
   # WEBSITE
