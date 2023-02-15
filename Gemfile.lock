@@ -236,7 +236,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder
   jsbundling-rails
-  letter_opener
+  letter_opener (~> 1.8.1)
   pagy (~> 6.0.0)
   pg (~> 1.1)
   puma (~> 5.0)

@@ -3,14 +3,10 @@
 class BackgroundJobsCheckJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
+  def perform(user)
     # Simulates a long, time-consuming task
     sleep 5
-    # Will display current time, milliseconds included
-    p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    p "Background Jobs Health check done at #{Time.now().strftime('%F - %H:%M:%S.%L')} "
-    p "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-    # TODO: an email should be sent for this check. Implement when emailing system is set.
+
+    SystemConfigMailer.with(user: {name: user.full_name_or_email, email: user.email}).background_jobs_health_check_email.deliver_later
   end
 end
-

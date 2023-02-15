@@ -12,10 +12,8 @@ class Admin::PagesController < ApplicationController
   end
 
   def check_background_jobs
-    BackgroundJobsCheckJob.perform_later
+    BackgroundJobsCheckJob.perform_later(current_user)
 
-    # TODO: update notification message when the emailing system is set.
-    # Should tell user to check their email instead of system logs.
-    redirect_to admin_system_path, notice: "Background Jobs Health check successful! 🥳 \n Check the logs!! 😉"
+    redirect_to admin_system_path, notice: "Background Jobs Health check lunched! \n Check your emails!! 😉"
   end
 end
