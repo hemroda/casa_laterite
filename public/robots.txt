@@ -1,1 +1,9 @@
 # See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+Sitemap: http://www.laterite.casa/sitemap.xml.gz
+
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /api
+Disallow: /sidekiq
+
+Host: laterite.casa
