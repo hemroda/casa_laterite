@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin - Casa Laterite</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
+  <body class="admin antialiased bg-slate-500">
+    <div class="admin flex max-h-screen">
+      <%= render "admin/shared/sidenav" %>
+      <main class="admin flex flex-col w-full pt-16 md:pt-0 md:ml-48 px-1 md:px-3 bg-slate-500">
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>

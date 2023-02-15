@@ -8,6 +8,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "website/pages#homepage"
 
+  # ADMIN
+  namespace :admin, path: "/admin" do
+    root "pages#dashboard"
+  end
+
   # WEBSITE
   namespace :website, path: "/" do
     get "/", to: "pages#homepage"
