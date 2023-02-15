@@ -12,6 +12,11 @@
     <div class="admin flex max-h-screen">
       <%= render "admin/shared/sidenav" %>
       <main class="admin flex flex-col w-full pt-16 md:pt-0 md:ml-48 px-1 md:px-3 bg-slate-500">
+        <div class="notifications">
+          <%# TODO: style this: Should be floating and closable %>
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+        </div>
         <%= yield %>
       </main>
     </div>

@@ -1,0 +1,21 @@
+<div class="bg-slate-900 text-slate-300 p-4 pt-7 mt-3" style="min-heigh: 100vh;">
+  <div class="flex justify-between items-center mb-2 text-sm font-medium">
+    <div>
+      <h1>System & Configurations</h1>
+    </div>
+    <div class="flex">
+    </div>
+  </div>
+  <div class="md:flex gap-x-10 bg-slate-800 px-2 py-2 ring-1 ring-slate-900/5 shadow-xl">
+    <div class="bg-slate-900 text-slate-300 p-4 pt-4 mt-3">
+      <h2>Check Background Jobs' Health</h2>
+      <%= form_with url: admin_check_background_jobs_path do |f| %>
+        <%= f.submit "Launch jobs health check",
+          class: "text-sm md:text-base mt-4 py-1 px-2 transition duration-300 border text-white
+                  hover:text-orange-800 bg-orange-900 hover:bg-white cursor-pointer" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="md:flex gap-x-10 bg-slate-800 px-2 py-2 ring-1 ring-slate-900/5 shadow-xl">
+  </div>
+</div>

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   # ADMIN
   namespace :admin, path: "/admin" do
     root "pages#dashboard"
+    get "/system", to: "pages#system"
+    post "check_background_jobs", to: "pages#check_background_jobs"
   end
 
   # WEBSITE
