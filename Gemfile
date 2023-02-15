@@ -3,10 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.1"
 
-# Reduces boot times through caching; required in config/boot.rb
+# Boot large ruby/rails apps faster (https://github.com/Shopify/bootsnap)
 gem "bootsnap", require: false
 
-# Bundle and process CSS [https://github.com/rails/cssbundling-rails]
+# Bundle and process CSS with Tailwind, Bootstrap, PostCSS, Sass in Rails via Node.js. (https://github.com/rails/cssbundling-rails)
 gem "cssbundling-rails"
 
 # Flexible authentication solution for Rails with Warden (https://github.com/heartcombo/devise)
@@ -15,28 +15,28 @@ gem "devise", "~> 4.8.1"
 # Rails View Helpers for Heroicons. (https://github.com/bharget/heroicon)
 gem "heroicon", "~> 1.0.0"
 
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+# Create JSON structures via a Builder-style DSL (https://github.com/rails/jbuilder)
 gem "jbuilder"
 
-# Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
+# Bundle and transpile JavaScript in Rails with esbuild, rollup.js, or Webpack. (https://github.com/rails/jsbundling-rails)
 gem "jsbundling-rails"
 
 # The kick-ass pagination ruby gem (https://github.com/ddnexus/pagy)
 gem "pagy", "~> 6.0.0"
 
-# Use postgresql as the database for Active Record
+# Pg is the Ruby interface to the PostgreSQL RDBMS (https://github.com/ged/ruby-pg)
 gem "pg", "~> 1.1"
 
-# Use the Puma web server [https://github.com/puma/puma]
+# Puma is a simple, fast, threaded, and highly parallel HTTP 1.1 server for Ruby/Rack applications (https://puma.io)
 gem "puma", "~> 5.0"
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+# Full-stack web application framework. (https://rubyonrails.org)
 gem "rails", "~> 7.0.4", ">= 7.0.4.2"
 
 # Object-based searching for Active Record. (https://github.com/activerecord-hackery/ransack)
 gem "ransack", "~> 3.2.1"
 
-# Use Redis adapter to run Action Cable in production
+# A Ruby client library for Redis (https://github.com/redis/redis-rb)
 gem "redis", "~> 4.0"
 
 # Simple, efficient background processing for Ruby (https://sidekiq.org)
@@ -45,22 +45,22 @@ gem "sidekiq", "~> 7.0.4"
 # Forms made easy! (https://github.com/heartcombo/simple_form)
 gem "simple_form", "~> 5.1.0"
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+# Sprockets Rails integration (https://github.com/rails/sprockets-rails)
 gem "sprockets-rails"
 
-# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+# A modest JavaScript framework for the HTML you already have. (https://stimulus.hotwired.dev)
 gem "stimulus-rails"
 
-# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+# The speed of a single-page web application without having to write any JavaScript. (https://github.com/hotwired/turbo-rails)
 gem "turbo-rails"
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# Timezone Data for TZInfo (https://tzinfo.github.io)
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 # Use Sass to process CSS
 # gem "sassc-rails"
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+# High-level wrapper for processing images for the web with ImageMagick or libvips. (https://github.com/janko/image_processing)
 gem "image_processing", "~> 1.2"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
@@ -70,7 +70,7 @@ gem "image_processing", "~> 1.2"
 # gem "bcrypt", "~> 3.1.7"
 
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  # Debugging functionality for Ruby (https://github.com/ruby/debug)
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 
   # Easily generate fake data (https://github.com/faker-ruby/faker)
@@ -78,7 +78,10 @@ group :development, :test do
 end
 
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
+  # Preview mail in browser instead of sending. (https://github.com/ryanb/letter_opener)
+  gem "letter_opener", "~> 1.8.1"
+
+  # A debugging tool for your Ruby on Rails applications. (https://github.com/rails/web-console)
   gem "web-console"
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
@@ -87,4 +90,3 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
-
