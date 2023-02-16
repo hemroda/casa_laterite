@@ -12,7 +12,7 @@ class Admin::PagesController < ApplicationController
   end
 
   def check_background_jobs
-    BackgroundJobsCheckJob.perform_later(current_user)
+    BackgroundJobsCheckJob.perform_later(current_user.id)
 
     redirect_to admin_system_path, notice: "Background Jobs Health check lunched! \n Check your emails!! 😉"
   end
