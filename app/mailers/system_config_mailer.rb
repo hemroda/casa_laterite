@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SystemConfigMailer < ApplicationMailer
-  default from: 'tech@laterite.casa'
+  default from: ENV["SES_SENDER_EMAIL"]
 
   def background_jobs_health_check_email
     @user = params[:user]
