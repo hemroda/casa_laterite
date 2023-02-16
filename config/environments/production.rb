@@ -76,9 +76,9 @@ Rails.application.configure do
     protocol: "https"
   }
   config.action_mailer.smtp_settings = {
-    address: ENV["SES_SERVER"],
-    user_name:  ENV["SES_USERNAME"],
-    password:  ENV["SES_PASSWORD"],
+    address: ENV["AWS_SES_SERVER"],
+    user_name:  ENV["AWS_SES_USERNAME"],
+    password:  ENV["AWS_SES_PASSWORD"],
     port: '587',
     authentication: :login,
     enable_starttls_auto: true
