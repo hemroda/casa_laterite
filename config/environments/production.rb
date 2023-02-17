@@ -70,19 +70,8 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = {
-    host: ENV["MAIL_HOST"],
-    protocol: "https"
-  }
-  config.action_mailer.smtp_settings = {
-    address: ENV["AWS_SES_SERVER"],
-    user_name:  ENV["AWS_SES_USERNAME"],
-    password:  ENV["AWS_SES_PASSWORD"],
-    port: '587',
-    authentication: :login,
-    enable_starttls_auto: true
-  }
+
+  config.action_mailer.delivery_method = :ses
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

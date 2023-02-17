@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SystemConfigMailer < ApplicationMailer
-  default from: ENV["AWS_SES_SENDER_EMAIL"]
+  default from: "hemroda@gmail.com"
 
   def background_jobs_health_check_email
     @user = params[:user]

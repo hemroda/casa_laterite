@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.1"
 
+# AWS SDK for Ruby on Rails Plugin (https://github.com/aws/aws-sdk-rails)
+gem "aws-sdk-rails", "~> 3.7.1"
+
 # Boot large ruby/rails apps faster (https://github.com/Shopify/bootsnap)
 gem "bootsnap", require: false
 
