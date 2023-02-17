@@ -18,6 +18,9 @@ gem "devise", "~> 4.8.1"
 # Rails View Helpers for Heroicons. (https://github.com/bharget/heroicon)
 gem "heroicon", "~> 1.0.0"
 
+# High-level wrapper for processing images for the web with ImageMagick or libvips. (https://github.com/janko/image_processing)
+gem "image_processing", "~> 1.2"
+
 # Create JSON structures via a Builder-style DSL (https://github.com/rails/jbuilder)
 gem "jbuilder"
 
@@ -62,9 +65,6 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 # Use Sass to process CSS
 # gem "sassc-rails"
-
-# High-level wrapper for processing images for the web with ImageMagick or libvips. (https://github.com/janko/image_processing)
-gem "image_processing", "~> 1.2"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
