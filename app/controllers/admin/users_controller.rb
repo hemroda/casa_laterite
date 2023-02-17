@@ -13,6 +13,9 @@ class Admin::UsersController < ApplicationController
     @fields_to_search_in = :email_or_first_name_or_last_name_cont
   end
 
+  def show
+  end
+
   def new
     @user = User.new
   end
