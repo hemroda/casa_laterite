@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     get "/system", to: "pages#system"
     post "check_background_jobs", to: "pages#check_background_jobs"
 
+    resources :accounts
     resources :users
   end
 
@@ -33,7 +34,6 @@ Rails.application.routes.draw do
     invitations: "dashboard/accounts/invitations",
   }
 
-  # DASHBOARD
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     namespace :dashboard do
       root "pages#index"

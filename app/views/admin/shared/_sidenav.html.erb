@@ -7,6 +7,10 @@
   </div>
   <nav>
     <ul class="text-slate-300">
+      <li class="mb-2">
+        <%= link_to "Accounts", admin_accounts_path,
+                    class: "#{params[:controller] == "admin/accounts" ? 'text-orange-800' : '' }" %>
+      </li>
       <li class="border my-3"></li>
       <li class="mb-2">
         <% if @user %>

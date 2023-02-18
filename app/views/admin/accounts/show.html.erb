@@ -1,0 +1,14 @@
+<div class="bg-slate-900 text-slate-300 p-8 pt-7 mt-3">
+  <div class="flex justify-between items-center mb-2 text-sm font-medium">
+    <div>Profile</div>
+    <div class="flex">
+      <%= button_to "Delete", admin_account_path(@account), method: :delete, class: "text-red-800",
+                      form: { data: { turbo_confirm: "Are you sure you want to delete this account?" } } %>
+    </div>
+  </div>
+  <div class="bg-slate-800 px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+    <h3 class="mt-2 text-base font-medium tracking-tight"><%= @account.full_name %></h3>
+    <p class="mt-2 text-sm"><%= @account.email %></p>
+    <p class="mt-2 text-sm"><%= @account.phone_number %></p>
+  </div>
+</div>
