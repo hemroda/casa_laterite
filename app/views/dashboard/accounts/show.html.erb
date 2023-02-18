@@ -1,0 +1,54 @@
+<div class="md:flex justify-center gap-x-4 mt-6 pt-20">
+  <div class="block mb-6 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
+    <div class="flex flex-col items-center p-10">
+      <% if false #@account.profile_picture TODO: Update when profile picture upload is added %>
+        <img class="mb-3 w-24 h-24 rounded-full shadow-lg" src="" alt="<%= @account.full_name_or_email %>">
+      <% else %>
+        <%= gravatar_for @account, size: 80, classes: "rounded-full shadow-lg" %>
+      <% end %>
+      <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><%= @account.full_name_or_email %></h5>
+      <span class="text-sm"><%= @account.email %></span>
+      <div>
+        <span class="text-sm"><%= @account.phone_number %></span>
+      </div>
+      <div class="flex mt-4 space-x-3 lg:mt-6">
+        <%= link_to edit_dashboard_account_path(@account.id) do %>
+          <button type="button" class="py-2 px-3 hover:bg-orange-900 hover:text-white transition duration-300 border border-gray-900 rounded-lg">
+            Éditer
+          </button>
+        <% end %>
+        <%= button_to "Supprimer", dashboard_account_path(@account), :method => 'delete', remote: true,
+                      class: "py-2 px-3 hover:bg-red-700 text-red-700 hover:text-white transition duration-300 border border-red-700 rounded-lg",
+                      data: { confirm: "Voulez-vous vraiment supprimer votre compte?" } %>
+      </div>
+    </div>
+  </div>
+  <!-- Address -->
+  <div class="block mb-6 p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
+    <div class="flex flex-col p-4">
+      <h3 class="font-bold mb-2">Adresse<% "(s)" if @account.addresses.length > 1 %></h3>
+      <% if @account.addresses.empty? %>
+        <div data-controller="modal" data-modal-allow-background-close="false">
+          <!-- Button trigger modal -->
+          <%= render(::Atoms::Button::ButtonComponent.new(label: "Ajouter votre adresse", size: "lg", style: "secondary", type: "modal")) %>
+
+          <!-- Modal Container -->
+          <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+               class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+            <!-- Modal Inner Container -->
+            <div class="max-h-screen w-full max-w-4xl relative">
+              <!-- Modal Card -->
+              <div class="m-1 shadow">
+                <%= render partial: "dashboard/addresses/form", locals: { object: Address.new } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <% @account.addresses.each do |address| %>
+          <%= render "dashboard/shared/address", address: address %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

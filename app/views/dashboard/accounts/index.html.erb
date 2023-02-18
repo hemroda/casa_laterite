@@ -1,0 +1,12 @@
+<div class="flex flex-col justify-center mt-6 pt-20">
+  <ul class="mx-auto bg-white w-96 text-gray-900">
+    <% @accounts.each do |account| %>
+      <li class="px-6 py-2 border-b border-gray-200 w-full">
+        <%= account.full_name_or_email %>
+      </li>
+    <% end %>
+  </ul>
+  <div class="mx-auto mt-4 opacity-70">
+    <%== pagy_nav(@pagy) %>
+  </div>
+</div>

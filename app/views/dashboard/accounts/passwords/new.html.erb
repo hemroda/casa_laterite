@@ -1,0 +1,55 @@
+<section class="h-screen flex justify-center">
+  <div class="container px-6 py-12 h-full">
+    <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
+      <div class="md:w-8/12 lg:w-5/12 max-w-sm">
+        <h2 class="mb-2 text-center font-bold text-2xl"><%= I18n.t("devise.passwords.forgotten") %></h2>
+
+        <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+
+          <% if f.error_notification %>
+            <div class="flex p-4 mt-2 mb-4 border-t-4 bg-red-100 border-red-500 dark:bg-red-200">
+              <%= f.error_notification %>
+            </div>
+          <% end %>
+
+          <div class="form-inputs">
+            <%= f.input :email, label: false, placeholder: "name@email.com",
+                        required: false,
+                        autofocus: true,
+                        wrapper_html: { class: "mb-6" },
+                        error_html: { class: "error-input" },
+                        input_html: { class: "basic-input", autocomplete: "email" } %>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, "#{I18n.t('devise.passwords.send_instructions_btn')}",
+                         class: "px-7 py-3 text-grey-900 font-medium text-sm leading-snug uppercase shadow-md
+                               hover:shadow-lg focus:shadow-lg border border-gray-900 focus:outline-none
+                               focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex
+                               justify-center items-center cursor-pointer rounded-lg", data: { turbo: false } %>
+          </div>
+        <% end %>
+
+        <div class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5
+                    after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
+          <p class="text-center font-semibold mx-4 mb-0"><%= I18n.t("devise.or") %></p>
+        </div>
+
+        <%- if controller_name != 'sessions' %>
+          <%= link_to "Se connecter", new_session_path(resource_name),
+                      class: "px-7 py-3 text-grey-900 font-medium text-sm leading-snug uppercase shadow-md
+                              hover:shadow-lg focus:shadow-lg border border-gray-900 focus:outline-none
+                              focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex
+                              justify-center items-center rounded-lg" %>
+        <% end %>
+        <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+          <%= link_to "S'inscrire", new_registration_path(resource_name),
+                      class: "mt-3 px-7 py-3 text-grey-900 font-medium text-sm leading-snug uppercase shadow-md
+                              hover:shadow-lg focus:shadow-lg border border-gray-900 focus:outline-none
+                              focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex
+                              justify-center items-center rounded-lg" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

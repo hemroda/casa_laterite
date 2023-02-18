@@ -3,7 +3,7 @@
 #
 # Examples:
 #
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
+#   movies: Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
 if Rails.env.development?
@@ -51,6 +51,37 @@ if Rails.env.development?
         phone_number: Faker::PhoneNumber.cell_phone,
         role: 0,
         locale: "#{1 if User.last.id % 2}".to_i
+      )
+    end
+  end
+
+  # ACCOUNTS
+  if Account.count.zero?
+    p "Seeding First Account"
+    Account.create(first_name: "Rakoto",
+                   last_name: "Rabezafy",
+                   phone_number: "0701010101",
+                   email: "rrabezafy@account.com",
+                   password: "password",
+                   password_confirmation: "password",
+                   confirmed: true,
+                   confirmed_at: Time.now)
+
+    p "Seeding Random Accounts"
+    15.times do |index|
+      first_name = Faker::Name.first_name
+      last_name = Faker::Name.last_name
+      confirmed = index.odd? ? true : false
+      confirmed_at = index.odd? ? Time.now : nil
+      Account.create(
+        first_name: first_name.capitalize,
+        last_name: last_name.capitalize,
+        email: "#{first_name.downcase!}.#{last_name.downcase!}@account.com",
+        password: "password",
+        password_confirmation: "password",
+        phone_number: Faker::PhoneNumber.cell_phone,
+        confirmed: confirmed,
+        confirmed_at: confirmed_at
       )
     end
   end

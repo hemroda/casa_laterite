@@ -24,6 +24,24 @@ Rails.application.routes.draw do
     resources :users
   end
 
+  # DASHBOARD
+  devise_for :accounts, controllers: {
+    sessions: "dashboard/accounts/sessions",
+    passwords: "dashboard/accounts/passwords",
+    registrations: "dashboard/accounts/registrations",
+    confirmations: "dashboard/accounts/confirmations",
+    invitations: "dashboard/accounts/invitations",
+  }
+
+  # DASHBOARD
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    namespace :dashboard do
+      root "pages#index"
+
+      resources :accounts
+    end
+  end
+
   # WEBSITE
   namespace :website, path: "/" do
     get "/", to: "pages#homepage"
