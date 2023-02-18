@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     post "check_background_jobs", to: "pages#check_background_jobs"
 
     resources :accounts
+    resources :posts
+    get "my_posts", to: "posts#my_posts"
     resources :users
   end
 

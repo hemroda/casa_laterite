@@ -6,6 +6,7 @@ class Admin::PagesController < ApplicationController
   before_action :authenticate_user!
 
   def dashboard
+    @posts = Post.all
   end
 
   def system

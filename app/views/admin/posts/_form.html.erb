@@ -1,0 +1,20 @@
+<%= simple_form_for [:admin, object],
+                    html: {
+                      class: "min-w-full py-2 px-3 hover:border-orange-900 transition duration-300 border
+                                    border-gray-900 text-gray-900 mb-4 rounded-lg" },
+                    data: { controller: "post_form" },
+                    local: true do |f| %>
+
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.input :content, as: :text, label: false, placeholder: "...",
+              input_html: {
+                class: "min-w-full p-2 text-grey-900 hover:text-grey-900 hover:border-orange-900",
+                "data-post_form-target" => "content", "data-action" => "keypress->post_form#update" } %>
+
+  <div class="flex content-end">
+    <div class="flex items-center">
+      <span class="text-sm" data-post_form-target="characterCount"></span>
+    </div>
+    <%= f.submit "Post", class: "submit-btn ml-auto" %>
+  </div>
+<% end %>

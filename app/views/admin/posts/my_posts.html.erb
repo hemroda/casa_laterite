@@ -1,0 +1,35 @@
+<div class="w-full md:flex justify-between items-center mt-2 p-3 bg-slate-900">
+  <div><h2 class="text-slate-300 font-bold text-2xl">My Posts</h2></div>
+  <div><%#= render partial: "admin/shared/search_form" %></div>
+  <div>
+  </div>
+</div>
+<div class="bg-slate-900 flex justify-center w-full h-screen mt-6 pt-20">
+  <div class="w-full max-w-2xl">
+    <ul class="bg-slate-500 text-gray-900">
+      <% @posts.each do |post| %>
+        <li class="p-2 border-b border-gray-200">
+          <div class="flex justify-between items-center my-2">
+            <div class="flex items-center my-2">
+              <h5 class="text-gray-900 text-lg leading-tight font-medium"><%= post.user.full_name %></h5>
+              <span class="text-xs text-slate-100">&nbsp;. <%= time_ago_in_words(post.created_at) %></span>
+            </div>
+            <div>
+              <% if post.user_id == current_user.id %>
+                <%= button_to admin_post_path(post), method: :delete, class: "text-red-700",
+                              form: { data: { turbo_confirm: "Do you want to delete this post?" } } do %>
+                  <%= heroicon "trash", options: { class: "w-4 text-red-900 hover:text-red-500", disable_default_class: true } %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <%= turbo_frame_tag dom_id(post) do %>
+            <p class="text-white text-base mb-4 overflow-auto">
+              <%= link_to post.content, edit_admin_post_path(post) %>
+            </p>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
