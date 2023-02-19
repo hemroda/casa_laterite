@@ -1,0 +1,28 @@
+<div class="flex justify-center w-full mt-6 pt-20">
+  <div class="w-full max-w-2xl">
+    <ul class="bg-white text-gray-900">
+      <% @microposts.each do |micropost| %>
+        <li class="p-2 border-b border-gray-200">
+          <div class="flex justify-between items-center my-2">
+            <div class="flex items-center my-2">
+              <h5 class="text-gray-900 text-lg leading-tight font-medium"><%= micropost.account.full_name %></h5>
+              <span class="text-xs text-gray-600">&nbsp;. <%= time_ago_in_words(micropost.created_at) %></span>
+            </div>
+            <div>
+              <% if micropost.account_id == current_account.id %>
+                <%= button_to "#{ I18n.t('dashboard.microposts.delete') }", dashboard_micropost_path(micropost),
+                              method: :delete, data: { confirm: "#{ I18n.t('dashboard.microposts.confirm_delete') }" },
+                              class: "text-red-700" %>
+              <% end %>
+            </div>
+          </div>
+          <%= turbo_frame_tag dom_id(micropost) do %>
+            <p class="text-gray-700 text-base mb-4">
+              <%= link_to micropost.content, edit_dashboard_micropost_path(micropost) %>
+            </p>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

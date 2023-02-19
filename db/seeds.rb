@@ -56,6 +56,7 @@ if Rails.env.development?
   end
 
   # ACCOUNTS
+  # ---------------------------------------
   if Account.count.zero?
     p "Seeding First Account"
     Account.create(first_name: "Rakoto",
@@ -83,6 +84,25 @@ if Rails.env.development?
         confirmed: confirmed,
         confirmed_at: confirmed_at
       )
+    end
+  end
+
+  # POSTS
+  # ---------------------------------------
+  if Post.count.zero?
+    p "Seeding Random Posts"
+    50.times do |index|
+      if index.odd?
+        Post.create(
+          content: Faker::Lorem.paragraph_by_chars(number: 246, supplemental: false),
+          user_id: rand(1..13)
+        )
+      else
+        Post.create(
+          content: Faker::Lorem.paragraph_by_chars(number: 246, supplemental: false),
+          account_id: rand(1..14)
+        )
+      end
     end
   end
 end

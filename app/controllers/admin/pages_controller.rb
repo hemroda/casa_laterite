@@ -6,7 +6,7 @@ class Admin::PagesController < ApplicationController
   before_action :authenticate_user!
 
   def dashboard
-    @posts = Post.all
+    @posts = Post.users_posts.includes(:user)
   end
 
   def system

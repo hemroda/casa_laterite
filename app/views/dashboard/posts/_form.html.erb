@@ -1,0 +1,21 @@
+<%= simple_form_for [:dashboard, object],
+                    html: {
+                      class: "min-w-full py-2 px-3 hover:border-orange-900 transition duration-300 border
+                                    border-gray-900 text-gray-900 mb-4 rounded-lg" },
+                    data: { controller: "micropost_form" },
+                    local: true do |f| %>
+
+  <%= f.hidden_field :account_id, value: current_account.id %>
+  <%= f.input :content, as: :text, label: false, placeholder: "...",
+              input_html: {
+                class: "min-w-full p-2 text-grey-900 hover:text-grey-900 hover:border-orange-900",
+                "data-micropost_form-target" => "content", "data-action" => "keypress->micropost_form#update" } %>
+
+  <div class="flex content-end">
+    <div class="flex items-center">
+      <span class="text-sm" data-micropost_form-target="characterCount"></span>
+    </div>
+    <%= f.submit "Post", class: "ml-auto mt-3 py-1 px-3 hover:bg-white text-grey-900 hover:text-grey-900
+                                      cursor-pointer transition duration-300 border border-gray-900 rounded-lg" %>
+  </div>
+<% end %>

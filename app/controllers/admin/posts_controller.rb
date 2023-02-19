@@ -8,7 +8,7 @@ class Admin::PostsController < ApplicationController
   before_action :authorized_users, only: %i[show edit update destroy]
 
   def index
-    @posts = Post.includes(:user)
+    @posts = Post.users_posts.includes(:user)
   end
 
   def show; end

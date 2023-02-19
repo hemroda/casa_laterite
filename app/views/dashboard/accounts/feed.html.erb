@@ -7,7 +7,7 @@
             <div class="flex justify-between items-center my-2">
               <div class="flex items-center my-2">
                 <h5 class="text-gray-900 text-lg leading-tight font-medium">
-                  <%= link_to micropost.account.full_name, feed_dashboard_account_path(micropost.account_id) %>
+                  <%= link_to micropost.account.full_name, dashboard_posts_path(micropost.account_id) %>
                 </h5>
                 <span class="text-xs text-gray-600">&nbsp; . <%= time_ago_in_words(micropost.created_at) %></span>
               </div>

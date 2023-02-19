@@ -36,12 +36,12 @@ Rails.application.routes.draw do
     invitations: "dashboard/accounts/invitations",
   }
 
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    namespace :dashboard do
-      root "pages#index"
+  namespace :dashboard do
+    root "pages#index"
 
-      resources :accounts
-    end
+    resources :accounts
+    resources :posts
+    get "my_posts", to: "posts#my_posts"
   end
 
   # WEBSITE
