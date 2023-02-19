@@ -1,0 +1,69 @@
+<div class="bg-slate-900 p-8 pt-7 mt-3">
+  <%= simple_form_for [:admin, @property], html: { class: "" }, local: true do |f| %>
+
+    <%= render "admin/shared/form_errors", object: @property %>
+
+    <div class="flex w-full mt-3">
+      <%= f.input :name, placeholder: "Property name",
+                  wrapper_html: { class: "mr-3" },
+                  label_html: { class: "form-label" },
+                  error_html: { class: "error-message" },
+                  input_html: { class: "basic-field" } %>
+      <%= f.input :headline, placeholder: "Property name",
+                  wrapper_html: { class: "w-1/2 mr-3" },
+                  label_html: { class: "form-label" },
+                  error_html: { class: "error-message" },
+                  input_html: { class: "basic-field" } %>
+    </div>
+    <div class="flex mt-3">
+      <%= f.input :price,
+                  wrapper_html: { class: "mt-2 mr-4" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-field" } %>
+      <%= f.input :year_built, as: :string, placeholder: "YEAR-MM-DD HH:MM:SS",
+                  wrapper_html: { class: "mt-2 mr-4" },
+                  label_html: { class: "form-label me-2" },
+                  input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
+      <%= f.input :property_type_id, as: :select, placeholder: "Please select a Property type",
+                  collection: PropertyType.all.collect { |pt| [pt.name, pt.id] },
+                  wrapper_html: { class: "flex flex-col mt-2" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "select-input" } %>
+    </div>
+    <div class="flex mt-3">
+      <%= f.input :square_feet,
+                  wrapper_html: { class: "mt-2 mr-4" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-field" } %>
+      <%= f.input :rooms,
+                  wrapper_html: { class: "mt-2 mr-4" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-field" } %>
+      <%= f.input :bathrooms,
+                  wrapper_html: { class: "mt-2" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-field" } %>
+    </div>
+    <div class="flex justify-between mt-5 mb-10">
+      <div>
+        <%= f.label :documents, class: "form-label" %> <br>
+        <%= f.file_field :documents, multiple: true, class: "text-slate-300" %>
+      </div>
+      <div>
+        <%= f.label :photo, class: "form-label" %> <br>
+        <%= f.file_field :photo, class: "text-slate-300" %>
+      </div>
+      <div>
+        <%= f.label :photos, class: "form-label" %> <br>
+        <%= f.file_field :photos, multiple: true, class: "text-slate-300" %>
+      </div>
+    </div>
+
+    <%= f.input :description, as: :rich_text_area,
+                  wrapper_html: { class: "mt-4" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-field" } %>
+
+    <%= f.button :submit, class: "submit-btn bg-orange-900" %>
+  <% end %>
+</div>

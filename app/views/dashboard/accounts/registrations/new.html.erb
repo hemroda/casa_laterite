@@ -16,14 +16,14 @@
                           required: false,
                           autofocus: true,
                           wrapper_html: { class: "mb-6" },
-                          error_html: { class: "error-input" },
+                          error_html: { class: "error-message" },
                           input_html: { class: "block w-full px-4 py-2 text-xl font-normal text-gray-900 bg-white
                                               bg-clip-padding border border-solid border-gray-900 transition
                                               ease-in-out m-0 focus:text-gray-900 focus:bg-white focus:border-orange-800
                                               focus:outline-none rounded-lg", autocomplete: "email" } %>
               <%= f.input :password, label: false, placeholder: "#{ I18n.t('devise.password') }",
                           required: false,
-                          error_html: { class: "error-input" },
+                          error_html: { class: "error-message" },
                           input_html: {
                             class: "block w-full px-4 py-2 text-xl font-normal text-gray-900 bg-white
                                   bg-clip-padding border border-solid border-gray-900 transition ease-in-out m-0
@@ -32,7 +32,7 @@
                             autocomplete: "current-password" } %>
               <%= f.input :password_confirmation, label: false, placeholder: "#{ I18n.t('devise.confirm_psw')}",
                           required: true,
-                          error_html: { class: "error-input" },
+                          error_html: { class: "error-message" },
                           input_html: {
                             class: "block w-full px-4 py-2 text-xl font-normal text-gray-900 bg-white
                                   bg-clip-padding border border-solid border-gray-900 transition ease-in-out m-0

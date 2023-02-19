@@ -1,13 +1,13 @@
 <% if object.errors.any? %>
-  <div id="notification-message" class="flex p-4 mt-2 mb-4 border-t-4 bg-red-100 border-red-500 dark:bg-red-200">
+  <div id="notification-message" class="flex p-4 mt-2 mb-4 border-t-4 border-red-500 bg-red-200 text-red-700">
     <ul role="alert">
       <% object.errors.full_messages.each do |message| %>
-        <li class="error-input"><%= message %></li>
+        <li class="error-message"><%= message %></li>
       <% end %>
     </ul>
     <button type="button"
-            class="ml-auto -mx-1.5 -my-1.5 bg-red-100 dark:bg-red-200 text-red-500 focus:ring-red-400 hover:bg-red-200
-                   dark:hover:bg-red-300 focus:ring-2 p-1.5 inline-flex h-8 w-8 rounded-lg"
+            class="ml-auto -mx-1.5 -my-1.5 bg-red-200 text-red-500 focus:ring-red-400 hover:bg-red-400 focus:ring-2
+                   p-1.5 inline-flex h-8 w-8 rounded-lg"
             data-controller="misc" data-action="click->misc#closeNotificationMessage"
             data-dismiss-target="#notification-message" aria-label="Close">
       <span class="sr-only">Dismiss</span>

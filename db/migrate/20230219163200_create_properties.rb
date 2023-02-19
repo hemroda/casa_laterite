@@ -9,6 +9,8 @@ class CreateProperties < ActiveRecord::Migration[7.0]
       t.integer :bathrooms
       t.datetime :year_built
       t.integer :square_feet
+      t.string :headline
+      t.float :price
 
       t.timestamps
     end

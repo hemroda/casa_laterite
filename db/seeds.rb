@@ -105,4 +105,23 @@ if Rails.env.development?
       end
     end
   end
+
+  # PROPERTY TYPES
+  # ---------------------------------------
+  if PropertyType.count.zero?
+    p "Seeding Property Types"
+
+    ["Land", "Warehouse", "Factory", "Power Plant", "Special purpose", "Parking Facility", "Hotel", "Theater", "Store",
+     "Shopping Center", "Office Space", "Farm", "Ranch", "Timberland", "Orchards", "Apartment Building",
+     "Single-family Home", "Condominium"].each do |type|
+      PropertyType.create(name: type)
+    end
+  end
+
+  # PROPERTIES
+  # ---------------------------------------
+  Dir[Rails.root.join('db/seeds/*.rb')].sort.each do |file|
+    puts "Processing #{file.split('/').last}"
+    require file
+  end
 end

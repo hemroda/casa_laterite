@@ -103,6 +103,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_19_163200) do
     t.integer "bathrooms"
     t.datetime "year_built"
     t.integer "square_feet"
+    t.string "headline"
+    t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["building_id"], name: "index_properties_on_building_id"
