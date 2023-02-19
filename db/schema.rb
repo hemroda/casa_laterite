@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_18_160417) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_19_163200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,6 +94,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_18_160417) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "properties", force: :cascade do |t|
+    t.bigint "property_type_id", null: false
+    t.bigint "building_id"
+    t.string "name", null: false
+    t.text "description"
+    t.integer "rooms"
+    t.integer "bathrooms"
+    t.datetime "year_built"
+    t.integer "square_feet"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["building_id"], name: "index_properties_on_building_id"
+    t.index ["property_type_id"], name: "index_properties_on_property_type_id"
+  end
+
+  create_table "property_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -129,4 +150,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_18_160417) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "posts", "accounts"
   add_foreign_key "posts", "users"
+  add_foreign_key "properties", "properties", column: "building_id"
+  add_foreign_key "properties", "property_types"
 end

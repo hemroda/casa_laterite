@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     resources :accounts
     resources :posts
     get "my_posts", to: "posts#my_posts"
+    resources :properties
+    resources :property_types
     resources :users
   end
 
