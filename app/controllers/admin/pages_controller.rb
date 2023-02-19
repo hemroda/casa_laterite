@@ -6,7 +6,7 @@ class Admin::PagesController < ApplicationController
   before_action :authenticate_user!
 
   def dashboard
-    @posts = Post.users_posts.includes(:user)
+    @posts = Post.users_posts.includes(:user).order(created_at: :desc)
   end
 
   def system

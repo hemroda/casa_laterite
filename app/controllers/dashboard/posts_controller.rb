@@ -8,7 +8,7 @@ class Dashboard::PostsController < ApplicationController
   before_action :authorized_users, only: %i[show edit update destroy]
 
   def index
-    @posts = Post.accounts_posts.includes(:account)
+    @posts = Post.accounts_posts.includes(:account).order(created_at: :desc)
   end
 
   def show; end
