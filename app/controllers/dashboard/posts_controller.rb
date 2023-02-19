@@ -24,7 +24,7 @@ class Dashboard::PostsController < ApplicationController
     if @post.save
       redirect_to dashboard_posts_path
     else
-      redirect_to dashboard_posts_path, alert: "#{ I18n.t('dashboard.posts.not_created') }"
+      redirect_to dashboard_posts_path, alert: "Post not created!"
     end
   end
 
