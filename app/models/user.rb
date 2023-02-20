@@ -17,10 +17,6 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, presence: true
   validates :first_name, :last_name, presence: true
 
-  def set_default_role
-    self.role ||= :user
-  end
-
   def full_name
     return if first_name.nil? || last_name.nil?
 
