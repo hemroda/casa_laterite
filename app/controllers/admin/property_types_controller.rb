@@ -8,7 +8,7 @@ module Admin
     before_action :set_property, only: %i[show edit update destroy]
 
     def index
-      @q = PropertyType.includes(:properties).ransack(params[:q])
+      @q = PropertyType.all.ransack(params[:q])
       @pagy, @property_types = pagy(@q.result(distinct: true))
       @fields_to_search_in = :name_cont
     end
