@@ -84,6 +84,9 @@ group :development do
   # Better error page for Rails and other Rack apps (https://github.com/BetterErrors/better_errors)
   gem "better_errors", "~> 2.9.1"
 
+  # help to kill N+1 queries and unused eager loading. (https://github.com/flyerhzm/bullet)
+  gem "bullet", "~> 7.0.7"
+
   # Preview mail in browser instead of sending. (https://github.com/ryanb/letter_opener)
   gem "letter_opener", "~> 1.8.1"
 
