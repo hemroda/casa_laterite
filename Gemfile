@@ -72,20 +72,9 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
-group :development, :test do
-  # Debugging functionality for Ruby (https://github.com/ruby/debug)
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
-
-  # Easily generate fake data (https://github.com/faker-ruby/faker)
-  gem "faker", "~> 2.19.0"
-end
-
 group :development do
   # Better error page for Rails and other Rack apps (https://github.com/BetterErrors/better_errors)
   gem "better_errors", "~> 2.9.1"
-
-  # help to kill N+1 queries and unused eager loading. (https://github.com/flyerhzm/bullet)
-  gem "bullet", "~> 7.0.7"
 
   # Preview mail in browser instead of sending. (https://github.com/ryanb/letter_opener)
   gem "letter_opener", "~> 1.8.1"
@@ -98,4 +87,20 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+end
+
+group :test do
+  # RSpec for Rails (https://github.com/rspec/rspec-rails)
+  gem "rspec-rails", "~> 6.0.1"
+end
+
+group :development, :test do
+  # help to kill N+1 queries and unused eager loading. (https://github.com/flyerhzm/bullet)
+  gem "bullet", "~> 7.0.7", require: true
+
+  # Debugging functionality for Ruby (https://github.com/ruby/debug)
+  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+
+  # Easily generate fake data (https://github.com/faker-ruby/faker)
+  gem "faker", "~> 2.19.0"
 end
