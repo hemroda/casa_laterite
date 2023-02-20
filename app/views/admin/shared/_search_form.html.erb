@@ -1,0 +1,10 @@
+<% if @q %>
+  <%= search_form_for [:admin, @q], html: { class: "" } do |f| %>
+    <%= f.search_field @fields_to_search_in,
+                       placeholder: "Search in #{@fields_to_search_in.to_s.humanize}", "aria-label" => "Search",
+                       class: "w-full md:w-96 px-7 py-3 text-grey-800 font-medium text-sm leading-snug uppercase shadow-md
+                       hover:shadow-lg focus:shadow-lg border border-gray-900 focus:outline-none focus:ring-0
+                       active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center
+                       cursor-pointer rounded-lg" %>
+  <% end %>
+<% end %>
