@@ -14,6 +14,9 @@ class User < ApplicationRecord
 
   has_many :posts
 
+  validates :email, uniqueness: true, presence: true
+  validates :first_name, :last_name, presence: true
+
   def set_default_role
     self.role ||= :user
   end
