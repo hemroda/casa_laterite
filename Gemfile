@@ -101,6 +101,9 @@ group :development, :test do
   # Debugging functionality for Ruby (https://github.com/ruby/debug)
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 
+  # factory_bot_rails provides integration between factory_bot and rails 5.0 or newer (https://github.com/thoughtbot/factory_bot_rails)
+  gem "factory_bot_rails", "~> 6.2.0"
+
   # Easily generate fake data (https://github.com/faker-ruby/faker)
   gem "faker", "~> 2.19.0"
 end
