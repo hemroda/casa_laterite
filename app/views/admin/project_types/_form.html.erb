@@ -1,0 +1,16 @@
+<div class="bg-slate-900 p-2 mt-3">
+  <%= simple_form_for [:admin, @project_type], html: { class: "" }, local: true do |f| %>
+
+    <%= render "admin/shared/form_errors", object: @project_type %>
+
+    <div class="flex mt-3">
+      <%= f.input :name, label: false, placeholder: "Project type name",
+                  wrapper_html: { class: "mr-3" },
+                  error_html: { class: "error-input" },
+                  input_html: { class: "basic-input" } %>
+
+    </div>
+
+    <%= f.button :submit, class: "submit-btn bg-orange-900" %>
+  <% end %>
+</div>

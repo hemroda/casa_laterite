@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_21_154123) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_22_170317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -116,6 +116,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_154123) do
     t.index ["user_id"], name: "index_managers_on_user_id"
   end
 
+  create_table "milestones", force: :cascade do |t|
+    t.bigint "project_id"
+    t.string "name"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_milestones_on_project_id"
+  end
+
   create_table "ownerships", force: :cascade do |t|
     t.bigint "account_id"
     t.bigint "property_id"
@@ -142,6 +153,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_154123) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "project_types", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "projectable_type", null: false
+    t.bigint "projectable_id", null: false
+    t.bigint "project_type_id", null: false
+    t.string "name"
+    t.text "description"
+    t.integer "status", default: 0
+    t.integer "visibility_type", default: 0
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "completed_at"
+    t.boolean "tracked", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_type_id"], name: "index_projects_on_project_type_id"
+    t.index ["projectable_type", "projectable_id"], name: "index_projects_on_projectable"
+  end
+
   create_table "properties", force: :cascade do |t|
     t.bigint "property_type_id", null: false
     t.bigint "building_id"
@@ -163,6 +198,33 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_154123) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "milestone_id"
+    t.bigint "user_id"
+    t.string "name"
+    t.text "description"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "completed_at"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["milestone_id"], name: "index_tasks_on_milestone_id"
+    t.index ["project_id"], name: "index_tasks_on_project_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
+
+  create_table "todo_items", force: :cascade do |t|
+    t.bigint "task_id"
+    t.string "title", null: false
+    t.boolean "completed", default: false
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_todo_items_on_task_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -199,10 +261,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_154123) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "managers", "users"
+  add_foreign_key "milestones", "projects"
   add_foreign_key "ownerships", "accounts"
   add_foreign_key "ownerships", "properties"
   add_foreign_key "posts", "accounts"
   add_foreign_key "posts", "users"
+  add_foreign_key "projects", "project_types"
   add_foreign_key "properties", "properties", column: "building_id"
   add_foreign_key "properties", "property_types"
+  add_foreign_key "tasks", "milestones"
+  add_foreign_key "tasks", "projects"
+  add_foreign_key "tasks", "users"
+  add_foreign_key "todo_items", "tasks"
 end

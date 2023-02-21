@@ -1,0 +1,90 @@
+<div class="bg-slate-900 p-8 pt-7 mt-3">
+  <%= simple_form_for [:admin, object], html: { class: "p-4" }, local: true do |f| %>
+
+    <%= render "admin/shared/form_errors", object: object %>
+
+    <%= f.hidden_field :projectable_type, value: projectable.model_name.human %>
+    <%= f.hidden_field :projectable_id, value: projectable.id %>
+
+    <%= f.input :name,
+                wrapper_html: { class: "mt-4" },
+                label_html: { class: "form-label" },
+                error_html: { class: "error-input" },
+                input_html: { class: "basic-input w-full" } %>
+    <div class="mt-4 mb-4">
+      <div class="mt-4">
+        <%= f.check_box :tracked, as: :boolean, label: true,
+                        input_html: { class: "basic-input" } %>
+        <label for="" class="text-slate-300">
+          Track this project
+          <small class="text-yellow-400"><i>(will be visible on the dashboard)</i></small>
+        </label>
+      </div>
+    </div>
+    <div class="">
+      <div class="flex gap-x-2 w-full">
+        <%= f.input :project_type_id, as: :select, collection: ProjectType.all.collect { |pt| [pt.name, pt.id] },
+                    required: true,
+                    label_html: { class: "form-label" },
+                    input_html: { class: "select-input" } %>
+        <div>
+          <%= f.input :visibility_type, as: :select, collection: Project.visibility_types.keys.collect { |at| [at.humanize, at] },
+                      include_blank: false,
+                      label: "Access type".html_safe,
+                      prompt: "Please select the access type",
+                      wrapper_html: { class: "mr-4" },
+                      label_html: { class: "form-label" },
+                      input_html: { class: "select-input" } %>
+          <p>
+            <small class='text-yellow-400'><i>Set this to Personal if you want to keep it to
+              yourself</i> &#128521;</small>
+          </p>
+        </div>
+        <div>
+          <%= f.input :status, as: :select, collection: Project.statuses.keys.collect { |s| [s.humanize, s] },
+                      include_blank: false,
+                      label: "Status",
+                      prompt: "Please select a status",
+                      wrapper_html: { class: "mr-4" },
+                      label_html: { class: "form-label" },
+                      input_html: { class: "select-input" } %>
+          <p>
+            <small class='text-yellow-400'>
+              <i>Setting to <b>Finished</b> will send an email to all managers</i>
+            </small>
+          </p>
+        </div>
+      </div>
+      <div class="flex">
+        <%= f.input :start_date, as: :string,
+                    wrapper_html: { class: "mr-4" },
+                    label_html: { class: "form-label me-2" },
+                    input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+        <%= f.input :end_date, as: :string,
+                    label_html: { class: "form-label me-2" },
+                    input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+      </div>
+    </div>
+    <div class="flex mt-4">
+      <div class="mr-4">
+        <%= f.label :documents, class: "form-label" %>
+        <%= f.file_field :documents, multiple: true,
+                         input_html: { class: "basic-input" } %>
+      </div>
+      <%#= render partial: "admin/shared/display_attachments", locals: { attachments: @project.documents } %>
+      <div>
+        <%= f.label :images, class: "form-label text-slate-300" %>
+        <%= f.file_field :images, multiple: true,
+                         input_html: { class: "basic-input" } %>
+      </div>
+      <%#= render partial: "admin/shared/display_attachments",
+                     locals: { attachments: @project.images } %>
+    </div>
+    <%= f.input :description, as: :rich_text_area,
+                wrapper_html: { class: "mt-4" },
+                label_html: { class: "form-label" },
+                input_html: { class: "basic-input" } %>
+
+    <%= f.button :submit, class: "submit-btn bg-orange-900" %>
+  <% end %>
+</div>

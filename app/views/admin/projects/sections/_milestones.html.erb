@@ -1,0 +1,78 @@
+<div class="bg-slate-900 text-slate-300 pt-7 mt-3 mb-4">
+  <div class="flex justify-between items-center mb-2 text-sm font-medium">
+    <h3>Milestones</h3>
+    <div data-controller="modal" data-modal-allow-background-close="false">
+      <!-- Button trigger modal -->
+      <button type="button" data-action="click->modal#open"
+              class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                       border-orange-800 hover:text-orange-800 hover:bg-white">
+        + Add a milestone
+      </button>
+
+      <!-- Modal Container -->
+      <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+           class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+        <!-- Modal Inner Container -->
+        <div class="max-h-screen w-full max-w-lg relative">
+          <!-- Modal Card -->
+          <div class="m-1 bg-slate-800 shadow">
+            <%= render partial: "admin/milestones/form", locals: { object: Milestone.new, project: @project } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-slate-800 px-3 py-3 ring-1 ring-slate-900/5 shadow-xl">
+    <ul class="list-group">
+      <% @project.milestones.each do |milestone| %>
+        <%= turbo_frame_tag dom_id(milestone) do %>
+          <li class="flex justify-between items-center">
+            <div class="w-2/4">
+              <span class="<%= 'line-through' if (milestone.completed? || milestone.archived?) %>">
+                <%= link_to milestone.name, edit_admin_milestone_path(milestone), class: "" %>
+              </span>
+            </div>
+            <div class="w-2/4 px-1">
+              <small class="<%= 'line-through' if (milestone.completed? || milestone.archived?) %>">
+                <%= milestone.try(:description) %>
+              </small>
+            </div>
+            <div class="w-1/4 flex justify-between">
+              <!-- Status -->
+              <%= content_tag :span do %>
+                <%=  milestone.status.humanize %>
+              <% end %>
+              <!-- Actions -->
+              <div class="flex justify-between">
+                <% if milestone.not_started? %>
+                  <%= button_to start_admin_milestone_path(milestone), :method => 'put', remote: true, class: "", data: { turbo_frame: "_top" } do %>
+                    <i class="fa-solid fa-play"></i>
+                  <% end %>
+                <% end %>
+                <% if milestone.in_progress? %>
+                  <%= button_to complete_admin_milestone_path(milestone), :method => 'put', remote: true, class: "", data: { turbo_frame: "_top" } do %>
+                    <i class="fa-solid fa-circle-check"></i>
+                  <% end %>
+                <% end %>
+                <% if milestone.completed? %>
+                  <%= button_to "<i class='fa-solid fa-repeat'></i>".html_safe, reactivate_admin_milestone_path(milestone),
+                                :method => 'put', remote: true, class: "mr-2", data: { turbo_frame: "_top" } %>
+                  <%= button_to "<i class='fa-solid fa-box-archive'></i>".html_safe, archive_admin_milestone_path(milestone),
+                                :method => 'put', remote: true, class: "", data: { turbo_frame: "_top" } %>
+                <% end %>
+                <% if milestone.archived? %>
+                  <%= button_to milestone.completed? ? reactivate_admin_milestone_path(milestone) : complete_admin_milestone_path(milestone),
+                                :method => 'put', remote: true, class: "", data: { turbo_frame: "_top" } do %>
+                    <i class="mr-2 fa-solid <%= milestone.completed? ? 'fa-arrows-repeat' : "#{milestone.archived? ? 'fa-repeat' : 'fa-circle-check'}" %>"></i>
+                  <% end %>
+                  <%= button_to "<i class='fa-solid fa-trash-can'></i>".html_safe, admin_milestone_path(milestone),
+                                :method => :delete, remote: true, class: "text-red-700", data: { confirm: "Are you sure?", turbo_frame: "_top" } %>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>

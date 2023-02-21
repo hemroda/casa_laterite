@@ -31,16 +31,46 @@ Rails.application.routes.draw do
         put :set_as_lead
       end
     end
+    resources :milestones do
+      member do
+        put :start
+        put :complete
+        put :reactivate
+        put :archive
+      end
+    end
     resources :ownerships, only: %[create] do
       member do
         put :reallocate_account_to_property
         put :deallocate_account_from_property
       end
     end
+    resources :project_types
+    resources :projects
     resources :posts
     get "my_posts", to: "posts#my_posts"
     resources :properties
     resources :property_types
+    resources :tasks do
+      member do
+        put :not_started
+        put :start
+        put :complete
+        put :reactivate
+        put :archive
+      end
+    end
+    resources :timers do
+      member do
+        put :stop
+      end
+    end
+    resources :todo_items do
+      member do
+        put :complete
+        put :reactivate
+      end
+    end
     resources :users
   end
 

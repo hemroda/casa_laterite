@@ -1,0 +1,5 @@
+<%= turbo_frame_tag dom_id(@task) do %>
+  <%= render partial: "form", locals: { object: @task, project: @task.project } if @task.project %>
+  <%= render partial: "admin/pages/forms/task", locals: { object: @task } unless @task.project %>
+<% end %>
+

@@ -1,0 +1,12 @@
+<div class="bg-slate-900 p-8 pt-7 mt-3">
+  <%= simple_form_for [:admin, @todo_item], html: { class: "" }, local: true do |f| %>
+    <div class="flex">
+      <%= f.input :title, placeholder: "New item title", label: false,
+                  wrapper_html: { class: "w-full mr-2" },
+                  input_html: { class: "basic-input" } %>
+    </div>
+    <div class="w-full flex justify-between items-center flex-wrap mt-6">
+      <%= f.button :submit, class: "submit-btn bg-orange-900" %>
+    </div>
+<% end %>
+</div>

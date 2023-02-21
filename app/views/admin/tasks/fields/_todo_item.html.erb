@@ -1,0 +1,16 @@
+<div class="mt-2 nested-form-wrapper-todo-item" data-new-record="<%= f.object.new_record? %>">
+  <div class="row form-group">
+    <%= f.hidden_field :_destroy %>
+
+    <div class="flex">
+      <%= f.input :title, label: false,
+                  wrapper_html: { class: "w-full mr-4" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input" } %>
+
+      <button type="button" data-action="nested-form#remove" class="text-red-700">
+        <i class="fa-solid fa-trash-can"></i>
+      </button>
+    </div>
+  </div>
+</div>

@@ -72,6 +72,63 @@
       <%= render "admin/addresses/address", object: @property %>
     </div>
   </div>
+  <!-- Projects -->
+  <div class="bg-slate-900 text-slate-300 mt-10 p-4">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h3>Projects</h3>
+      <div data-controller="modal" data-modal-allow-background-close="false">
+        <!-- Button trigger modal -->
+        <button type="button" data-action="click->modal#open"
+                class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                       border-orange-800 hover:text-orange-800 hover:bg-white">
+          + Add a project
+        </button>
+
+        <!-- Modal Container -->
+        <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+             class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+          <!-- Modal Inner Container -->
+          <div class="max-h-screen w-full max-w-4xl relative">
+            <!-- Modal Card -->
+            <div class="m-1 bg-slate-800 shadow">
+              <%= render partial: "admin/projects/form", locals: { object: Project.new, projectable: @property } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Projects Table -->
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full">
+            <thead class="bg-slate-900 text-slate-300 border-b">
+            <tr>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Name</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @property.projects.empty? %>
+              <p class="px-3">No projects yet.</p>
+            <% else %>
+              <% @property.projects.each_with_index do |project| %>
+                <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700 text-slate-300">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <%= link_to project.name, admin_project_path(project) %>
+                  </td>
+                  <td><%= project.status.humanize %></td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--  Property Managers -->
   <div class="bg-slate-900 text-slate-300 mt-10 p-4">
     <div class="flex justify-between items-center mb-2 text-sm font-medium">

@@ -1,0 +1,61 @@
+<div class="bg-slate-900 text-slate-300 p-2">
+  <div class="flex justify-between items-center mb-2 text-sm font-medium">
+    <h3>Tasks</h3>
+    <div data-controller="modal" data-modal-allow-background-close="false">
+      <!-- Button trigger modal -->
+      <button type="button" data-action="click->modal#open"
+              class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                       border-orange-800 hover:text-orange-800 hover:bg-white">
+        + Add a task
+      </button>
+
+      <!-- Modal Container -->
+      <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+           class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+        <!-- Modal Inner Container -->
+        <div class="max-h-screen w-full max-w-2xl relative">
+          <!-- Modal Card -->
+          <div class="m-1 bg-slate-800 shadow">
+            <%= render partial: "admin/tasks/form", locals: { object: Task.new, project: project } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-slate-800 px-3 py-3 ring-1 ring-slate-900/5 shadow-xl">
+    <div data-controller="tabs" data-tabs-active-tab="-mb-px border-l border-t border-r rounded-t">
+      <!-- Tab navigation -->
+      <ul class="list-reset flex border-b">
+        <li class="-mb-px mr-1" data-tabs-target="tab" data-action="click->tabs#change">
+          <a class="bg-slate-800 inline-block py-2 px-4 text-slate-300 hover:text-orange-800 font-semibold no-underline" href="#">
+            <%= project.current_milestone.try(:name) || "No active milestone" %>
+          </a>
+        </li>
+        <li class="mr-1" data-tabs-target="tab" data-action="click->tabs#change">
+          <a class="bg-slate-800 inline-block py-2 px-4 text-slate-300 hover:text-orange-800 font-semibold no-underline" href="#">
+            Tasks with no milestone
+          </a>
+        </li>
+      </ul>
+      <!-- Tab contents -->
+      <div class="hidden py-4 px-4 border-l border-b border-r" data-tabs-target="panel">
+        <ul class="mx-auto">
+          <% project.current_milestone_tasks.each do |task| %>
+              <%= render partial: "admin/projects/sections/task_list", locals: { task: task } %>
+              <!-- Todo Items -->
+              <%= render partial: "admin/projects/sections/todo_items", locals: { task: task } %>
+          <% end %>
+        </ul>
+      </div>
+      <div class="hidden py-4 px-4 border-l border-b border-r" data-tabs-target="panel">
+        <ul class="mx-auto">
+          <% project.tasks_with_no_milestone.each do |task| %>
+              <%= render partial: "admin/projects/sections/task_list", locals: { task: task } %>
+              <!-- Todo Items -->
+              <%= render partial: "admin/projects/sections/todo_items", locals: { task: task } %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

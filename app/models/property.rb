@@ -9,6 +9,7 @@ class Property < ApplicationRecord
   has_many :ownerships
   has_many :accounts, through: :ownerships
   has_many :managers, -> { order(created_at: :desc) }, as: :manageable, dependent: :destroy, inverse_of: :manageable
+  has_many :projects, -> { order(created_at: :desc) }, as: :projectable, dependent: :destroy, inverse_of: :projectable
 
   has_one_attached :photo do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]

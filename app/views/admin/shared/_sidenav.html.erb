@@ -8,6 +8,30 @@
   <nav>
     <ul class="text-slate-300">
       <li class="flex justify-between mb-2">
+        <%= link_to "Projects", admin_projects_path,
+                    class: "#{params[:controller] == "admin/projects" ? 'text-orange-800' : '' }" %>
+        <div data-controller="dropdown" class="relative">
+          <button type="button" data-action="dropdown#toggle click@window->dropdown#hide">
+            <%= heroicon "chevron-down", options: { class: "w-6 hover:text-orange-800 cursor-pointer",
+                                                    disable_default_class: true } %>
+          </button>
+          <div
+            data-dropdown-target="menu"
+            class="hidden transition transform origin-top-right absolute right-0"
+            data-transition-enter-from="opacity-0 scale-95"
+            data-transition-enter-to="opacity-100 scale-100"
+            data-transition-leave-from="opacity-100 scale-100"
+            data-transition-leave-to="opacity-0 scale-95"
+          >
+            <%= link_to "Project Types", admin_project_types_path,
+                        class: "bg-slate-300 whitespace-nowrap text-slate-900 p-2 hover:text-orange-800
+                                #{params[:controller] == "admin/project_types" ? 'text-orange-800' : '' }",
+                        data: { action: "dropdown#toggle" } %>
+          </div>
+        </div>
+      </li>
+      <li class="border my-3"></li>
+      <li class="flex justify-between mb-2">
         <%= link_to "Properties", admin_properties_path,
                     class: "#{params[:controller] == "admin/properties" ? 'text-orange-800' : '' }" %>
         <div data-controller="dropdown" class="relative">

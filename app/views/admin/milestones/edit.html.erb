@@ -1,0 +1,9 @@
+<div class="card mt-4 border border-danger">
+  <div class="card-body">
+    <div class="border p-3 rounded">
+      <%= turbo_frame_tag dom_id(@milestone) do %>
+        <%= render partial: "form", locals: { object: @milestone, project: @milestone.project } %>
+      <% end %>
+    </div>
+  </div>
+</div>

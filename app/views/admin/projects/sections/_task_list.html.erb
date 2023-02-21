@@ -1,0 +1,78 @@
+<%= turbo_frame_tag dom_id(task) do %>
+  <li class="flex justify-between items-center mt-2">
+    <!-- Task Info -->
+    <div class="w-2/4">
+      <%= link_to edit_admin_task_path(task) do %>
+      <span class="<%= 'line-through' if (task.completed? || task.archived?) %>">
+        <%= task.name %>
+      </span>
+      <% end %>
+    </div>
+    <div class="hidden md:flex gap-x-2 justify-between items-center w-2/4">
+      <div>
+        <%= "<small class='text-xs'>#{task.start_date.strftime('%Y/%m/%d %H:%M') }</small>".html_safe unless task.start_date.nil? %>
+        <%= "<small class='text-xs mr-3'>#{task.end_date.strftime('%Y/%m/%d') }</small><br/>".html_safe unless task.end_date.nil? %>
+        <%= "<small class='text-xs text-blue-600'>#{task.completed_at.strftime('%Y/%m/%d %H:%M') }</small>".html_safe unless task.completed_at.nil? %>
+      </div>
+      <!-- Timer buttons -->
+      <div>
+        <% if task.project.personal? && task.in_progress? %>
+          <% unless task.current_timer.nil? %>
+            <%= button_to "Stop timer", stop_admin_timer_path(task.current_timer.id),
+                          class: "text-xs py-0.5 px-1 bg-orange-900 text-white transition duration-300 border
+                                  border-orange-800 hover:text-orange-800 hover:bg-white", :method => "put",
+                          data: { turbo_frame: "_top" } %>
+          <% else %>
+            <%= link_to "Start timer", new_admin_timer_path(task_id: task.id),
+                        class: "text-xs py-0.5 px-1 bg-blue-900 text-white transition duration-300 border border-blue-800
+                                hover:text-blue-800 hover:bg-white", data: { turbo_frame: "_top" } %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="w-28 pr-4 font-bold hover:text-white text-amber-800">
+        <%= link_to seconds_to_str(task.total_time_spent_on_task), admin_task_path(task), data: { turbo_frame: "_top" } if task.project.personal? && task.current_timer.nil? %>
+      </div>
+    </div>
+    <!-- Status & Actions -->
+    <div class="w-44 flex justify-between">
+      <!-- Status -->
+      <%= render(::Atoms::Badge::BadgeComponent.new(label: task.status, style: task.status)) %>
+      <!-- Actions -->
+      <span class="flex justify-between">
+        <% if task.not_started? %>
+          <%= button_to start_admin_task_path(task), :method => "put", remote: true, data: { turbo_frame: "_top" } do %>
+            <i class="fa-solid fa-play"></i>
+          <% end %>
+        <% end %>
+        <% if task.in_progress? %>
+        <%= button_to "<i class='fa-solid fa-repeat'></i>".html_safe, not_started_admin_task_path(task),
+                      :method => "put", remote: true, class: "mr-2", data: { turbo_frame: "_top" } %>
+          <%= button_to complete_admin_task_path(task), :method => "put", remote: true, data: { turbo_frame: "_top" } do %>
+          <i class="fa-solid fa-circle-check"></i>
+        <% end %>
+      <% end %>
+        <% if task.completed? %>
+        <%= button_to "<i class='fa-solid fa-repeat'></i>".html_safe, reactivate_admin_task_path(task),
+                      :method => "put", remote: true, class: "mr-2", data: { turbo_frame: "_top" } %>
+          <%= button_to "<i class='fa-solid fa-box-archive'></i>".html_safe, archive_admin_task_path(task),
+                        :method => "put", remote: true, data: { turbo_frame: "_top" } %>
+      <% end %>
+        <% if task.archived? %>
+        <%= button_to task.completed? ? reactivate_admin_task_path(task) : complete_admin_task_path(task),
+                      :method => "put", remote: true, data: { turbo_frame: "_top" } do %>
+          <i class="mr-2 fa-solid <%= task.completed? ? 'fa-arrows-repeat' : "#{task.archived? ? 'fa-repeat' : 'fa-circle-check'}" %>"></i>
+        <% end %>
+          <%= button_to "<i class='fa-solid fa-trash-can'></i>".html_safe, admin_task_path(task), :method => :delete,
+                        remote: true, class: "text-red-700", data: { confirm: "Are you sure?", turbo_frame: "_top" } %>
+      <% end %>
+        <% unless task.todo_items.empty? %>
+          <button type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTodoItemsForTask-<%= task.id %>" aria-expanded="false"
+                  aria-controls="#collapseTodoItemsForTask-<%= task.id %>">
+          <i class="bi bi-chevron-double-down"></i>
+          </button>
+        <% end %>
+      </span><!-- END - Actions -->
+    </div>
+  </li>
+<% end %>

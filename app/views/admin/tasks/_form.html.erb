@@ -1,0 +1,74 @@
+<div class="bg-slate-900 p-8 pt-7 mt-3">
+  <%= simple_form_for [:admin, object], html: { class: "w-full" }, data: { controller: "nested-form", nested_form_wrapper_selector_value: ".nested-form-wrapper" }, local: true do |f| %>
+
+    <%= render "admin/shared/form_errors", object: object %>
+
+    <%= f.hidden_field :project_id, value: project.id %>
+
+    <%= f.input :name,
+                label_html: { class: "form-label" },
+                input_html: { class: "basic-input w-full", autofocus: true } %>
+
+    <div class="flex gap-x-4 mt-6">
+      <% unless action_name == "new" %>
+        <% milestones = object.project ? object.project.milestones : project.milestones %>
+        <% unless milestones.empty? %>
+          <%= f.input :milestone_id, as: :select,
+                      collection: milestones.order(:id).collect { |p| [p.name, p.id] },
+                      include_blank: true, prompt: "Select a milestone",
+                      wrapper_html: { class: "w-full" },
+                      label_html: { class: "form-label" },
+                      input_html: { class: "select-input" } %>
+        <% end %>
+      <% end %>
+      <%= f.input :status, as: :select,
+                  collection: Task.statuses.keys.collect { |s| [s.humanize, s] },
+                  include_blank: true, prompt: "Select a status",
+                  wrapper_html: { class: "w-auto" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "select-input" } %>
+    </div>
+    <div class="flex flex-wrap gap-x-6 mt-4">
+      <%= f.input :start_date, as: :string,
+                  wrapper_html: { class: "w-26" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+      <%= f.input :end_date, as: :string,
+                  wrapper_html: { class: "w-26" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+      <%= f.input :completed_at, as: :string,
+                  wrapper_html: { class: "w-26 mt-4" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+    </div>
+    <%= f.input :description, as: :rich_text_area,
+                wrapper_html: { class: "mt-4" },
+                label_html: { class: "form-label" },
+                input_html: { class: "basic-input" } %>
+
+    <!-- Todo Items -->
+    <div data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper-todo-item">
+      <template data-nested-form-target="template">
+        <%= f.simple_fields_for :todo_items, TodoItem.new, child_index: 'NEW_RECORD' do |todo_items_field| %>
+          <%= render 'admin/tasks/fields/todo_item', f: todo_items_field %>
+        <% end %>
+      </template>
+
+      <%= f.simple_fields_for :todo_items do |todo_items_field| %>
+        <%= render 'admin/tasks/fields/todo_item', f: todo_items_field %>
+      <% end %>
+
+      <!-- Inserted elements will be injected before that target. -->
+      <div data-nested-form-target="target"></div>
+
+      <button type="button" data-action="nested-form#add" class="mt-2 text-orange-800 hover:bg-orange-800 hover:text-slate-300 p-1">
+        + Add a todo item
+      </button>
+    </div>
+
+    <div class="w-full flex justify-between items-center flex-wrap mt-6">
+      <%= f.button :submit, class: "submit-btn bg-orange-900" %>
+    </div>
+  <% end %>
+</div>
