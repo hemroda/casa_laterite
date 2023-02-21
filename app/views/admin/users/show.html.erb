@@ -1,4 +1,4 @@
-<div class="bg-slate-900 text-slate-300 p-8 pt-7 mt-3">
+<div class="bg-slate-500 text-slate-300 p-8 pt-7 mt-3">
   <div class="flex justify-between items-center mb-2 text-sm font-medium">
     <div>Profile</div>
     <div class="flex">
@@ -14,5 +14,122 @@
     <p class="mt-2 text-sm"><%= @user.role.humanize %></p>
     <p class="mt-2 text-sm"><%= @user.email %></p>
     <p class="mt-2 text-sm"><%= @user.phone_number %></p>
+  </div>
+  <!-- Projects -->
+  <div class="bg-slate-900 text-slate-300 mt-10 p-4">
+    <div class="flex justify-between items-center text-sm font-medium">
+      <h3>Projects</h3>
+      <div data-controller="modal" data-modal-allow-background-close="false">
+        <!-- Button trigger modal -->
+        <button type="button" data-action="click->modal#open"
+                class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                       border-orange-800 hover:text-orange-800 hover:bg-white">
+          + Add a project
+        </button>
+
+        <!-- Modal Container -->
+        <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+             class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+          <!-- Modal Inner Container -->
+          <div class="max-h-screen w-full max-w-4xl relative">
+            <!-- Modal Card -->
+            <div class="m-1 bg-slate-800 shadow">
+              <%= render partial: "admin/projects/form", locals: { object: Project.new, projectable: @user } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Projects Table -->
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full">
+            <thead class="bg-slate-900 text-slate-300 border-b">
+            <tr>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Name</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @projects.empty? %>
+              <p class="px-3">No Projects yet.</p>
+            <% else %>
+              <% @projects.each_with_index do |project| %>
+                <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+                    <%= link_to project.name, admin_project_path(project) %>
+                  </td>
+                  <td><%= project.status.humanize %></td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Table Listing Accounts Managed -->
+  <div class="flex flex-col mt-5">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <div class="bg-slate-800 px-4 py-4 ring-1 ring-slate-900/5 shadow-xl">
+            <h2 class="mb-2">Accounts Managed</h2>
+            <table class="min-w-full">
+              <thead class="bg-slate-900 text-slate-300 border-b">
+              <tr>
+                <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Account Full Name</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @user.accounts_managed.each do |account| %>
+                <% unless @user.accounts_managed.empty? %>
+                  <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+                      <%= link_to account.manageable.full_name, admin_account_path(account.manageable_id) %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Table Listing Properties Managed -->
+  <div class="flex flex-col mt-5">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <div class="bg-slate-800 px-4 py-4 ring-1 ring-slate-900/5 shadow-xl">
+            <h2 class="mb-2">Properties Managed</h2>
+            <table class="min-w-full">
+              <thead class="bg-slate-900 text-slate-300 border-b">
+              <tr>
+                <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Property Name</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @properties_managed.each do |property| %>
+                <% unless @user.properties_managed.empty? %>
+                  <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+                      <%= link_to property.manageable.name, admin_property_path(property.manageable_id) %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

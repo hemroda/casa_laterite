@@ -74,7 +74,7 @@
   </div>
   <!-- Projects -->
   <div class="bg-slate-900 text-slate-300 mt-10 p-4">
-    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+    <div class="flex justify-between items-center text-sm font-medium">
       <h3>Projects</h3>
       <div data-controller="modal" data-modal-allow-background-close="false">
         <!-- Button trigger modal -->
@@ -191,7 +191,7 @@
             </tr>
             </thead>
             <tbody>
-            <% @property.managers.includes(:user).each do |pm| %>
+            <% @property_managers.each do |pm| %>
               <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
                   <%= link_to pm.user.full_name, admin_user_path(pm.user_id) %>

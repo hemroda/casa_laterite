@@ -15,6 +15,7 @@ module Admin
 
     def show
       @owners = @property.ownerships.includes([:account, :allocated_by, :deallocated_by])
+      @property_managers = @property.managers.includes([:user, :assigned_by])
     end
 
     def new

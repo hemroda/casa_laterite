@@ -14,6 +14,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
+    @projects = Project.for_user_personal(current_user)
+    @properties_managed = @user.properties_managed.includes([:manageable])
   end
 
   def new

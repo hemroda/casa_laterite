@@ -14,6 +14,8 @@ class User < ApplicationRecord
 
   has_many :managers
   has_many :posts, dependent: :destroy
+  has_many :projects, -> { order(created_at: :desc) }, as: :projectable, dependent: :destroy, inverse_of: :projectable
+  has_many :tasks, dependent: :destroy
 
   validates :email, uniqueness: true, presence: true
   validates :first_name, :last_name, presence: true
@@ -26,6 +28,10 @@ class User < ApplicationRecord
 
   def full_name_or_email
     full_name || email
+  end
+
+  def accounts_managed
+    @accounts_managed ||= managers.where(manageable_type: "Account", unassigned_by: nil)
   end
 
   def properties_managed
