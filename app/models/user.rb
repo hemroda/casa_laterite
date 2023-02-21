@@ -12,6 +12,7 @@ class User < ApplicationRecord
   enum locale: %i[fr en]
   enum role: %i[user moderator admin]
 
+  has_many :managers
   has_many :posts, dependent: :destroy
 
   validates :email, uniqueness: true, presence: true
@@ -25,5 +26,9 @@ class User < ApplicationRecord
 
   def full_name_or_email
     full_name || email
+  end
+
+  def properties_managed
+    @properties_managed ||= managers.where(manageable_type: "Property", unassigned_by: nil)
   end
 end
