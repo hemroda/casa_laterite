@@ -1,0 +1,14 @@
+<%= simple_form_for [:admin, object], local: true do |f| %>
+  <div class="mt-2">
+    <%= f.hidden_field :property_id, value: @property.id %>
+
+    <%= f.input :account_id, as: :select,
+                   collection: Account.all.collect { |e| [e.full_name, e.id] },
+                   include_blank: false, prompt: "Select Account Manager",
+                   wrapper_html: { class: "flex flex-col" },
+                   label_html: { class: "form-label" },
+                   input_html: { class: "select-input" } %>
+  </div>
+
+  <%= f.button :submit, class: "submit-btn bg-orange-900" %>
+<% end %>

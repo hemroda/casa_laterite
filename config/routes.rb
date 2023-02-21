@@ -22,6 +22,12 @@ Rails.application.routes.draw do
     post "check_background_jobs", to: "pages#check_background_jobs"
 
     resources :accounts
+    resources :ownerships, only: %[create] do
+      member do
+        put :reallocate_account_to_property
+        put :deallocate_account_from_property
+      end
+    end
     resources :posts
     get "my_posts", to: "posts#my_posts"
     resources :properties

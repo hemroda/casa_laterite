@@ -37,10 +37,88 @@
   <%# TODO: Properly display the attachments %>
   <!-- Photos -->
   <div class="mt-4 flex gap-x-4">
-     <%= @property.photos %>
+    <%= @property.photos %>
   </div>
   <!-- Documents -->
   <div class="mt-4 flex gap-x-4">
     <%= @property.documents %>
+  </div>
+  <!-- Owners -->
+  <div class="bg-slate-900 mt-3 px-6 py-8 text-slate-300">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h3 class="fs-4 me-5">Owner<%= 's' if @property.accounts.count > 1 %></h3>
+      <div data-controller="modal" data-modal-allow-background-close="false">
+        <!-- Button trigger modal -->
+        <button type="button" data-action="click->modal#open"
+                class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                       border-orange-800 hover:text-orange-800 hover:bg-white">
+          + Add a owner"
+        </button>
+        <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+             class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+          <!-- Modal Inner Container -->
+          <div class="max-h-screen w-full max-w-lg relative">
+            <!-- Modal Card -->
+            <div class="m-1 p-8 bg-slate-800 shadow">
+              <%= render partial: "admin/ownerships/form", locals: { object: Ownership.new, property_id: @property.id } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Owners Table -->
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full">
+            <thead class="bg-slate-900 text-slate-300 border-b">
+            <tr>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Full Name</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Allocated by</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Removed by</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @property.ownerships.empty? %>
+              <p class="px-3">No Owners yet.</p>
+            <% else %>
+              <% @property.ownerships.each_with_index do |o| %>
+                <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+                    <%= link_to o.account.full_name, admin_account_path(o) unless o.account.nil? %>
+                    <%= link_to o.old_owner.full_name unless o.old_owner_id.nil? %>
+                  </td>
+                  <td class="text-sm text-slate-300 font-light px-6 py-4 whitespace-nowrap">
+                    <% if o.allocated_by %>
+                      <%= o.allocated_by.full_name if o.allocated_by %> <br>
+                      <small><%= I18n.l(o.created_at, format: :long) %></small>
+                    <% end %>
+                  </td>
+                  <td class="text-sm text-slate-300 font-light px-6 py-4 whitespace-nowrap">
+                    <% if o.deallocated_by %>
+                      <%= o.deallocated_by.full_name %> <br>
+                      <small><%= I18n.l(o.updated_at, format: :long) %></small>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if o.allocated_by %>
+                      <%= button_to "Remove from Property", deallocate_account_from_property_admin_ownership_path(id: o.id, property_id: @property.id), :method => 'put', remote: true,
+                                    class: "text-red-800", data: { confirm: "Are you sure?" } %>
+                    <% else %>
+                      <%= button_to "Add to Property", reallocate_account_to_property_admin_ownership_path(id: o.id, property_id: @property.id), :method => 'put', remote: true,
+                                    class: "text-red-800", data: { confirm: "Are you sure you want to assign this user to this property?" } %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -7,6 +7,8 @@ class Account < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :posts
+  has_many :ownerships, dependent: :nullify
+  has_many :properties, through: :ownerships
 
   def full_name
     return if first_name.nil? || last_name.nil?

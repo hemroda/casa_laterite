@@ -5,9 +5,17 @@
 import { application } from "./application"
 
 import HelloController from "./hello_controller"
-import Dropdown from 'stimulus-dropdown'
 import Notification from 'stimulus-notification'
+import { Alert, Autosave, Dropdown, Modal, Tabs, Popover, Toggle, Slideover } from "tailwindcss-stimulus-components"
 
 application.register("hello", HelloController)
-application.register('dropdown', Dropdown)
 application.register('notification', Notification)
+// Register all TailwindCSS Components
+application.register('alert', Alert)
+application.register('autosave', Autosave)
+application.register('dropdown', Dropdown)
+application.register('modal', Modal)
+application.register('tabs', Tabs)
+application.register('popover', Popover)
+application.register('toggle', Toggle)
+application.register('slideover', Slideover)

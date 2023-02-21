@@ -4,6 +4,9 @@ class Property < ApplicationRecord
   belongs_to :building, class_name: "Property", optional: true
   belongs_to :property_type
 
+  has_many :ownerships
+  has_many :accounts, through: :ownerships
+
   has_one_attached :photo do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, 100]
   end
@@ -12,6 +15,7 @@ class Property < ApplicationRecord
 
   has_rich_text :description
 
-  validates :name, :headline, presence: true
+  accepts_nested_attributes_for :ownerships, allow_destroy: true, reject_if: :all_blank
 
+  validates :name, :headline, presence: true
 end
