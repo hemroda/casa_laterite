@@ -1,0 +1,36 @@
+<%= simple_form_for [:admin, object], html: { class: "p-4" }, local: true do |f| %>
+  <%= f.hidden_field :addressable_type, value: manageable.model_name.human %>
+  <%= f.hidden_field :addressable_id, value: manageable.id %>
+
+  <%= f.input :line_one, as: :string,
+              label_html: { class: "form-label" },
+              wrapper_html: { class: "w-full" },
+              input_html: { class: "basic-input w-full" } %>
+  <%= f.input :line_two, as: :string,
+              label_html: { class: "form-label" },
+              wrapper_html: { class: "w-full" },
+              input_html: { class: "basic-input w-full" } %>
+  <div class="mt-3">
+    <div class="flex justify-between">
+      <%= f.input :city,
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input" } %>
+      <%= f.input :country, as: :string,
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input" } %>
+    </div>
+    <div class="flex justify-between mt-2">
+      <%= f.input :zip_code,
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input" } %>
+      <%= f.input :phone_number,
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input" } %>
+    </div>
+  </div>
+  <%= f.input :additional_information, as: :rich_text_area,
+              wrapper_html: { class: "mt-3" },
+              input_html: { class: "basic-input w-full" } %>
+
+  <%= f.button :submit, class: "submit-btn bg-orange-900" %>
+<% end %>

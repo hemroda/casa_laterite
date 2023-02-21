@@ -4,6 +4,8 @@ class Property < ApplicationRecord
   belongs_to :building, class_name: "Property", optional: true
   belongs_to :property_type
 
+  has_one :address, as: :addressable
+
   has_many :ownerships
   has_many :accounts, through: :ownerships
 
@@ -19,3 +21,4 @@ class Property < ApplicationRecord
 
   validates :name, :headline, presence: true
 end
+

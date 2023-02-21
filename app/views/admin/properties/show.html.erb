@@ -43,8 +43,37 @@
   <div class="mt-4 flex gap-x-4">
     <%= @property.documents %>
   </div>
+  <!-- Address -->
+  <div class="bg-slate-900 text-slate-300 pt-7">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h4>Address</h4>
+      <div data-controller="modal" data-modal-allow-background-close="false">
+        <!-- Button trigger modal -->
+        <button type="button" data-action="click->modal#open"
+                class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                       border-orange-800 hover:text-orange-800 hover:bg-white">
+          Address
+        </button>
+
+        <!-- Modal Container -->
+        <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+             class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+          <!-- Modal Inner Container -->
+          <div class="max-h-screen w-full max-w-xl relative">
+            <!-- Modal Card -->
+            <div class="m-1 bg-slate-800 shadow">
+              <%= render partial: "admin/addresses/form", locals: { object: @property.address || Address.new, manageable: @property } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-slate-800 px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+      <%= render "admin/addresses/address", object: @property %>
+    </div>
+  </div>
   <!-- Owners -->
-  <div class="bg-slate-900 mt-3 px-6 py-8 text-slate-300">
+  <div class="bg-slate-900 mt-3 px-6 py-2 text-slate-300">
     <div class="flex justify-between items-center mb-2 text-sm font-medium">
       <h3 class="fs-4 me-5">Owner<%= 's' if @property.accounts.count > 1 %></h3>
       <div data-controller="modal" data-modal-allow-background-close="false">
@@ -52,7 +81,7 @@
         <button type="button" data-action="click->modal#open"
                 class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
                        border-orange-800 hover:text-orange-800 hover:bg-white">
-          + Add a owner"
+          + Add a owner
         </button>
         <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
              class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">

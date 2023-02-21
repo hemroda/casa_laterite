@@ -1,0 +1,12 @@
+<% if object.address.present? %>
+  <div class="mb-3">
+    <p><%= object.address.line_one %></p>
+    <p><%= object.address.line_two unless object.address.line_two.nil? %></p>
+    <p><%= object.address.phone_number unless object.address.phone_number.nil? %></p>
+    <p><%= object.address.city %></p>
+    <p><%= object.address.zip_code %> <%= object.address.country %></p>
+  </div>
+  <div>
+    <%= "<strong>Additional Information:</strong> #{object.address.additional_information}</div>".html_safe unless object.address.additional_information.empty? %>
+  </div>
+<% end %>

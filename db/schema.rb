@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_21_103451) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_21_120135) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,6 +82,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_103451) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "line_one"
+    t.string "line_two"
+    t.string "phone_number"
+    t.string "city"
+    t.string "zip_code"
+    t.string "country"
+    t.text "additional_information"
+    t.string "addressable_type"
+    t.bigint "addressable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
   end
 
   create_table "ownerships", force: :cascade do |t|
