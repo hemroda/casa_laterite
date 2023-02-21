@@ -19,14 +19,14 @@
     <tbody>
     <% @projects.each do |project| %>
       <tr class="text-sm">
-        <td class="p-3"><%= project.name %></td>
+        <td class="p-3"><%= link_to project.name, admin_project_path(project), class: "hover:text-orange-800" %></td>
         <td class="hidden md:table-cell"><%= project.status.humanize %></td>
-        <td class="hidden md:table-cell"><%= project.project_type.name %></td>
+        <td class="hidden md:table-cell"><%= link_to project.project_type.name, admin_project_type_path(project.project_type), class: "hover:text-orange-800" %></td>
         <td class="hidden md:table-cell"><%= project.visibility_type.humanize %></td>
         <td class="hidden md:table-cell"><%= project.start_date.strftime('%d/%m/%y') if project.start_date %></td>
         <td><%= project.end_date.strftime('%d/%m/%y') if project.end_date %></td>
         <td class="flex justify-end pt-3 pr-2">
-          <%= link_to admin_project_path(project), class: "mr-1" do %>
+          <%= link_to edit_admin_project_path(project), class: "mr-1" do %>
             <%= heroicon "pencil-square", options: { class: "w-4 text-blue-600 hover:text-blue-300",
                                                      disable_default_class: true } %>
           <% end %>

@@ -13,7 +13,9 @@ class Admin::ProjectsController < ApplicationController
     @fields_to_search_in = :name_cont
   end
 
-  def show; end
+  def show
+    @milestones = @project.milestones.includes([:rich_text_description])
+  end
 
   def new
     @project = Project.new

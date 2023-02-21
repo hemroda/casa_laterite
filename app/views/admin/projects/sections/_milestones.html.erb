@@ -24,7 +24,7 @@
   </div>
   <div class="bg-slate-800 px-3 py-3 ring-1 ring-slate-900/5 shadow-xl">
     <ul class="list-group">
-      <% @project.milestones.each do |milestone| %>
+      <% @milestones.each do |milestone| %>
         <%= turbo_frame_tag dom_id(milestone) do %>
           <li class="flex justify-between items-center">
             <div class="w-2/4">

@@ -19,7 +19,7 @@
     <tbody>
     <% @project_types.each do |project_type| %>
       <tr class="text-sm">
-        <td class="p-3"><%= project_type.name %></td>
+        <td class="p-3"><%= link_to project_type.name, admin_project_type_path(project_type), class: "hover:text-orange-800" %></td>
         <td><%= project_type.projects.count %></td>
         <td class="flex justify-end pt-3 pr-2">
           <%= link_to admin_project_type_path(project_type), class: "mr-1" do %>
