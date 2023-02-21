@@ -13,7 +13,9 @@ module Admin
       @fields_to_search_in = :name_cont
     end
 
-    def show; end
+    def show
+      @owners = @property.ownerships.includes([:account, :allocated_by, :deallocated_by])
+    end
 
     def new
       @property = Property.new
