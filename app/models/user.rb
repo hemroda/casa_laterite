@@ -12,7 +12,7 @@ class User < ApplicationRecord
   enum locale: %i[fr en]
   enum role: %i[user moderator admin]
 
-  has_many :posts
+  has_many :posts, dependent: :destroy
 
   validates :email, uniqueness: true, presence: true
   validates :first_name, :last_name, presence: true

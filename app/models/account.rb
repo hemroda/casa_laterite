@@ -6,7 +6,7 @@ class Account < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :posts
+  has_many :posts, dependent: :destroy
   has_many :ownerships, dependent: :nullify
   has_many :properties, through: :ownerships
 
