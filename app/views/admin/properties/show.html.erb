@@ -1,4 +1,4 @@
-<div class="bg-slate-900 text-slate-300 p-8 pt-7 mt-3">
+<div class="text-slate-300 p-8 pt-7 mt-3">
   <div class="flex justify-between items-center mb-2 text-sm font-medium">
     <div><%= @property.name %></div>
     <div class="flex">
@@ -36,15 +36,15 @@
   </div>
   <%# TODO: Properly display the attachments %>
   <!-- Photos -->
-  <div class="mt-4 flex gap-x-4">
+  <div class="bg-slate-900 text-slate-300 mt-10 p-4">
     <%= @property.photos %>
   </div>
   <!-- Documents -->
-  <div class="mt-4 flex gap-x-4">
+  <div class="bg-slate-900 text-slate-300 mt-10 p-4">
     <%= @property.documents %>
   </div>
   <!-- Address -->
-  <div class="bg-slate-900 text-slate-300 pt-7">
+  <div class="bg-slate-900 text-slate-300 mt-10 p-4">
     <div class="flex justify-between items-center mb-2 text-sm font-medium">
       <h4>Address</h4>
       <div data-controller="modal" data-modal-allow-background-close="false">
@@ -62,7 +62,7 @@
           <div class="max-h-screen w-full max-w-xl relative">
             <!-- Modal Card -->
             <div class="m-1 bg-slate-800 shadow">
-              <%= render partial: "admin/addresses/form", locals: { object: @property.address || Address.new, manageable: @property } %>
+              <%= render partial: "admin/addresses/form", locals: { object: @property.address || Address.new, addressable: @property } %>
             </div>
           </div>
         </div>
@@ -72,8 +72,110 @@
       <%= render "admin/addresses/address", object: @property %>
     </div>
   </div>
+  <!--  Property Managers -->
+  <div class="bg-slate-900 text-slate-300 mt-10 p-4">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h3>Property Managers</h3>
+      <div data-controller="modal" data-modal-allow-background-close="false">
+        <!-- Button trigger modal -->
+        <button type="button" data-action="click->modal#open"
+                class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                       border-orange-800 hover:text-orange-800 hover:bg-white">
+          + Add a property manager
+        </button>
+
+        <!-- Modal Container -->
+        <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+             class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+          <!-- Modal Inner Container -->
+          <div class="max-h-screen w-full max-w-lg relative">
+            <!-- Modal Card -->
+            <div class="m-1 bg-slate-800 shadow">
+              <%= render partial: "admin/managers/form", locals: { object: Manager.new, manageable: @property } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-slate-800 px-6 py-6 ring-1 ring-slate-900/5 shadow-xl">
+      <div class="pb-5"><strong>Lead Property Managers:</strong>
+        <% unless @property.managers.empty? %>
+          <% @property.lead_property_managers.each do |pm| %>
+            <%= link_to pm.user.full_name, admin_user_path(pm.user_id), class: "px-6 py-2 border-b border-gray-200 w-full" %>
+            <%= "," unless pm == @property.lead_property_managers.last %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="mt-5">
+        <strong>Property Managers:</strong>
+        <% unless @property.managers.empty? %>
+          <% @property.assistant_property_managers.each do |pm| %>
+            <%= link_to pm.user.full_name, admin_user_path(pm.user_id), class: "px-6 py-2 border-b border-gray-200 w-full" %>
+            <%= "," unless pm == @property.assistant_property_managers.last %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <!-- Property Managers Table -->
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6">
+      <div class="py-2 inline-block min-w-full sm:px-6">
+        <div class="overflow-hidden">
+          <table class="min-w-full">
+            <thead class="bg-slate-900 text-slate-300 border-b">
+            <tr>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Full Name</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Assigned by</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Lead Manager</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Unassigned by</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Assignment</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Lead Assignment</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @property.managers.includes(:user).each do |pm| %>
+              <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+                  <%= link_to pm.user.full_name, admin_user_path(pm.user_id) %>
+                </td>
+                <td class="text-sm text-slate-300 font-light px-6 py-4 whitespace-nowrap">
+                  <%= pm.assigned_by.full_name unless pm.assigned_by.nil? %>
+                </td>
+                <td class="text-sm text-slate-300 font-light px-6 py-4 whitespace-nowrap">
+                  <%= pm.lead_manager == true ? "Yes" : "No" %>
+                </td>
+                <td class="text-sm text-slate-300 font-light px-6 py-4 whitespace-nowrap">
+                  <%= pm.manager_unassigny %>
+                </td>
+                <td>
+                  <% if pm.assigned_by %>
+                    <%= button_to "Remove assignment", unassign_manager_admin_manager_path(id: pm.id, property_id: @property.id), :method => 'put', remote: true,
+                                  class: "text-red-800", data: { confirm: "Are you sure?" } %>
+                  <% else %>
+                    <%= button_to "Reassign toProperty", reassign_manager_admin_manager_path(id: pm.id), :method => 'put', remote: true,
+                                  class: "text-blue-800", data: { confirm: "Are you sure you want to assign this user to this property?" } %>
+                  <% end %>
+                </td>
+                <td>
+                  <% if pm.lead_manager %>
+                    <%= button_to "Remove lead", remove_as_lead_admin_manager_path(id: pm.id), :method => "put", remote: true,
+                                  class: "text-red-800", data: { confirm: "Are you sure?" } %>
+                  <% else %>
+                    <%= button_to "Set as lead", set_as_lead_admin_manager_path(id: pm.id), :method => "put", remote: true,
+                                  class: "text-blue-800", data: { confirm: "Are you sure?" } %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Owners -->
-  <div class="bg-slate-900 mt-3 px-6 py-2 text-slate-300">
+  <div class="bg-slate-900 mt-10 px-6 py-2 text-slate-300">
     <div class="flex justify-between items-center mb-2 text-sm font-medium">
       <h3 class="fs-4 me-5">Owner<%= 's' if @property.accounts.count > 1 %></h3>
       <div data-controller="modal" data-modal-allow-background-close="false">

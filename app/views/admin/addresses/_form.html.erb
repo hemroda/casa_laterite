@@ -1,6 +1,6 @@
 <%= simple_form_for [:admin, object], html: { class: "p-4" }, local: true do |f| %>
-  <%= f.hidden_field :addressable_type, value: manageable.model_name.human %>
-  <%= f.hidden_field :addressable_id, value: manageable.id %>
+  <%= f.hidden_field :addressable_type, value: addressable.model_name.human %>
+  <%= f.hidden_field :addressable_id, value: addressable.id %>
 
   <%= f.input :line_one, as: :string,
               label_html: { class: "form-label" },

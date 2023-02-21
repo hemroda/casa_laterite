@@ -23,6 +23,14 @@ Rails.application.routes.draw do
 
     resources :accounts
     resources :addresses
+    resources :managers, only: %i[create] do
+      member do
+        put :unassign_manager
+        put :reassign_manager
+        put :remove_as_lead
+        put :set_as_lead
+      end
+    end
     resources :ownerships, only: %[create] do
       member do
         put :reallocate_account_to_property

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_21_120135) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_21_154123) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -99,6 +99,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_120135) do
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
   end
 
+  create_table "managers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "manageable_type", null: false
+    t.bigint "manageable_id", null: false
+    t.string "assigned_by_type"
+    t.bigint "assigned_by_id"
+    t.string "unassigned_by_type"
+    t.bigint "unassigned_by_id"
+    t.boolean "lead_manager", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assigned_by_type", "assigned_by_id"], name: "index_managers_on_assigned_by"
+    t.index ["manageable_type", "manageable_id"], name: "index_managers_on_manageable"
+    t.index ["unassigned_by_type", "unassigned_by_id"], name: "index_managers_on_unassigned_by"
+    t.index ["user_id"], name: "index_managers_on_user_id"
+  end
+
   create_table "ownerships", force: :cascade do |t|
     t.bigint "account_id"
     t.bigint "property_id"
@@ -181,6 +198,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_21_120135) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "managers", "users"
   add_foreign_key "ownerships", "accounts"
   add_foreign_key "ownerships", "properties"
   add_foreign_key "posts", "accounts"

@@ -1,0 +1,16 @@
+<%= simple_form_for [:admin, object], html: { class: "p-4" }, local: true do |f| %>
+  <div class="mt-2">
+    <%= f.hidden_field :assigned_by_id, value: current_user.id %>
+    <%= f.hidden_field :manageable_type, value: manageable.model_name.human %>
+    <%= f.hidden_field :manageable_id, value: manageable.id %>
+
+    <%= f.input :user_id, as: :select,
+                   collection: User.all.collect { |e| [e.full_name, e.id] },
+                   include_blank: false, prompt: "Select company Manager",
+                   wrapper_html: { class: "flex flex-col" },
+                   label_html: { class: "form-label" },
+                   input_html: { class: "select-input" } %>
+  </div>
+
+  <%= f.button :submit, class: "submit-btn bg-orange-900" %>
+<% end %>
