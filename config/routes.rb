@@ -46,7 +46,13 @@ Rails.application.routes.draw do
       end
     end
     resources :project_types
-    resources :projects
+    resources :projects do
+      member do
+        get :delete_photo
+        put :track
+        put :un_track
+      end
+    end
     resources :posts
     get "my_posts", to: "posts#my_posts"
     resources :properties
