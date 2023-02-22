@@ -6,10 +6,12 @@ import { application } from "./application"
 
 import Notification from 'stimulus-notification'
 import Flatpickr from 'stimulus-flatpickr'
+import NestedForm from 'stimulus-rails-nested-form'
 import { Alert, Autosave, Dropdown, Modal, Tabs, Popover, Toggle, Slideover } from "tailwindcss-stimulus-components"
 
 application.register('notification', Notification)
 application.register('flatpickr', Flatpickr)
+application.register('nested-form', NestedForm)
 // Register all TailwindCSS Components
 application.register('alert', Alert)
 application.register('autosave', Autosave)

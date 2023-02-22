@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_23_181954) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_24_094304) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -97,6 +97,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_181954) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "decks", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name", null: false
+    t.integer "status", default: 0
+    t.integer "access_type", default: 0
+    t.datetime "reviewed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_decks_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -216,6 +234,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_181954) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.bigint "deck_id", null: false
+    t.integer "proficiency_level", default: 0
+    t.datetime "reviewed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deck_id"], name: "index_questions_on_deck_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.bigint "project_id"
     t.bigint "milestone_id"
@@ -285,6 +312,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_181954) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "decks", "users"
   add_foreign_key "events", "users"
   add_foreign_key "managers", "users"
   add_foreign_key "milestones", "projects"
@@ -295,6 +324,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_181954) do
   add_foreign_key "projects", "project_types"
   add_foreign_key "properties", "properties", column: "building_id"
   add_foreign_key "properties", "property_types"
+  add_foreign_key "questions", "decks"
   add_foreign_key "tasks", "milestones"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users"

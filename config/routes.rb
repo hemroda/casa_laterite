@@ -23,6 +23,9 @@ Rails.application.routes.draw do
 
     resources :accounts
     resources :addresses
+    resources :decks do
+      member { put :reset_questions_proficiency_levels }
+    end
     resources :events do
       member do
         put :discard
@@ -64,6 +67,12 @@ Rails.application.routes.draw do
     get "my_posts", to: "posts#my_posts"
     resources :properties
     resources :property_types
+    resources :questions do
+      member do
+        put :proficiency_level_up
+        put :proficiency_level_down
+      end
+    end
     resources :tasks do
       member do
         put :not_started

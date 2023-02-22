@@ -82,7 +82,7 @@
   <nav>
     <ul>
       <li class="mb-2">
-        <%=  %>
+        <%= %>
         <%= link_to "My Profile", admin_user_path(current_user.id),
                     class: "hover:text-orange-800 #{current_page?(edit_admin_user_path(current_user.id)) || current_page?(admin_user_path(current_user.id)) ? 'text-orange-800' : '' }" %>
       </li>
@@ -91,6 +91,12 @@
         <%= link_to "My Posts", admin_my_posts_path,
                     class: "#{params[:controller] == "admin/posts" ? 'text-orange-800' : '' }" %>
       </li>
+      <li class="border my-3"></li>
+      <li class="mb-2">
+        <%= link_to "Flashcards", admin_decks_path,
+                    class: "#{params[:controller] == "admin/decks" ? 'text-orange-800' : '' }" %>
+      </li>
+      <li class="border my-3"></li>
     </ul>
   </nav>
 
@@ -105,7 +111,7 @@
       </li>
       <li>
         <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "text-red-500",
-            form: { data: { turbo_confirm: 'Are you sure?' } } %>
+                      form: { data: { turbo_confirm: 'Are you sure?' } } %>
       </li>
     </ul>
   </nav>

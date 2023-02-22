@@ -1,0 +1,17 @@
+<div class="nested-form-wrapper-answer bg-slate-500 p-2 mb-2 text-slate-300" data-new-record="<%= f.object.new_record? %>">
+  <div>
+    <%= f.hidden_field :_destroy %>
+    <%= f.input :body, as: :rich_text_area, required: true,
+                label: "<strong>Answer body for question ##{f.object.question_id}</strong>".html_safe,
+                wrapper_html: { class: "mt-2" },
+                label_html: { class: "form-label" },
+                input_html: { class: "basic-field" } %>
+    <small class="mt-2">
+      <button type="button" data-action="nested-form#remove"
+              class="mt-2 text-red-500 hover:bg-red-800 hover:text-white p-1">
+        Remove answer
+      </button>
+    </small>
+  </div>
+</div>
+
