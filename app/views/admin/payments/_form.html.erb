@@ -1,0 +1,22 @@
+<%= simple_form_for [:admin, @payable, object], local: true do |f| %>
+  <div>
+    <div class="flex gap-x-4 mt-4">
+      <%= f.input :name,
+                  wrapper_html: { class: "w-1/2" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input" } %>
+      <%= f.input :amount,
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input" } %>
+      <%= f.input :due_date, as: :string,
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+    </div>
+    <%= f.input :message, as: :rich_text_area,
+                wrapper_html: { class: "mt-4" },
+                label_html: { class: "form-label" },
+                input_html: { class: "basic-input" } %>
+  </div>
+
+  <%= render "admin/shared/form_submit_and_cancel_section", f: f %>
+<% end %>

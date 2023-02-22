@@ -26,6 +26,12 @@ Rails.application.routes.draw do
     resources :decks do
       member { put :reset_questions_proficiency_levels }
     end
+    resources :contributions do
+      resources :payments, only: %i[new create destroy], module: :contributions
+      member do
+        put :validate
+      end
+    end
     resources :events do
       member do
         put :discard
@@ -55,6 +61,14 @@ Rails.application.routes.draw do
         put :deallocate_account_from_property
       end
     end
+    resources :payments, only: %i[index new create destroy edit update] do
+      member do
+        put :validate_invoice
+        put :overdue_payment_reminder
+      end
+    end
+    resources :posts
+    get "my_posts", to: "posts#my_posts"
     resources :project_types
     resources :projects do
       member do
@@ -63,8 +77,6 @@ Rails.application.routes.draw do
         put :un_track
       end
     end
-    resources :posts
-    get "my_posts", to: "posts#my_posts"
     resources :properties
     resources :property_types
     resources :questions do

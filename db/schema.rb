@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_24_094304) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_25_212154) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -106,6 +106,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_24_094304) do
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
+  create_table "contributions", force: :cascade do |t|
+    t.string "name", null: false
+    t.float "amount", default: 0.0, null: false
+    t.text "description"
+    t.integer "contribution_type"
+    t.bigint "account_id"
+    t.string "contributable_type", null: false
+    t.bigint "contributable_id", null: false
+    t.string "validated_by_type"
+    t.bigint "validated_by_id"
+    t.string "cancelled_by_type"
+    t.bigint "cancelled_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["account_id"], name: "index_contributions_on_account_id"
+    t.index ["cancelled_by_type", "cancelled_by_id"], name: "index_contributions_on_cancelled_by"
+    t.index ["contributable_type", "contributable_id"], name: "index_contributions_on_contributable"
+    t.index ["discarded_at"], name: "index_contributions_on_discarded_at"
+    t.index ["validated_by_type", "validated_by_id"], name: "index_contributions_on_validated_by"
+  end
+
   create_table "decks", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name", null: false
@@ -175,6 +197,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_24_094304) do
     t.index ["allocated_by_type", "allocated_by_id"], name: "index_ownerships_on_allocated_by"
     t.index ["deallocated_by_type", "deallocated_by_id"], name: "index_ownerships_on_deallocated_by"
     t.index ["property_id"], name: "index_ownerships_on_property_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.float "amount", default: 0.0, null: false
+    t.string "name", null: false
+    t.text "message"
+    t.integer "status", default: 0
+    t.datetime "due_date"
+    t.string "payable_type", null: false
+    t.bigint "payable_id", null: false
+    t.string "created_by_type", null: false
+    t.bigint "created_by_id", null: false
+    t.string "canceled_by_type"
+    t.bigint "canceled_by_id"
+    t.string "validated_by_type"
+    t.bigint "validated_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["canceled_by_type", "canceled_by_id"], name: "index_payments_on_canceled_by"
+    t.index ["created_by_type", "created_by_id"], name: "index_payments_on_created_by"
+    t.index ["discarded_at"], name: "index_payments_on_discarded_at"
+    t.index ["payable_type", "payable_id"], name: "index_payments_on_payable"
+    t.index ["validated_by_type", "validated_by_id"], name: "index_payments_on_validated_by"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -313,6 +359,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_24_094304) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answers", "questions"
+  add_foreign_key "contributions", "accounts"
   add_foreign_key "decks", "users"
   add_foreign_key "events", "users"
   add_foreign_key "managers", "users"

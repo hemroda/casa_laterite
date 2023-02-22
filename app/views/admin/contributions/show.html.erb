@@ -1,0 +1,63 @@
+<div class="bg-slate-900 text-slate-300 p-8 pt-7 mt-3">
+  <div class="flex justify-between items-center mb-2 text-sm font-medium">
+    <div>
+      <span class="fs-4 me-5"><%= @contribution.name %></span>
+    </div>
+    <div class="flex justify-between gap-x-4">
+      <button type="button">
+        <% if @contribution.contributable_type == "Company" %>
+          <%= link_to "Back to company page", admin_company_path(@contribution.contributable), class: "hover:text-amber-800" %>
+        <% else %>
+          <%= link_to "Back to property page", admin_property_path(@contribution.contributable), class: "hover:text-amber-800" %>
+        <% end %>
+      </button>
+      <%= link_to edit_admin_contribution_path(@contribution.id) do %>
+        <button type="button" class="">Edit</button>
+      <% end %>
+      <%= button_to "Delete", admin_contribution_path(@contribution), :method => "delete", remote: true,
+                    class: "text-red-800",
+                    data: { confirm: "Are you sure you want to delete this contribution?" } %>
+    </div>
+  </div>
+  <div>
+    <p>
+      <span class="mr-4"><%= @contribution.contribution_type.humanize %></span>
+      <span class="mr-4">
+        <b>Amount:</b>
+        <%= number_to_currency(@contribution.amount_or_total_payments / 100, :locale => :fr) %>
+      </span>
+      <span class="me-5">
+        <b>Owner: </b>
+        <%= link_to @contribution.account.full_name, admin_account_path(@contribution.account) %>
+      </span>
+      <% if @contribution.contributable_type == "Property" %>
+        <span class="me-5">
+          <b>Property: </b>
+          <%= link_to @contribution.contributable.name, admin_property_path(@contribution.contributable) %>
+        </span>
+      <% end %>
+      <% if @contribution.contributable_type == "Company" %>
+        <span class="me-5">
+          <b>Company: </b>
+          <%= link_to @contribution.contributable.name, admin_company_path(@contribution.contributable) %>
+        </span>
+      <% end %>
+      <% if @contribution.contributable_type == "Project" %>
+        <span>
+          <b>Project: </b>
+          <%= link_to @contribution.contributable.name, admin_project_path(@contribution.contributable) %>
+        </span>
+      <% end %>
+    </p>
+    <p>Description:</p>
+    <p><%= @contribution.description %></p>
+
+    <hr class="my-4">
+
+    <%= render @payments %>
+
+    <hr class="mt-4">
+
+    <%= render template: "admin/payments/new" %>
+  </div>
+</div>

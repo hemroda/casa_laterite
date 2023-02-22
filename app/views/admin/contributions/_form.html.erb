@@ -1,0 +1,36 @@
+<div class="bg-slate-900 p-8 pt-7 mt-3">
+  <%= simple_form_for [:admin, object], local: true do |f| %>
+    <div class="mt-2">
+      <%= f.hidden_field :contributable_id, value: contributable.id  %>
+      <%= f.hidden_field :contributable_type, value: contributable.class  %>
+
+      <%= f.input :name, placeholder: "New contribution name", label: false,
+
+                     input_html: { class: "basic-input" } %>
+      <div class="flex gap-x-4">
+        <%= f.input :amount,
+                       wrapper_html: { class: "mt-3" },
+                       label_html: { class: "form-label" },
+                       input_html: { class: "basic-input" } %>
+        <%= f.input :account_id, as: :select,
+                       collection: contributable.accounts.collect { |e| [e.full_name, e.id] },
+                       include_blank: false, prompt: "Please select an Account",
+                       wrapper_html: { class: "mt-3" },
+                       label_html: { class: "form-label" },
+                       input_html: { class: "select-input" } %>
+        <%= f.input :contribution_type, as: :select,
+                       collection: Contribution.contribution_types.keys.collect { |ct| [ct.humanize, ct] },
+                       include_blank: false, prompt: "Please select a contribution type",
+                       wrapper_html: { class: "mt-3" },
+                       label_html: { class: "form-label" },
+                       input_html: { class: "select-input" } %>
+      </div>
+      <%= f.input :description, as: :rich_text_area,
+                     wrapper_html: { class: "mt-4" },
+                     label_html: { class: "form-label" },
+                     input_html: { class: "basic-input" } %>
+    </div>
+
+    <%= render "admin/shared/form_submit_and_cancel_section", f: f %>
+  <% end %>
+</div>
