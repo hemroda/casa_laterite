@@ -4,12 +4,12 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller"
 import Notification from 'stimulus-notification'
+import Flatpickr from 'stimulus-flatpickr'
 import { Alert, Autosave, Dropdown, Modal, Tabs, Popover, Toggle, Slideover } from "tailwindcss-stimulus-components"
 
-application.register("hello", HelloController)
 application.register('notification', Notification)
+application.register('flatpickr', Flatpickr)
 // Register all TailwindCSS Components
 application.register('alert', Alert)
 application.register('autosave', Autosave)
