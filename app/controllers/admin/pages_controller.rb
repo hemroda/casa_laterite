@@ -7,7 +7,8 @@ class Admin::PagesController < ApplicationController
 
   def dashboard
     @posts = Post.users_posts.includes(:user).order(created_at: :desc)
-    @projects = Project.for_user_personal(current_user).tracked
+    @personal_projects = Project.for_user_personal(current_user).tracked
+    @corporate_projects = Project.includes([:milestones, :tasks]).tracked
   end
 
   def system

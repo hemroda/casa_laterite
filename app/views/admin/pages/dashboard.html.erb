@@ -71,22 +71,26 @@
           <div data-controller="tabs" data-tabs-active-tab="-mb-px border-l border-t border-r rounded-t">
             <!-- Tab navigation -->
             <ul class="list-reset flex border-b">
-              <% @projects.each do |project| %>
-                <li class="-mb-px mr-1" data-tabs-target="tab" data-action="click->tabs#change">
-                  <a class="bg-slate-800 inline-block py-2 px-4 text-slate-300 hover:text-orange-800 font-semibold no-underline" href="#">
-                    <%= project.name %>
-                  </a>
-                </li>
+              <% [@corporate_projects, @personal_projects].each do |projects| %>
+                <% projects.each do |project| %>
+                  <li class="-mb-px mr-1" data-tabs-target="tab" data-action="click->tabs#change">
+                    <a class="bg-slate-800 inline-block py-2 px-4 text-slate-300 hover:text-orange-800 font-semibold no-underline" href="#">
+                      <%= project.name %>
+                    </a>
+                  </li>
+                <% end %>
               <% end %>
             </ul>
-            <% @projects.each do |project| %>
-              <!-- Tab contents -->
-              <div class="hidden py-4 px-4 border-l border-b border-r" data-tabs-target="panel">
-                <div class="mx-auto">
-                  <%= render partial: "admin/projects/sections/tasks", locals: { project: project } %>
+            <% [@corporate_projects, @personal_projects].each do |projects| %>
+              <% projects.each do |project| %>
+                <!-- Tab contents -->
+                <div class="hidden py-4 px-4 border-l border-b border-r" data-tabs-target="panel">
+                  <div class="mx-auto">
+                    <%= render partial: "admin/projects/sections/tasks", locals: { project: project } %>
+                  </div>
+                  <p class="mt-3"><%= link_to "See Project page", admin_project_path(project), class: "text-amber-800 hover:bg-white" %></p>
                 </div>
-                <p class="mt-3"><%= link_to "See Project page", admin_project_path(project), class: "text-amber-800 hover:bg-white" %></p>
-              </div>
+              <% end %>
             <% end %>
           </div>
         </div>
