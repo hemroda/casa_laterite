@@ -36,7 +36,7 @@ module Admin
 
     def update
       if @payment.update(payment_params)
-        redirect_to admin_payment_path(@payment), notice: "The payment has been updated."
+        redirect_back fallback_location: admin_payments_path, notice: "The payment has been updated."
       else
         render :edit, status: :unprocessable_entity
       end

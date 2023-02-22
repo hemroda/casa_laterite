@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_25_212154) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_25_223728) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -181,6 +181,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_25_212154) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_milestones_on_project_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "noticeable_type", null: false
+    t.bigint "noticeable_id", null: false
+    t.string "sent_by_type"
+    t.bigint "sent_by_id"
+    t.integer "notification_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["noticeable_type", "noticeable_id"], name: "index_notifications_on_noticeable"
+    t.index ["sent_by_type", "sent_by_id"], name: "index_notifications_on_sent_by"
   end
 
   create_table "ownerships", force: :cascade do |t|

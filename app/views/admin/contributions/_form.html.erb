@@ -6,12 +6,12 @@
 
       <%= f.input :name, placeholder: "New contribution name", label: false,
 
-                     input_html: { class: "basic-input" } %>
+                     input_html: { class: "basic-field" } %>
       <div class="flex gap-x-4">
         <%= f.input :amount,
                        wrapper_html: { class: "mt-3" },
                        label_html: { class: "form-label" },
-                       input_html: { class: "basic-input" } %>
+                       input_html: { class: "basic-field" } %>
         <%= f.input :account_id, as: :select,
                        collection: contributable.accounts.collect { |e| [e.full_name, e.id] },
                        include_blank: false, prompt: "Please select an Account",
@@ -28,9 +28,15 @@
       <%= f.input :description, as: :rich_text_area,
                      wrapper_html: { class: "mt-4" },
                      label_html: { class: "form-label" },
-                     input_html: { class: "basic-input" } %>
+                     input_html: { class: "basic-field" } %>
     </div>
 
-    <%= render "admin/shared/form_submit_and_cancel_section", f: f %>
+        <div class="w-full flex justify-between items-center flex-wrap mt-6">
+      <%= f.button :submit, class: "text-sm md:text-base mt-4 py-1 px-2 transition duration-300 border text-white
+                                hover:text-orange-800 bg-orange-900 hover:bg-white cursor-pointer" %>
+      <%= link_to "Close", "#",
+            class: "close-modal-btn",
+            "data-action": "click->modal#close" if action_name == "dashboard" %>
+    </div>
   <% end %>
 </div>
