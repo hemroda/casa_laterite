@@ -18,7 +18,7 @@
                       include_blank: true, prompt: "Select a milestone",
                       wrapper_html: { class: "w-full" },
                       label_html: { class: "form-label" },
-                      input_html: { class: "select-field" } %>
+                      input_html: { class: "select-field w-full" } %>
         <% end %>
       <% end %>
       <%= f.input :status, as: :select,
@@ -38,7 +38,7 @@
                   label_html: { class: "form-label" },
                   input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
       <%= f.input :completed_at, as: :string,
-                  wrapper_html: { class: "w-26 mt-4" },
+                  wrapper_html: { class: "w-26" },
                   label_html: { class: "form-label" },
                   input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
     </div>

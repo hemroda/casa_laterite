@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_22_170317) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_23_120135) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -217,6 +217,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_22_170317) do
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
+  create_table "timers", force: :cascade do |t|
+    t.bigint "task_id", null: false
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_timers_on_task_id"
+  end
+
   create_table "todo_items", force: :cascade do |t|
     t.bigint "task_id"
     t.string "title", null: false
@@ -272,5 +281,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_22_170317) do
   add_foreign_key "tasks", "milestones"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users"
+  add_foreign_key "timers", "tasks"
   add_foreign_key "todo_items", "tasks"
 end
