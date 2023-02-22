@@ -40,7 +40,7 @@
       <!-- Tab contents -->
       <div class="hidden py-4 px-4 border-l border-b border-r" data-tabs-target="panel">
         <ul class="mx-auto">
-          <% project.current_milestone_tasks.each do |task| %>
+          <% project.current_milestone_tasks.includes([:todo_items]).each do |task| %>
               <%= render partial: "admin/projects/sections/task_list", locals: { task: task } %>
               <!-- Todo Items -->
               <%= render partial: "admin/projects/sections/todo_items", locals: { task: task } %>
@@ -49,7 +49,7 @@
       </div>
       <div class="hidden py-4 px-4 border-l border-b border-r" data-tabs-target="panel">
         <ul class="mx-auto">
-          <% project.tasks_with_no_milestone.each do |task| %>
+          <% project.tasks_with_no_milestone.includes([:todo_items]).each do |task| %>
               <%= render partial: "admin/projects/sections/task_list", locals: { task: task } %>
               <!-- Todo Items -->
               <%= render partial: "admin/projects/sections/todo_items", locals: { task: task } %>
