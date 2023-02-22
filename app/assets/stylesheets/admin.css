@@ -17,6 +17,11 @@
        hover:bg-white hover:text-orange-800 cursor-pointer
 }
 
+.close-modal-btn {
+  @apply text-sm md:text-base mt-4 py-1 px-2 transition duration-300 border text-red-700 bg-slate-500
+  hover:bg-white hover:text-orange-800 cursor-pointer
+}
+
 .error-message {
   @apply text-sm font-medium text-red-700
 }

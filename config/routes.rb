@@ -23,6 +23,12 @@ Rails.application.routes.draw do
 
     resources :accounts
     resources :addresses
+    resources :events do
+      member do
+        put :discard
+        put :undiscard
+      end
+    end
     resources :managers, only: %i[create] do
       member do
         put :unassign_manager

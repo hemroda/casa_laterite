@@ -15,6 +15,9 @@ gem "cssbundling-rails"
 # Flexible authentication solution for Rails with Warden (https://github.com/heartcombo/devise)
 gem "devise", "~> 4.8.1"
 
+# ActiveRecord soft-deletes done right (https://github.com/jhawthorn/discard)
+gem "discard", "~> 1.2.1"
+
 # Rails View Helpers for Heroicons. (https://github.com/bharget/heroicon)
 gem "heroicon", "~> 1.0.0"
 

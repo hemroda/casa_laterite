@@ -1,0 +1,25 @@
+<% old_event = event.old_event %>
+<div class="w-72 group flex justify-between items-center mb-4 p-2 hover:cursor-pointer rounded-lg
+            <%= old_event ? '' : 'bg-slate-900' %>" style="border: 1px solid <%= old_event ? 'gray' : event.color %>;">
+  <div>
+    <%= link_to admin_event_path(event), class: "#{old_event ? 'line-through' : '' }" do %>
+      <%= event.title %>
+      <p class="text-xs">
+        <%= event.start_time.strftime("%B %d, %Y - %H:%M") %>
+        <%= event.end_time&.strftime(" - %H:%M") %>
+      </p>
+    <% end %>
+  </div>
+  <div class="text-sm font-bold text-orange-800  hover:text-white">
+    <%= seconds_to_str(event.duration) %>
+  </div>
+  <div>
+    <%= button_to discard_admin_event_path(event), method: :put, class: "invisible group-hover:visible" do %>
+      <%= heroicon "eye-slash", options: { class: "w-4 text-gray-100", disable_default_class: true } %>
+    <% end %>
+    <%= button_to admin_event_path(event), method: :delete, class: "text-red-700 invisible group-hover:visible",
+                                             form: { data: { turbo_confirm: "Do you want to delete this event?" } } do %>
+      <%= heroicon "trash", options: { class: "w-4 text-red-900 hover:text-red-500", disable_default_class: true } %>
+    <% end %>
+  </div>
+</div>

@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :projects, -> { order(created_at: :desc) }, as: :projectable, dependent: :destroy, inverse_of: :projectable
   has_many :tasks, dependent: :destroy
+  has_many :events, dependent: :destroy
 
   validates :email, uniqueness: true, presence: true
   validates :first_name, :last_name, presence: true

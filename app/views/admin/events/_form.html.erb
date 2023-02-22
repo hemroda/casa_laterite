@@ -1,0 +1,52 @@
+<div class="bg-slate-900 p-2 md:p-8 mb-4">
+  <%= simple_form_for [:admin, object], local: true do |f| %>
+
+    <%= render "admin/shared/form_errors", object: object %>
+
+    <div class="modal-body">
+      <%= f.hidden_field :user_id, value: current_user.id %>
+
+      <%= f.input :title,
+                  wrapper_html: { class: "w-100" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-field w-full" } %>
+      <div class="md:flex gap-x-4 mt-2">
+        <%= f.input :start_time, as: :string, placeholder: "YEAR-MM-DD HH:MM:SS",
+                    wrapper_html: { class: "mt-2" },
+                    label_html: { class: "form-label me-2" },
+                    input_html: { class: "basic-field", data: { controller: "flatpickr", flatpickr_enable_time: true } } %>
+        <%= f.input :end_time, as: :string, placeholder: "YEAR-MM-DD HH:MM:SS",
+                    wrapper_html: { class: "mt-2" },
+                    label_html: { class: "form-label me-2" },
+                    input_html: { class: "basic-field",
+                      data: { controller: "flatpickr", flatpickr_enable_time: true } } %>
+        <%= f.input :event_type, as: :select,
+                    collection: Event.event_types.keys.collect { |e| [e.humanize, e] },
+                    include_blank: false, prompt: "Please select a Event type",
+                    wrapper_html: { class: "mt-2 w-44" },
+                    label_html: { class: "form-label" },
+                    input_html: { class: "select-field" } %>
+        <%= f.input :color, as: :color, value: "#ff0000",
+                    wrapper_html: { class: "mt-2 w-44" },
+                    label_html: { class: "form-label" },
+                    input_html: { class: "basic-field" } %>
+      </div>
+      <%= f.input :location,
+                  wrapper_html: { class: "w-100 mt-4" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-field w-full" } %>
+      <%= f.input :description, as: :rich_text_area,
+                  wrapper_html: { class: "mt-2" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-field" } %>
+    </div>
+
+    <div class="w-full flex justify-between items-center flex-wrap mt-6">
+      <%= f.button :submit, class: "text-sm md:text-base mt-4 py-1 px-2 transition duration-300 border text-white
+                                hover:text-orange-800 bg-orange-900 hover:bg-white cursor-pointer" %>
+      <%= link_to "Close", "#",
+            class: "close-modal-btn",
+            "data-action": "click->modal#close" if action_name == "dashboard" %>
+    </div>
+  <% end %>
+</div>

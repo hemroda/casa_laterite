@@ -1,0 +1,53 @@
+<div>
+  <div class="md:flex justify-between items-center mt-2 p-3 bg-slate-900">
+    <div><h2 class="text-slate-300 font-bold text-2xl">Events</h2></div>
+    <div><%#= render partial: "admin/shared/search_form" %></div>
+    <div>
+      <%#= render(::Atoms::Button::ButtonComponent.new(label: "+ New Event", href: new_admin_event_path, size: "lg", style: "primary")) %>
+    </div>
+  </div>
+  <table class="w-full table-auto text-slate-300 bg-slate-900 mt-5 px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+    <thead class="border-b border-slate-300">
+    <tr class="text-left text-base font-medium tracking-tight">
+      <th class="p-3">Title</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>Duration</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @events.each do |event| %>
+    <tr class="text-sm">
+      <td class="p-3">
+        <%= turbo_frame_tag dom_id(event), class: "w-full max-w-xs" do %>
+          <%= link_to edit_admin_event_path(event), class: "hover:text-orange-800" do %>
+            <%= event.title %>
+          <% end %>
+        <% end %>
+      </td>
+      <td><%= event.start_time.strftime("%B %d, %Y - %H:%M") %></td>
+      <td><%= event.end_time&.strftime("%B %d, %Y - %H:%M") %></td>
+      <td><%= seconds_to_str(event.duration) %></td>
+      <td class="flex justify-end pt-3 pr-2">
+        <% if event.discarded? %>
+          <%= button_to undiscard_admin_event_path(event), method: :put, class: "mr-1" do %>
+            <%= heroicon "arrow-uturn-left", options: { class: "w-4 text-blue-600 hover:text-blue-300",
+                                          disable_default_class: true } %>
+          <% end %>
+        <% end %>
+        <%= button_to admin_event_path(event), method: :delete, class: "text-red-700",
+                                             form: { data: { turbo_confirm: "Do you want to delete this event?" } } do %>
+          <%= heroicon "trash", options: { class: "w-4 text-red-900 hover:text-red-500", disable_default_class: true } %>
+        <% end %>
+      </td>
+
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <!-- Pagy -->
+  <div class="pagy mt-2">
+    <%== pagy_nav(@pagy) %>
+  </div>
+</div>

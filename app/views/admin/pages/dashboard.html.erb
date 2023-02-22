@@ -9,8 +9,8 @@
   <div class="flex-col md:flex md:flex-row">
     <!-- POSTS -->
     <div class="bg-slate-800 px-2 py-2 ring-1 ring-slate-900/5 shadow-xl">
-      <div class="flex justify-center mt-6 max-w-2xl">
-        <div class="max-w-2xl">
+      <div class="flex justify-center mt-6 max-w-4xl">
+        <div class="max-w-4xl">
           <div>
             <%= simple_form_for [:admin, Post.new],
                                 html: {
@@ -61,37 +61,79 @@
         </div>
       </div>
     </div>
-    <!-- Tracked Projects -->
-    <div class="w-full bg-slate-800 px-2 py-2 ring-1 ring-slate-900/5 shadow-xl">
-      <div class="w-full bg-slate-900 text-slate-300 mt-3 px-4 pb-4">
-        <div class="flex justify-between items-center mb-2 text-sm font-medium">
-          <h3 class="pt-2 pl-2">Projects</h3>
-        </div>
-        <div class="bg-slate-800 px-3 py-3 ring-1 ring-slate-900/5 shadow-xl">
-          <div data-controller="tabs" data-tabs-active-tab="-mb-px border-l border-t border-r rounded-t">
-            <!-- Tab navigation -->
-            <ul class="list-reset flex border-b">
-              <% [@corporate_projects, @personal_projects].each do |projects| %>
-                <% projects.each do |project| %>
-                  <li class="-mb-px mr-1" data-tabs-target="tab" data-action="click->tabs#change">
-                    <a class="bg-slate-800 inline-block py-2 px-4 text-slate-300 hover:text-orange-800 font-semibold no-underline" href="#">
-                      <%= project.name %>
-                    </a>
-                  </li>
-                <% end %>
+    <!-- CALENDAR & Tracked Projects -->
+    <div>
+      <!-- CALENDAR -->
+      <div class="w-full bg-slate-800 px-2 py-2 ring-1 ring-slate-900/5 shadow-xl">
+        <div class="w-full bg-slate-900 text-slate-300 mt-3 px-4 pb-4">
+          <div class="flex justify-between items-center mb-2 text-sm font-medium">
+            <h3 class="pt-2 pl-2">Calendar
+              <span class="text-xs italic hover:bg-amber-800"><%= link_to "See full historic", admin_events_path %></span>
+            </h3>
+            <div class="pt-2" data-controller="modal" data-modal-allow-background-close="false">
+              <!-- Button trigger modal -->
+              <button type="button" data-action="click->modal#open">
+                <%= link_to "+ Add an event", "#",
+                            class: "text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                        border-orange-800 hover:text-orange-800 hover:bg-white" %>
+              </button>
+
+              <!-- Modal Container -->
+              <div data-modal-target="container"
+                   data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+                   class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center"
+                   style="z-index: 9999;">
+                <!-- Modal Inner Container -->
+                <div class="max-h-screen w-full max-w-fit relative">
+                  <!-- Modal Card -->
+                  <div class="m-1 bg-slate-800 shadow">
+                    <%= render "admin/events/form", object: Event.new %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-slate-800 p-2 ring-1 ring-slate-900/5 shadow-xl">
+            <ul class="flex flex-wrap gap-x-4 max-h-72 overflow-auto">
+              <% @events.order(:start_time).each do |event| %>
+                <%= render partial: "admin/events/event", locals: { event: event } %>
               <% end %>
             </ul>
-            <% [@corporate_projects, @personal_projects].each do |projects| %>
-              <% projects.each do |project| %>
-                <!-- Tab contents -->
-                <div class="hidden py-4 px-4 border-l border-b border-r" data-tabs-target="panel">
-                  <div class="mx-auto">
-                    <%= render partial: "admin/projects/sections/tasks", locals: { project: project } %>
+          </div>
+        </div>
+      </div>
+      <!-- Tracked Projects -->
+      <div class="w-full bg-slate-800 px-2 py-2 ring-1 ring-slate-900/5 shadow-xl">
+        <div class="w-full bg-slate-900 text-slate-300 mt-3 px-4 pb-4">
+          <div class="flex justify-between items-center mb-2 text-sm font-medium">
+            <h3 class="pt-2 pl-2">Projects</h3>
+          </div>
+          <div class="bg-slate-800 px-3 py-3 ring-1 ring-slate-900/5 shadow-xl">
+            <div data-controller="tabs" data-tabs-active-tab="-mb-px border-l border-t border-r rounded-t">
+              <!-- Tab navigation -->
+              <ul class="list-reset flex border-b">
+                <% [@corporate_projects, @personal_projects].each do |projects| %>
+                  <% projects.each do |project| %>
+                    <li class="-mb-px mr-1" data-tabs-target="tab" data-action="click->tabs#change">
+                      <a class="bg-slate-800 inline-block py-2 px-4 text-slate-300 hover:text-orange-800 font-semibold no-underline" href="#">
+                        <%= project.name %>
+                      </a>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>
+              <% [@corporate_projects, @personal_projects].each do |projects| %>
+                <% projects.each do |project| %>
+                  <!-- Tab contents -->
+                  <div class="hidden py-4 px-4 border-l border-b border-r" data-tabs-target="panel">
+                    <div class="mx-auto">
+                      <%= render partial: "admin/projects/sections/tasks", locals: { project: project } %>
+                    </div>
+                    <p class="mt-3"><%= link_to "See Project page", admin_project_path(project), class: "text-amber-800 hover:bg-white" %></p>
                   </div>
-                  <p class="mt-3"><%= link_to "See Project page", admin_project_path(project), class: "text-amber-800 hover:bg-white" %></p>
-                </div>
+                <% end %>
               <% end %>
-            <% end %>
+            </div>
           </div>
         </div>
       </div>

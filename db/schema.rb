@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_23_120135) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_23_181954) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -97,6 +97,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_120135) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "title", null: false
+    t.datetime "start_time", null: false
+    t.datetime "end_time"
+    t.string "location"
+    t.integer "event_type", default: 0
+    t.string "color"
+    t.boolean "shared"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_events_on_discarded_at"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "managers", force: :cascade do |t|
@@ -269,6 +285,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_120135) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "events", "users"
   add_foreign_key "managers", "users"
   add_foreign_key "milestones", "projects"
   add_foreign_key "ownerships", "accounts"
