@@ -1,3 +1,5 @@
+<% query_includes = current_page?(admin_root_path) ? [:todo_items, :timers] : [:todo_items, :project, :timers] %>
+
 <div class="bg-slate-900 text-slate-300 p-2">
   <div class="flex justify-between items-center mb-2 text-sm font-medium">
     <h3>Tasks</h3>
@@ -41,7 +43,7 @@
       <div class="hidden py-4 px-4 border-l border-b border-r" data-tabs-target="panel">
         <ul class="mx-auto">
           <% unless project.current_milestone_tasks.empty? %>
-            <% project.current_milestone_tasks.includes([:todo_items, :timers]).each do |task| %>
+            <% project.current_milestone_tasks.includes(query_includes).each do |task| %>
               <%= render partial: "admin/projects/sections/task_list", locals: { task: task } %>
               <!-- Todo Items -->
               <%= render partial: "admin/projects/sections/todo_items", locals: { task: task } %>
@@ -52,7 +54,7 @@
       <div class="hidden py-4 px-4 border-l border-b border-r" data-tabs-target="panel">
         <ul class="mx-auto">
           <% unless project.tasks_with_no_milestone.empty? %>
-            <% project.tasks_with_no_milestone.includes([:todo_items, :timers]).each do |task| %>
+            <% project.tasks_with_no_milestone.includes(query_includes).each do |task| %>
               <%= render partial: "admin/projects/sections/task_list", locals: { task: task } %>
               <!-- Todo Items -->
               <%= render partial: "admin/projects/sections/todo_items", locals: { task: task } %>
