@@ -1,0 +1,15 @@
+<article class="article flex-col max-w-5xl mt-10">
+  <div class="mb-6">
+    <h1 class="text-gray-900"><%= @article.title %></h1>
+    <p class="mt-2 text-xs">
+      <%= @article.published_at&.strftime("%B %d, %Y") %>
+      -
+      <% @article.article_categories.each_with_index do |article_category, category_index| %>
+        <%= "<span class='p-0.5 bg-blue-100'>#{article_category.name}</span>".html_safe %>
+      <% end %>
+    </p>
+  </div>
+  <div>
+    <%= markdown(@article.content) %>
+  </div>
+</article>

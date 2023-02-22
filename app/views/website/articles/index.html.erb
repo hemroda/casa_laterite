@@ -1,0 +1,22 @@
+<div class="articles mt-32 mb-44 text-gray-800 p-2 md:p-8 md:pt-7">
+  <% @articles.each_with_index do |article, index| %>
+    <article class="article mt-6 mb-6">
+      <header>
+        <h2 class="mb-2 text-xl md:text-2xl font-bold hover:underline">
+          <%= link_to article.title, website_article_path(article) %>
+        </h2>
+      </header>
+      <footer>
+        <p class="mt-2 text-xs">
+          <%= article.published_at&.strftime("%B %d, %Y") %>
+          -
+          <% article.article_categories.each_with_index do |article_category, category_index| %>
+            <%= "<span class='p-0.5 bg-blue-100'>#{article_category.name}</span>".html_safe %>
+            <%= "," unless category_index + 1 == article.article_categories.length %>
+          <% end %>
+        </p>
+      </footer>
+    </article>
+    <%= "<div class='py-4'><hr></div>".html_safe unless index + 1 == @articles.length %>
+  <% end %>
+</div>

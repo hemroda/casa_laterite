@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
     resources :accounts
     resources :addresses
+    resources :articles
+    resources :article_categories
     resources :decks do
       member { put :reset_questions_proficiency_levels }
     end

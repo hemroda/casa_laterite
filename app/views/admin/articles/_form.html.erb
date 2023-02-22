@@ -1,0 +1,44 @@
+<div class="bg-slate-900 p-8 pt-7 mt-3">
+  <%= simple_form_for [:admin, @article], html: { class: "" }, local: true do |f| %>
+
+    <%= render "admin/shared/form_errors", object: @article %>
+
+    <div class="flex mt-3 w-full">
+      <%= f.input :title, label: false, placeholder: "Article's title",
+                  wrapper_html: { class: "mr-3 w-full" },
+                  input_html: { class: "basic-input" } %>
+    </div>
+    <div class="flex mt-4">
+      <%= f.input :user_id, as: :select,
+                  collection: User.all.collect { |u| [u.full_name, u.id] },
+                  include_blank: false, prompt: "Select author(s)",
+                  wrapper_html: { class: "flex flex-col mr-4" },
+                  error_html: { class: "error-input" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "select-input" } %>
+      <%= f.input :article_category_ids, as: :select,
+                  collection: ArticleCategory.all.collect { |pc| [pc.name, pc.id] },
+                  include_blank: false, prompt: "Select post categories",
+                  wrapper_html: { class: "flex flex-col mr-4" },
+                  error_html: { class: "error-input" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "select-input", multiple: true } %>
+      <%= f.input :status, as: :select,
+                  collection: Article.statuses.keys.collect { |s| [s.humanize, s] },
+                  include_blank: false, prompt: 'Please select a status',
+                  wrapper_html: { class: "mr-4" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "select-input" } %>
+    </div>
+    <div class="flex mt-3">
+      <%= f.input :content, label: false,
+                  wrapper_html: { class: "mt-5 w-full" },
+                  error_html: { class: "error-input" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input h-auto", style: "width: 100%; height: auto;", rows: 25, maxlength: 5000, } %>
+    </div>
+
+      <%= f.button :submit, class: "text-sm md:text-base mt-4 py-1 px-2 transition duration-300 border text-white
+                                hover:text-orange-800 bg-orange-900 hover:bg-white cursor-pointer" %>
+  <% end %>
+</div>

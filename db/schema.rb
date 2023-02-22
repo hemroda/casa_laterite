@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_25_223728) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_26_144455) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -104,6 +104,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_25_223728) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "article_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "article_categories_articles", id: false, force: :cascade do |t|
+    t.bigint "article_category_id", null: false
+    t.bigint "article_id", null: false
+    t.index ["article_category_id", "article_id"], name: "article_category_for_article_index"
+    t.index ["article_id", "article_category_id"], name: "article_for_article_category_index"
+  end
+
+  create_table "articles", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "title", null: false
+    t.text "content", null: false
+    t.datetime "published_at"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
   create_table "contributions", force: :cascade do |t|
@@ -371,6 +395,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_25_223728) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answers", "questions"
+  add_foreign_key "articles", "users"
   add_foreign_key "contributions", "accounts"
   add_foreign_key "decks", "users"
   add_foreign_key "events", "users"

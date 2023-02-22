@@ -45,6 +45,9 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.2"
 # Object-based searching for Active Record. (https://github.com/activerecord-hackery/ransack)
 gem "ransack", "~> 3.2.1"
 
+# Markdown that smells nice (https://github.com/vmg/redcarpet)
+gem "redcarpet", "~> 3.6.0"
+
 # A Ruby client library for Redis (https://github.com/redis/redis-rb)
 gem "redis", "~> 4.0"
 
