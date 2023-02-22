@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     end
     resources :milestones do
       member do
+        put :not_started
         put :start
         put :complete
         put :reactivate

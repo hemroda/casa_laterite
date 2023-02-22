@@ -17,7 +17,8 @@
           </div>
         </span>
         <span>
-          <i class="fa-solid fa-chevron-down pt-2 hover:text-amber-800"></i>
+          <%= heroicon "chevron-down", options: { class: "w-6 hover:text-orange-800 cursor-pointer",
+                                                  disable_default_class: true } %>
         </span>
       </button>
     </div>
@@ -32,11 +33,13 @@
               <%= button_to "#{todo_item.completed? ? reactivate_admin_todo_item_path(todo_item) : complete_admin_todo_item_path(todo_item)}",
                             :method => :put, class: "#{ todo_item.completed? ? '' : ''} mr-2",
                             data: { turbo_frame: "_top" } do %>
-                <i class="fa-solid <%= todo_item.completed? ? 'fa-repeat' : 'fa-circle-check' %>"></i>
+                <%= heroicon "#{todo_item.completed? ? 'arrow-path' : 'circle-check'}", options: { class: "w-4 text-red-600 hover:text-blue-300",
+                                                 disable_default_class: true } %>
               <% end %>
               <%= button_to admin_todo_item_path(todo_item), :method => :delete, remote: true, class: "text-red-700",
                             data: { turbo_frame: "_top", confirm: "Are sure you want to delete this todo item?" } do %>
-                <i class="fa-solid fa-trash-can"></i>
+                <%= heroicon "trash", options: { class: "w-4 text-red-600 hover:text-blue-300",
+                                                 disable_default_class: true } %>
               <% end %>
               </span>
           </li>

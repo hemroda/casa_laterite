@@ -4,7 +4,7 @@ class Admin::MilestonesController < ApplicationController
   layout "admin"
 
   before_action :authenticate_user!
-  before_action :set_milestone, only: %i[show edit update destroy complete reactivate archive start]
+  before_action :set_milestone, only: %i[show edit update destroy complete reactivate archive start not_started]
 
   def index
     @milestones = Milestone.all
@@ -41,6 +41,16 @@ class Admin::MilestonesController < ApplicationController
       redirect_back fallback_location: admin_project_path(@milestone.project), notice: "The milestone has been deleted."
     else
       redirect_back fallback_location: admin_project_path(@milestone.project), alert: "The milestone has NOT been deleted."
+    end
+  end
+
+  def not_started
+    @milestone.not_started!
+    @milestone.start_date = nil
+    if @milestone.save
+      redirect_back fallback_location: admin_project_path(@milestone.project), notice: "The task was set to not started!"
+    else
+      redirect_back fallback_location: admin_project_path(@milestone.project), alert: "The task was not set to not started!"
     end
   end
 

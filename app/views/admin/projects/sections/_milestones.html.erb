@@ -40,33 +40,52 @@
             <div class="w-1/4 flex justify-between">
               <!-- Status -->
               <%= content_tag :span do %>
-                <%=  milestone.status.humanize %>
+                <%= milestone.status.humanize %>
               <% end %>
               <!-- Actions -->
               <div class="flex justify-between">
                 <% if milestone.not_started? %>
-                  <%= button_to start_admin_milestone_path(milestone), :method => 'put', remote: true, class: "", data: { turbo_frame: "_top" } do %>
-                    <i class="fa-solid fa-play"></i>
+                  <%= button_to start_admin_milestone_path(milestone), :method => 'put', remote: true, class: "",
+                                data: { turbo_frame: "_top" } do %>
+                    <%= heroicon "play", options: { class: "w-4 text-blue-600 hover:text-blue-300",
+                                                    disable_default_class: true } %>
                   <% end %>
                 <% end %>
                 <% if milestone.in_progress? %>
-                  <%= button_to complete_admin_milestone_path(milestone), :method => 'put', remote: true, class: "", data: { turbo_frame: "_top" } do %>
-                    <i class="fa-solid fa-circle-check"></i>
+                  <%= button_to not_started_admin_milestone_path(milestone), :method => 'put', remote: true, class: "mr-2",
+                                data: { turbo_frame: "_top" } do %>
+                    <%= heroicon "arrow-path", options: { class: "w-4 text-blue-600 hover:text-blue-300",
+                                                            disable_default_class: true } %>
+                  <% end %>
+                  <%= button_to complete_admin_milestone_path(milestone), :method => 'put', remote: true, class: "",
+                                data: { turbo_frame: "_top" } do %>
+                    <%= heroicon "check-circle", options: { class: "w-4 text-blue-600 hover:text-blue-300",
+                                                            disable_default_class: true } %>
                   <% end %>
                 <% end %>
                 <% if milestone.completed? %>
-                  <%= button_to "<i class='fa-solid fa-repeat'></i>".html_safe, reactivate_admin_milestone_path(milestone),
-                                :method => 'put', remote: true, class: "mr-2", data: { turbo_frame: "_top" } %>
-                  <%= button_to "<i class='fa-solid fa-box-archive'></i>".html_safe, archive_admin_milestone_path(milestone),
-                                :method => 'put', remote: true, class: "", data: { turbo_frame: "_top" } %>
+                  <%= button_to reactivate_admin_milestone_path(milestone),
+                                :method => 'put', remote: true, class: "mr-2", data: { turbo_frame: "_top" } do %>
+                    <%= heroicon "arrow-path", options: { class: "w-4 text-blue-600 hover:text-blue-300",
+                                                          disable_default_class: true } %>
+                  <% end %>
+                  <%= button_to archive_admin_milestone_path(milestone),
+                                :method => 'put', remote: true, class: "", data: { turbo_frame: "_top" } do %>
+                    <%= heroicon "archive-box", options: { class: "w-4 text-blue-600 hover:text-blue-300",
+                                                           disable_default_class: true } %>
+                  <% end %>
                 <% end %>
                 <% if milestone.archived? %>
                   <%= button_to milestone.completed? ? reactivate_admin_milestone_path(milestone) : complete_admin_milestone_path(milestone),
                                 :method => 'put', remote: true, class: "", data: { turbo_frame: "_top" } do %>
-                    <i class="mr-2 fa-solid <%= milestone.completed? ? 'fa-arrows-repeat' : "#{milestone.archived? ? 'fa-repeat' : 'fa-circle-check'}" %>"></i>
+                    <%= heroicon "arrow-path", options: { class: "w-4 text-blue-600 hover:text-blue-300",
+                                                          disable_default_class: true } %>
                   <% end %>
-                  <%= button_to "<i class='fa-solid fa-trash-can'></i>".html_safe, admin_milestone_path(milestone),
-                                :method => :delete, remote: true, class: "text-red-700", data: { confirm: "Are you sure?", turbo_frame: "_top" } %>
+                  <%= button_to admin_milestone_path(milestone),
+                                :method => :delete, remote: true, class: "text-red-700", data: { confirm: "Are you sure?", turbo_frame: "_top" } do %>
+                    <%= heroicon "trash", options: { class: "w-4 text-red-600 hover:text-blue-300",
+                                                           disable_default_class: true } %>
+                  <% end %>
                 <% end %>
               </div>
             </div>

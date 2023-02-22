@@ -30,41 +30,56 @@
         <% end %>
       </div>
       <div class="w-28 pr-4 font-bold hover:text-white text-amber-800">
-        <%= link_to seconds_to_str(task.total_time_spent_on_task), admin_task_path(task), data: { turbo_frame: "_top" } if task.project.personal? && task.current_timer.nil? %>
+        <%= link_to seconds_to_str(task.total_time_spent_on_task), admin_task_path(task),
+                    data: { turbo_frame: "_top" } if task.project.personal? && task.current_timer.nil? %>
       </div>
     </div>
     <!-- Status & Actions -->
     <div class="w-44 flex justify-between">
       <!-- Status -->
-      <%= render(::Atoms::Badge::BadgeComponent.new(label: task.status, style: task.status)) %>
+      <span><%= task.status.humanize %></span>
       <!-- Actions -->
       <span class="flex justify-between">
         <% if task.not_started? %>
           <%= button_to start_admin_task_path(task), :method => "put", remote: true, data: { turbo_frame: "_top" } do %>
-            <i class="fa-solid fa-play"></i>
+            <%= heroicon "play", options: { class: "w-4 text-blue-600 hover:text-blue-300", disable_default_class: true } %>
           <% end %>
         <% end %>
         <% if task.in_progress? %>
-        <%= button_to "<i class='fa-solid fa-repeat'></i>".html_safe, not_started_admin_task_path(task),
-                      :method => "put", remote: true, class: "mr-2", data: { turbo_frame: "_top" } %>
+          <%= button_to not_started_admin_task_path(task),
+                        :method => "put", remote: true, class: "mr-2", data: { turbo_frame: "_top" } do %>
+            <%= heroicon "arrow-path", options: { class: "w-4 text-blue-600 hover:text-blue-300",
+                                                  disable_default_class: true } %>
+          <% end %>
           <%= button_to complete_admin_task_path(task), :method => "put", remote: true, data: { turbo_frame: "_top" } do %>
-          <i class="fa-solid fa-circle-check"></i>
+            <%= heroicon "check-circle", options: { class: "w-4 text-blue-600 hover:text-blue-300",
+                                                    disable_default_class: true } %>
+          <% end %>
         <% end %>
-      <% end %>
         <% if task.completed? %>
-        <%= button_to "<i class='fa-solid fa-repeat'></i>".html_safe, reactivate_admin_task_path(task),
-                      :method => "put", remote: true, class: "mr-2", data: { turbo_frame: "_top" } %>
-          <%= button_to "<i class='fa-solid fa-box-archive'></i>".html_safe, archive_admin_task_path(task),
-                        :method => "put", remote: true, data: { turbo_frame: "_top" } %>
-      <% end %>
-        <% if task.archived? %>
-        <%= button_to task.completed? ? reactivate_admin_task_path(task) : complete_admin_task_path(task),
-                      :method => "put", remote: true, data: { turbo_frame: "_top" } do %>
-          <i class="mr-2 fa-solid <%= task.completed? ? 'fa-arrows-repeat' : "#{task.archived? ? 'fa-repeat' : 'fa-circle-check'}" %>"></i>
+          <%= button_to reactivate_admin_task_path(task),
+                      :method => "put", remote: true, class: "mr-2", data: { turbo_frame: "_top" } do %>
+            <%= heroicon "arrow-path", options: { class: "w-4 text-blue-600 hover:text-blue-300",
+                                                  disable_default_class: true } %>
+          <% end %>
+          <%= button_to archive_admin_task_path(task),
+                        :method => "put", remote: true, data: { turbo_frame: "_top" } do %>
+            <%= heroicon "archive-box", options: { class: "w-4 text-blue-600 hover:text-blue-300",
+                                                 disable_default_class: true } %>
+          <% end %>
         <% end %>
-          <%= button_to "<i class='fa-solid fa-trash-can'></i>".html_safe, admin_task_path(task), :method => :delete,
-                        remote: true, class: "text-red-700", data: { confirm: "Are you sure?", turbo_frame: "_top" } %>
-      <% end %>
+        <% if task.archived? %>
+          <%= button_to task.completed? ? reactivate_admin_task_path(task) : complete_admin_task_path(task),
+                        :method => "put", class: "mr-2", remote: true, data: { turbo_frame: "_top" } do %>
+            <%= heroicon "arrow-path", options: { class: "w-4 text-blue-600 hover:text-blue-300",
+                                                  disable_default_class: true } %>
+          <% end %>
+          <%= button_to admin_task_path(task), :method => :delete,
+                          remote: true, class: "text-red-700", data: { confirm: "Are you sure?", turbo_frame: "_top" } do %>
+            <%= heroicon "trash", options: { class: "w-4 text-red-600 hover:text-blue-300",
+                                             disable_default_class: true } %>
+          <% end %>
+        <% end %>
         <% unless task.todo_items.empty? %>
           <button type="button" data-bs-toggle="collapse"
                   data-bs-target="#collapseTodoItemsForTask-<%= task.id %>" aria-expanded="false"
