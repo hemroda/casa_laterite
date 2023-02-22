@@ -130,5 +130,6 @@ Rails.application.routes.draw do
   # WEBSITE
   namespace :website, path: "/" do
     get "/", to: "pages#homepage"
+    resources :articles, only: %i[index show]
   end
 end
