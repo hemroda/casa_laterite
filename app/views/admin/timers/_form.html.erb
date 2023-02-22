@@ -5,10 +5,10 @@
     <%= f.input :start_at, as: :string,
                 wrapper_html: { class: "mr-4" },
                 label_html: { class: "form-label me-2" },
-                input_html: { class: "basic-input", data: { controller: "flatpickr", flatpickr_enable_time: true } } %>
+                input_html: { class: "basic-field", data: { controller: "flatpickr", flatpickr_enable_time: true } } %>
     <%= f.input :end_at, as: :string,
                 label_html: { class: "form-label me-2" },
-                input_html: { class: "basic-input", data: { controller: "flatpickr", flatpickr_enable_time: true } } %>
+                input_html: { class: "basic-field", data: { controller: "flatpickr", flatpickr_enable_time: true } } %>
 
     <div class="w-full flex justify-between items-center flex-wrap mt-6">
       <%= f.button :submit, class: "submit-btn bg-orange-900" %>

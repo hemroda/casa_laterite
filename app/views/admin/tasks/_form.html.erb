@@ -7,7 +7,7 @@
 
     <%= f.input :name,
                 label_html: { class: "form-label" },
-                input_html: { class: "basic-input w-full", autofocus: true } %>
+                input_html: { class: "basic-field w-full", autofocus: true } %>
 
     <div class="flex gap-x-4 mt-6">
       <% unless action_name == "new" %>
@@ -18,34 +18,34 @@
                       include_blank: true, prompt: "Select a milestone",
                       wrapper_html: { class: "w-full" },
                       label_html: { class: "form-label" },
-                      input_html: { class: "select-input" } %>
+                      input_html: { class: "select-field" } %>
         <% end %>
       <% end %>
       <%= f.input :status, as: :select,
                   collection: Task.statuses.keys.collect { |s| [s.humanize, s] },
                   include_blank: true, prompt: "Select a status",
-                  wrapper_html: { class: "w-auto" },
+                  wrapper_html: { class: "w-full" },
                   label_html: { class: "form-label" },
-                  input_html: { class: "select-input" } %>
+                  input_html: { class: "select-field w-full" } %>
     </div>
     <div class="flex flex-wrap gap-x-6 mt-4">
       <%= f.input :start_date, as: :string,
                   wrapper_html: { class: "w-26" },
                   label_html: { class: "form-label" },
-                  input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+                  input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
       <%= f.input :end_date, as: :string,
                   wrapper_html: { class: "w-26" },
                   label_html: { class: "form-label" },
-                  input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+                  input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
       <%= f.input :completed_at, as: :string,
                   wrapper_html: { class: "w-26 mt-4" },
                   label_html: { class: "form-label" },
-                  input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+                  input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
     </div>
     <%= f.input :description, as: :rich_text_area,
                 wrapper_html: { class: "mt-4" },
                 label_html: { class: "form-label" },
-                input_html: { class: "basic-input" } %>
+                input_html: { class: "basic-field" } %>
 
     <!-- Todo Items -->
     <div data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper-todo-item">

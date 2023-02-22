@@ -5,32 +5,32 @@
   <%= f.input :line_one, as: :string,
               label_html: { class: "form-label" },
               wrapper_html: { class: "w-full" },
-              input_html: { class: "basic-input w-full" } %>
+              input_html: { class: "basic-field w-full" } %>
   <%= f.input :line_two, as: :string,
               label_html: { class: "form-label" },
               wrapper_html: { class: "w-full" },
-              input_html: { class: "basic-input w-full" } %>
+              input_html: { class: "basic-field w-full" } %>
   <div class="mt-3">
     <div class="flex justify-between">
       <%= f.input :city,
                   label_html: { class: "form-label" },
-                  input_html: { class: "basic-input" } %>
+                  input_html: { class: "basic-field" } %>
       <%= f.input :country, as: :string,
                   label_html: { class: "form-label" },
-                  input_html: { class: "basic-input" } %>
+                  input_html: { class: "basic-field" } %>
     </div>
     <div class="flex justify-between mt-2">
       <%= f.input :zip_code,
                   label_html: { class: "form-label" },
-                  input_html: { class: "basic-input" } %>
+                  input_html: { class: "basic-field" } %>
       <%= f.input :phone_number,
                   label_html: { class: "form-label" },
-                  input_html: { class: "basic-input" } %>
+                  input_html: { class: "basic-field" } %>
     </div>
   </div>
   <%= f.input :additional_information, as: :rich_text_area,
               wrapper_html: { class: "mt-3" },
-              input_html: { class: "basic-input w-full" } %>
+              input_html: { class: "basic-field w-full" } %>
 
   <%= f.button :submit, class: "submit-btn bg-orange-900" %>
 <% end %>

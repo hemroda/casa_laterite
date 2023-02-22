@@ -10,11 +10,11 @@
                 wrapper_html: { class: "mt-4" },
                 label_html: { class: "form-label" },
                 error_html: { class: "error-input" },
-                input_html: { class: "basic-input w-full" } %>
+                input_html: { class: "basic-field w-full" } %>
     <div class="mt-4 mb-4">
       <div class="mt-4">
         <%= f.check_box :tracked, as: :boolean, label: true,
-                        input_html: { class: "basic-input" } %>
+                        input_html: { class: "basic-field" } %>
         <label for="" class="text-slate-300">
           Track this project
           <small class="text-yellow-400"><i>(will be visible on the dashboard)</i></small>
@@ -26,7 +26,7 @@
         <%= f.input :project_type_id, as: :select, collection: ProjectType.all.collect { |pt| [pt.name, pt.id] },
                     required: true,
                     label_html: { class: "form-label" },
-                    input_html: { class: "select-input" } %>
+                    input_html: { class: "select-field" } %>
         <div>
           <%= f.input :visibility_type, as: :select, collection: Project.visibility_types.keys.collect { |at| [at.humanize, at] },
                       include_blank: false,
@@ -34,7 +34,7 @@
                       prompt: "Please select the access type",
                       wrapper_html: { class: "mr-4" },
                       label_html: { class: "form-label" },
-                      input_html: { class: "select-input" } %>
+                      input_html: { class: "select-field" } %>
           <p>
             <small class='text-yellow-400'><i>Set this to Personal if you want to keep it to
               yourself</i> &#128521;</small>
@@ -47,7 +47,7 @@
                       prompt: "Please select a status",
                       wrapper_html: { class: "mr-4" },
                       label_html: { class: "form-label" },
-                      input_html: { class: "select-input" } %>
+                      input_html: { class: "select-field" } %>
           <p>
             <small class='text-yellow-400'>
               <i>Setting to <b>Finished</b> will send an email to all managers</i>
@@ -59,23 +59,23 @@
         <%= f.input :start_date, as: :string,
                     wrapper_html: { class: "mr-4" },
                     label_html: { class: "form-label me-2" },
-                    input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+                    input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
         <%= f.input :end_date, as: :string,
                     label_html: { class: "form-label me-2" },
-                    input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+                    input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
       </div>
     </div>
     <div class="flex mt-4">
       <div class="mr-4">
         <%= f.label :documents, class: "form-label" %>
         <%= f.file_field :documents, multiple: true,
-                         input_html: { class: "basic-input" } %>
+                         input_html: { class: "basic-field" } %>
       </div>
       <%#= render partial: "admin/shared/display_attachments", locals: { attachments: @project.documents } %>
       <div>
         <%= f.label :images, class: "form-label text-slate-300" %>
         <%= f.file_field :images, multiple: true,
-                         input_html: { class: "basic-input" } %>
+                         input_html: { class: "basic-field" } %>
       </div>
       <%#= render partial: "admin/shared/display_attachments",
                      locals: { attachments: @project.images } %>
@@ -83,7 +83,7 @@
     <%= f.input :description, as: :rich_text_area,
                 wrapper_html: { class: "mt-4" },
                 label_html: { class: "form-label" },
-                input_html: { class: "basic-input" } %>
+                input_html: { class: "basic-field" } %>
 
     <%= f.button :submit, class: "submit-btn bg-orange-900" %>
   <% end %>

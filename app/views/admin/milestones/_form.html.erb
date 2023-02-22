@@ -4,26 +4,26 @@
       <%= f.hidden_field :project_id, value: project.id %>
       <%= f.input :name, placeholder: "New milestone name", label: false,
 
-                     input_html: { class: "basic-input" } %>
+                     input_html: { class: "basic-field" } %>
       <div class="flex mt-3">
         <div class="w-1/2">
           <%= f.input :start_date, as: :string,
                          wrapper_html: { class: "mr-2" },
                          label_html: { class: "form-label me-2" },
-                         input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+                         input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
         </div>
         <div class="w-1/2">
           <%= f.input :end_date, as: :string,
 
                          label_html: { class: "form-label me-2" },
-                         input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+                         input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
         </div>
       </div>
       <div class="row">
         <%= f.input :description, as: :rich_text_area,
                        wrapper_html: { class: "mt-3" },
                        label_html: { class: "form-label" },
-                       input_html: { class: "basic-input" } %>
+                       input_html: { class: "basic-field" } %>
       </div>
     </div>
 
