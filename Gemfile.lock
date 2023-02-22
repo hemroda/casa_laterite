@@ -108,6 +108,8 @@ GEM
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
     bindex (0.8.1)
+    binding_of_caller (1.0.0)
+      debug_inspector (>= 0.0.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
@@ -122,6 +124,7 @@ GEM
       railties (>= 6.0.0)
     date (3.3.3)
     debug (1.7.1)
+    debug_inspector (1.1.0)
     devise (4.8.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -293,6 +296,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk-rails (~> 3.7.1)
   better_errors (~> 2.9.1)
+  binding_of_caller (~> 1.0.0)
   bootsnap
   bullet (~> 7.0.7)
   cssbundling-rails

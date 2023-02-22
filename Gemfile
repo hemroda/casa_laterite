@@ -76,6 +76,9 @@ group :development do
   # Better error page for Rails and other Rack apps (https://github.com/BetterErrors/better_errors)
   gem "better_errors", "~> 2.9.1"
 
+  # Retrieve the binding of a method's caller, or further up the stack. (https://github.com/banister/binding_of_caller)
+  gem "binding_of_caller", "~> 1.0.0"
+
   # Preview mail in browser instead of sending. (https://github.com/ryanb/letter_opener)
   gem "letter_opener", "~> 1.8.1"
 
