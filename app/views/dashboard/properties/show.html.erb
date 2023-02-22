@@ -1,0 +1,219 @@
+<div class="text-gray-800 mt-24 mb-24">
+  <div class="flex justify-between items-center mt-14 mb-2 text-sm font-medium">
+    <div><%= @property.name %></div>
+  </div>
+  <div class="px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+    <div class="flex mb-2">
+      <p><strong></strong> <%= @property.headline %></p>
+    </div>
+    <div class="flex justify-between">
+      <div><strong>Type de bien:</strong><br> <%= @property.property_type.name %></div>
+      <div><strong>Surface:</strong><br> <%= @property.square_feet %> m&sup2;</div>
+      <div><strong>Prix:</strong><br><%= @property.price %></div>
+    </div>
+    <% if @property.year_built? %>
+      <div class="flex justify-between mt-8">
+        <div><strong>Année de construction:</strong><br> <%= @property.year_built.strftime("%B, %Y") %></div>
+        <div><strong>Chambre:</strong><br> <%= @property.rooms %></div>
+        <div><strong>Toilettes:</strong><br><%= @property.bathrooms %></div>
+      </div>
+    <% end %>
+    <div class="mt-5">
+      <strong>Description:</strong><br>
+      <%= @property.description %>
+    </div>
+  </div>
+
+  <!-- Address -->
+  <div class="pt-7 mt-3">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h4>Adresse</h4>
+      <div class="flex">
+      </div>
+    </div>
+    <div class="px-6 py-8 ring-1 ring-gray-800/5 shadow-xl">
+      <% if @property.address.present? %>
+        <div class="mb-3">
+          <p><%= @property.address.line_one %></p>
+          <p><%= @property.address.line_two unless @property.address.line_two.nil? %></p>
+          <p><%= @property.address.phone_number unless @property.address.phone_number.nil? %></p>
+          <p><%= @property.address.city %></p>
+          <p><%= @property.address.zip_code %> <%= @property.address.country %></p>
+        </div>
+        <div>
+          <%= "<strong>Additional Information:</strong> #{@property.address.additional_information}</div>".html_safe unless @property.address.additional_information.empty? %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Property Managers -->
+  <div class="pt-7 mt-3">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h4>Property Managers</h4>
+      <div class="flex">
+      </div>
+    </div>
+    <div class="px-6 py-8 ring-1 ring-gray-800/5 shadow-xl">
+      <% unless @property.managers.empty? %>
+        <% @property.lead_property_managers.each do |pm| %>
+          <%= pm.user.full_name %><%= "," unless pm == @property.lead_property_managers.last %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Contributions -->
+  <div class="pt-7 mt-3">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h4>Contributions</h4>
+      <div class="flex-col">
+        <div class="flex justify-end">
+          <span>
+            <%= number_to_currency(current_account.total_contribution_to(@property) / 100, :locale => :fr) %> /
+          </span>
+          <b><%= number_to_currency(@property.total_contribution[:total_payed_contribution] / 100, :locale => :fr) %> </b>
+          <span> [ <%= number_to_currency(@property.total_contribution[:total_contribution] / 100, :locale => :fr) %>
+            ]</span>
+        </div>
+        <div class="text-xs hidden md:block">
+          <span>
+            <%= I18n.t("dashboard.contribution.you_payed") %> / <%= I18n.t("dashboard.contribution.payed_by_other") %>
+          </span>
+          <span><%= I18n.t("dashboard.contribution.promised") %></span>
+        </div>
+      </div>
+    </div>
+    <div class="px-2 py-8 ring-1 ring-gray-800/5 shadow-xl">
+      <div class="table-responsive mt-3 overflow-hidden">
+        <table class="w-full table-auto text-slate-800 bg-white ring-1 ring-gray-800/5 shadow-xl">
+          <thead class="bg-slate-100">
+          <tr class="text-left">
+            <th class="p-2">Nom</th>
+            <th>Montant</th>
+            <th class="hidden md:revert">Type de Contribution</th>
+            <th>Non payé</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @property.contributions.undiscarded.for_account(current_account).each do |contribution| %>
+            <tr class="text-left">
+              <td class="p-2"><%= link_to contribution.name, dashboard_contribution_path(contribution) %></td>
+              <td><%= number_to_currency(contribution.amount / 100, :locale => :fr) if contribution.amount %></td>
+              <td class="hidden md:revert"><%= contribution.try(:contribution_type).humanize unless contribution.contribution_type.nil? %></td>
+              <td>
+                <% unless contribution.payments.empty? %>
+                  <%= contribution.unpaid_payments.length %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <div class="pt-7 mt-3">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h4>Projects</h4>
+      <div class="flex">
+      </div>
+    </div>
+    <div class="px-2 py-8 ring-1 ring-gray-800/5 shadow-xl">
+      <div class="table-responsive mt-3 overflow-x-auto overflow-y-auto">
+        <table class="w-full table-auto text-slate-800 bg-white ring-1 ring-gray-800/5 shadow-xl">
+          <thead class="bg-slate-100">
+          <tr class="text-left">
+            <th class="p-2">Nom</th>
+            <th class="hidden md:revert">Statut</th>
+            <th class="hidden md:revert">Project Manager</th>
+            <th class="hidden md:revert">Type de Project</th>
+            <th>Début</th>
+            <th>Fin</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @property.projects.each do |project| %>
+            <tr class="text-left">
+              <td class="p-2"><%= link_to project.name, dashboard_project_path(project) %></td>
+              <td class="hidden md:revert"><%= project.status.humanize %></td>
+              <td class="hidden md:revert">
+                <% unless project.lead_project_managers.nil? %>
+                  <% project.lead_project_managers.each do |pm| %>
+                    <%= link_to pm.user.full_name, admin_user_path(pm.user_id), class: "px-6 py-2 border-b border-gray-200 w-full" %>
+                    <%= "," unless pm == project.lead_project_managers.last %>
+                  <% end %>
+                <% end %>
+              </td>
+              <td class="hidden md:revert"><%= project.project_type.name %></td>
+              <td><%= project.start_date.strftime("%Y/%m/%d") if project.start_date %></td>
+              <td><%= project.end_date.strftime("%Y/%m/%d") if project.end_date %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Owners -->
+  <div class="pt-7 mt-3">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h4>Propriétaires</h4>
+      <div class="flex">
+      </div>
+    </div>
+  </div>
+  <div class="px-4 py-8 ring-1 ring-gray-800/5 shadow-xl">
+    <% @property.accounts.each do |account| %>
+      <%= account.full_name %><%= "," unless account == @property.accounts.last %>
+    <% end %>
+  </div>
+
+  <!-- Discussions -->
+  <div class="pt-7 mt-3">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h3>Discussions</h3>
+      <div data-controller="modal" data-modal-allow-background-close="false">
+        <!-- Button trigger modal -->
+        <button type="button" data-action="click->modal#open"
+                class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                       border-orange-800 hover:text-orange-800 hover:bg-white">
+          New discussion
+        </button>
+
+        <!-- Modal Container -->
+        <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+             class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+          <!-- Modal Inner Container -->
+          <div class="max-h-screen w-full max-w-4xl relative">
+            <!-- Modal Card -->
+            <div class="m-1 shadow">
+              <%= render partial: "dashboard/discussions/form", locals: { object: Discussion.new, discussable: @property } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Discussions Table -->
+  <div class="px-6 py-8 ring-1 ring-gray-800/5 shadow-xl">
+    <div class="flex flex-col">
+      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="overflow-hidden">
+            <% if @property.discussions.empty? %>
+              <p class="px-3">Pas de discussions en cours.</p>
+            <% else %>
+              <% @property.discussions.each_with_index do |discussion| %>
+                <%= link_to discussion.subject, dashboard_discussion_path(discussion) %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -125,6 +125,28 @@ Rails.application.routes.draw do
     resources :accounts
     resources :posts
     get "my_posts", to: "posts#my_posts"
+
+    resources :accounts do
+      member do
+        get :feed
+      end
+      resources :discussions, module: :accounts
+    end
+    resources :addresses
+    resources :comments, only: [] do
+      resources :comments, only: %i[new create destroy], module: :comments
+    end
+    resources :contributions, only: %i[index show] do
+      resources :payments, only: %i[show], module: :contributions
+    end
+    resources :payments, only: %i[edit show update]
+    resources :properties, only: %i[index show] do
+      resources :discussions, module: :properties
+      member do
+        get :investment_opportunity
+      end
+    end
+    resources :projects
   end
 
   # WEBSITE

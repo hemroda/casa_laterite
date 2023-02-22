@@ -1,0 +1,59 @@
+<div class="w-full max-w-3xl mt-6 pt-20">
+  <div class="mb-4"></div>
+
+  <!-- Discussions -->
+  <div class="pt-7 mt-3">
+    <div class="flex justify-between items-center mb-6 text-sm font-medium">
+      <div>
+        <h3>Discussions</h3>
+        <p class="hidden md:flex mt-1 text-xs">N'hésitez pas à nous poser vos questions</p>
+      </div>
+      <div data-controller="modal" data-modal-allow-background-close="false">
+        <!-- Button trigger modal -->
+        <%= render(::Atoms::Button::ButtonComponent.new(label: "Nouvelle discussion", size: "lg", style: "secondary", type: "modal")) %>
+
+        <!-- Modal Container -->
+        <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+             class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+          <!-- Modal Inner Container -->
+          <div class="max-h-screen w-full max-w-4xl relative">
+            <!-- Modal Card -->
+            <div class="m-1 shadow">
+              <%= render partial: "dashboard/discussions/form", locals: { object: Discussion.new, discussable: current_account } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full">
+    <% @discussions.each do |discussion| %>
+      <!-- Discussion Card -->
+      <%= link_to dashboard_discussion_path(discussion), class: "" do %>
+        <div class="w-full flex flex-col justify-center mb-4">
+          <div class="w-full relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0
+              shadow-lg p-3 md:max-w-3xl mx-auto border border-white">
+            <div class="w-full flex flex-col space-y-2 p-3">
+              <div class="flex justify-between item-center">
+                <div class="flex justify-between item-center">
+                  <p class="text-gray-500 font-medium hidden md:block">
+                    <%= discussion.discussable_type == "Account" ? discussion.discussable.full_name : discussion.discussable.name %>
+                    [<%= discussion.discussable_type == "Account" ? "Personal" : discussion.discussable_type %>]
+                  </p>
+                </div>
+                <div class="flex items-center">
+                  <%= heroicon "envelope", options: { class: "w-5 text-gray-600", disable_default_class: true } %>
+                  <p class="text-gray-600 font-bold text-sm ml-1">
+                    Message <span class="text-gray-500 font-normal text-xs">( <%= rand(1..10) %> )</span>
+                  </p>
+                </div>
+              </div>
+              <h4 class="font-normal text-gray-800"><%= discussion.subject %></h4>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

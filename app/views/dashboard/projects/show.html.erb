@@ -1,0 +1,27 @@
+<div class="w-full mt-32 mb-2 text-sm font-medium rounded-lg">
+  <div class="flex w-full">
+    <div>
+      <h2><%= @project.name %></h2>
+    </div>
+    <div class="flex"></div>
+  </div>
+  <div class="bg-white px-6 py-8 ring-1 ring-slate-900/5 shadow-xl rounded-lg">
+    <div class="flex flex-col justify-between">
+      <div class="flex justify-between mb-2">
+        <div class="w-1/3">
+          <b>Consernant:</b><br>
+          <%= link_to @project.projectable.try(:name) || @project.projectable.try(:full_name),
+                      "/dashboard/#{@project.projectable_type.downcase.pluralize}/#{@project.projectable.id}",
+                      class: "border-b border-gray-200" %>
+        </div>
+        <div class="w-1/3"><b>Avancement:</b><br><%= @project.status.humanize %></div>
+        <div class="w-1/3"><b>Type de Project</b>:<br><%= @project.project_type.name %></div>
+      </div>
+      <div class="flex justify-between mb-2">
+        <div class="w-1/3"><b>Début</b>:<br><%= @project.start_date.strftime("%Y/%m/%d") unless @project.start_date.nil? %></div>
+        <div class="w-1/3"><b>Fin</b>:<br><%= @project.end_date.strftime("%Y/%m/%d") unless @project.end_date.nil? %></div>
+        <div class="w-1/3"></div>
+      </div>
+    </div>
+  </div>
+</div>

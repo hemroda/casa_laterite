@@ -1,0 +1,43 @@
+<div class="mt-6 pt-10">
+  <div>
+    <% @properties.each do |property| %>
+      <!-- Property Card -->
+      <%= link_to dashboard_property_path(property) do %>
+        <div class="flex flex-col justify-center mb-4">
+          <div class="investment-opportunity-card w-full relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0
+              shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white -z-50">
+            <div class="w-full md:w-1/3 bg-white grid place-items-center -z-50">
+              <%= image_tag property.photo if property.photo.attached? %>
+            </div>
+            <div class="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3 -z-50">
+              <div class="flex justify-between item-center">
+                <p class="text-gray-500 font-medium">Investissement</p>
+                <div class="flex items-center">
+                  <%= heroicon "envelope", options: { class: "w-5 text-gray-600", disable_default_class: true } %>
+                  <p class="text-gray-600 font-bold text-sm ml-1">
+                    Message <span class="text-gray-500 font-normal text-xs">( <%= rand(1..10) %> )</span>
+                  </p>
+                </div>
+                <div></div>
+                <div class="bg-gray-200 px-3 py-1 rounded-full text-xs font-medium text-gray-800 hidden md:block">
+                  Immobilier
+                </div>
+              </div>
+              <h3 class="font-black text-gray-800 md:text-3xl text-xl"><%= property.name %></h3>
+              <p class="md:text-lg text-gray-500 text-base"><%= property.description.to_plain_text.truncate(140) %></p>
+              <p class="text-gray-700">
+                <span><%= property.property_type.name %></span>
+                <span><%= property.square_feet %></span>
+                <%= property.year_built.strftime("%B, %Y") if property.year_built? %>
+              </p>
+              <p class="text-xl font-black text-gray-800">
+                <%= rand(1000..10000) %>€ <span class="font-normal text-gray-600 text-xs">montant de vos investissements.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+

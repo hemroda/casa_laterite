@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_26_144455) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_28_190929) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -130,6 +130,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_144455) do
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.string "submitted_by_type"
+    t.bigint "submitted_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+    t.index ["submitted_by_type", "submitted_by_id"], name: "index_comments_on_submitted_by"
+  end
+
   create_table "contributions", force: :cascade do |t|
     t.string "name", null: false
     t.float "amount", default: 0.0, null: false
@@ -161,6 +172,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_144455) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_decks_on_user_id"
+  end
+
+  create_table "discussions", force: :cascade do |t|
+    t.string "discussable_type", null: false
+    t.bigint "discussable_id", null: false
+    t.string "subject"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discussable_type", "discussable_id"], name: "index_discussions_on_discussable"
   end
 
   create_table "events", force: :cascade do |t|
@@ -323,6 +346,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_26_144455) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deck_id"], name: "index_questions_on_deck_id"
+  end
+
+  create_table "shared_discussions", force: :cascade do |t|
+    t.bigint "account_id"
+    t.bigint "discussion_id"
+    t.string "removed_by_type"
+    t.bigint "removed_by_id"
+    t.string "invited_by_type"
+    t.bigint "invited_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_shared_discussions_on_account_id"
+    t.index ["discussion_id"], name: "index_shared_discussions_on_discussion_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_shared_discussions_on_invited_by"
+    t.index ["removed_by_type", "removed_by_id"], name: "index_shared_discussions_on_removed_by"
   end
 
   create_table "tasks", force: :cascade do |t|

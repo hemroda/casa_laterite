@@ -1,0 +1,65 @@
+<div class="text-gray-800 mt-24 mb-24">
+  <div class="flex justify-between items-center mt-14 mb-2 text-sm font-medium">
+    <div><%= @property.name %></div>
+  </div>
+  <div class="px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+    <div class="flex mb-2">
+      <p><strong></strong> <%= @property.headline %></p>
+    </div>
+    <div class="flex justify-between">
+      <div><strong>Type de bien:</strong><br> <%= @property.property_type.name %></div>
+      <div><strong>Surface:</strong><br> <%= @property.square_feet %> m&sup2;</div>
+      <div><strong>Prix:</strong><br><%= @property.price %></div>
+    </div>
+    <% if @property.year_built? %>
+      <div class="flex justify-between mt-8">
+        <div><strong>Année de construction:</strong><br> <%= @property.year_built.strftime("%B, %Y") %></div>
+        <div><strong>Chambre:</strong><br> <%= @property.rooms %></div>
+        <div><strong>Toilettes:</strong><br><%= @property.bathrooms %></div>
+      </div>
+    <% end %>
+    <div class="mt-5">
+      <strong>Description:</strong><br>
+      <%= @property.description %>
+    </div>
+  </div>
+
+  <!-- Address -->
+  <div class="pt-7 mt-3">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h4>Adresse</h4>
+      <div class="flex">
+      </div>
+    </div>
+    <div class="px-6 py-8 ring-1 ring-gray-800/5 shadow-xl">
+      <% if @property.address.present? %>
+        <div class="mb-3">
+          <p><%= object.address.line_one %></p>
+          <p><%= object.address.line_two unless object.address.line_two.nil? %></p>
+          <p><%= object.address.phone_number unless object.address.phone_number.nil? %></p>
+          <p><%= object.address.city %></p>
+          <p><%= object.address.zip_code %> <%= object.address.country %></p>
+        </div>
+        <div>
+          <%= "<strong>Additional Information:</strong> #{object.address.additional_information}</div>".html_safe unless object.address.additional_information.empty? %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Property Managers -->
+  <div class="pt-7 mt-3">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h4>Property Managers</h4>
+      <div class="flex">
+      </div>
+    </div>
+    <div class="px-6 py-8 ring-1 ring-gray-800/5 shadow-xl">
+      <% unless @property.managers.empty? %>
+        <% @property.lead_property_managers.each do |pm| %>
+          <%= pm.user.full_name %><%= "," unless pm == @property.lead_property_managers.last %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

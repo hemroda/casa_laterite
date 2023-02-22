@@ -1,0 +1,57 @@
+<div class="w-full max-w-5xl m-auto">
+  <div class="flex justify-between items-center text-gray-800 mt-32 mb-1">
+    <div>
+      <h2><%= @contribution.name %></h2>
+    </div>
+    <div class="hover:text-amber-900">
+      <% if @contribution.contributable_type == "Company" %>
+        <%= link_to "Retour à la page de l'entreprise", dashboard_company_path(@contribution.contributable) %>
+      <% else %>
+        <%= link_to "Retour à la page de la propriété", dashboard_property_path(@contribution.contributable) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="bg-white m-auto px-6 py-8 ring-1 ring-slate-900/5 shadow-xl rounded-lg">
+    <% if @contribution.payments.empty? %>
+      <p><%= I18n.t("dashboard.contribution.no_payment_yet") %></p>
+    <% end %>
+    <% @contribution.payments.each do |payment| %>
+      <%= turbo_frame_tag dom_id(payment) do %>
+        <div class="flex justify-between items-center mb-1 p-1 h-20 ring-1 ring-slate-900/5 shadow-sm rounded-lg">
+          <div class="w-2/4">
+            <p><%= payment.name %></p>
+            <small class="text-xs"><%= payment.message %></small>
+          </div>
+          <div class="pr-2 text-center">
+            <%= number_to_currency(payment.amount / 100, :locale => :fr) %>
+          </div>
+          <div class="w-1/4">
+            <% if payment.no_invoice? %>
+              <p class="text-red-700 text-center">
+                <%= I18n.t("dashboard.payment.not_paid") %> <small> (<%= I18n.t("dashboard.payment.overdue") %>)</small>
+              </p>
+            <% end %>
+          </div>
+          <div class="w-1/4 text-center">
+            <% unless payment.payed? %>
+              <div>
+                <%= link_to "#{ 'Upload' if payment.no_invoice?} #{'Changer la' if payment.pending_invoice_review?} facture",
+                            edit_dashboard_payment_path(payment) %>
+              </div>
+            <% end %>
+            <% if payment.invoice.filename.present? %>
+              <%= link_to payment.invoice.filename, rails_blob_path(payment.invoice, disposition: "attachment"), class: "text-xs" %>
+              <br>
+            <% end %>
+            <% if payment.pending_invoice_review? %>
+              <span class="text-xs"><%= I18n.t("dashboard.payment.verification") %></span>
+            <% end %>
+            <% if payment.payed? %>
+              <span class="text-xs"><%= I18n.t("dashboard.payment.payed") %></span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

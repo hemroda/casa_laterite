@@ -6,9 +6,17 @@ class Account < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :addresses, as: :addressable, dependent: :destroy
+  has_many :contributions
+  has_many :comments, -> { order(created_at: :desc) }, as: :commentable, dependent: :destroy, inverse_of: :commentable
+  has_many :discussions, as: :discussable, dependent: :destroy
+  has_many :managers, -> { order(created_at: :desc) }, as: :manageable, dependent: :destroy, inverse_of: :manageable
   has_many :posts, dependent: :destroy
   has_many :ownerships, dependent: :nullify
   has_many :properties, through: :ownerships
+  has_many :properties_projects, :through => :properties, :source => :projects
+  has_many :shared_discussions, dependent: :destroy
+  has_many :payments, through: :contributions
 
   def full_name
     return if first_name.nil? || last_name.nil?
@@ -18,5 +26,37 @@ class Account < ApplicationRecord
 
   def full_name_or_email
     full_name || email
+  end
+
+  def lead_account_managers
+    return if managers.empty?
+
+    @lead_account_managers ||= managers.currently_assigned.where(lead_manager: true)
+  end
+
+  def assistant_account_managers
+    return if managers.empty?
+
+    @assistant_account_managers ||= managers.currently_assigned.where(lead_manager: false)
+  end
+
+  def validate_account!
+    return false unless first_name.present? && last_name.present?
+
+    self.update_columns(confirmed: true, confirmed_at: DateTime.new)
+  end
+
+  def valid_account?
+    return false unless first_name.present? && last_name.present? && confirmed? == true
+
+    true
+  end
+
+  def total_contribution_to(company_or_property)
+    @total_contribution_to ||= company_or_property.contributions.where(account_id: id).where.not(validated_by: nil).sum(:amount) + company_or_property.payments.payed.where(payable_id: id).sum(:amount)
+  end
+
+  def project_ids
+    @project_ids ||= companies_projects.pluck(:id) + properties_projects.pluck(:id)
   end
 end

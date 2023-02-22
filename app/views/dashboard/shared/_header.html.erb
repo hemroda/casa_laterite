@@ -23,6 +23,9 @@
               <%= link_to "Messages", dashboard_posts_path,
                           class: "text-gray-800 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
                                   #{params[:controller] == "dashboard/posts" ? 'bg-gray-900 text-white' : '' }" %>
+              <%= link_to "Properties", dashboard_properties_path,
+                          class: "text-gray-800 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
+                                  #{params[:controller] == "dashboard/properties" ? 'bg-gray-900 text-white' : '' }" %>
             </div>
           </div>
         </div>
