@@ -1,26 +1,5 @@
 # frozen_string_literal: true
 
-# == Schema Information
-#
-# Table name: milestones
-#
-#  id         :bigint           not null, primary key
-#  end_date   :datetime
-#  name       :string
-#  start_date :datetime
-#  status     :integer          default("not_started")
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  project_id :bigint
-#
-# Indexes
-#
-#  index_milestones_on_project_id  (project_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (project_id => projects.id)
-#
 class Milestone < ApplicationRecord
   module Statuses
     NOT_STARTED = "not_started"

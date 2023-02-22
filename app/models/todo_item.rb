@@ -1,25 +1,5 @@
 # frozen_string_literal: true
 
-# == Schema Information
-#
-# Table name: todo_items
-#
-#  id           :bigint           not null, primary key
-#  completed    :boolean          default(FALSE)
-#  completed_at :datetime
-#  title        :string           not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  task_id      :bigint
-#
-# Indexes
-#
-#  index_todo_items_on_task_id  (task_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (task_id => tasks.id)
-#
 class TodoItem < ApplicationRecord
   belongs_to :task, optional: true
 

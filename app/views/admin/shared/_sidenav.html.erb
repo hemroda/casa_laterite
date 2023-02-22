@@ -24,7 +24,7 @@
             data-transition-leave-to="opacity-0 scale-95"
           >
             <%= link_to "Project Types", admin_project_types_path,
-                        class: "bg-slate-300 whitespace-nowrap text-slate-900 p-2 hover:text-orange-800
+                        class: "bg-slate-300 whitespace-nowrap text-slate-900 p-2 px-10 hover:text-orange-800
                                 #{params[:controller] == "admin/project_types" ? 'text-orange-800' : '' }",
                         data: { action: "dropdown#toggle" } %>
           </div>
