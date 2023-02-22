@@ -1,0 +1,19 @@
+<!-- Modal Container -->
+<div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+     class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+  <!-- Modal Inner Container -->
+  <div class="max-h-screen w-full max-w-lg relative">
+    <!-- Modal Card -->
+    <div class="m-1 bg-slate-800 shadow">
+      <%= image_tag attachment %>
+      <% unless local_assigns[:main_photo].present? %>
+        <div class="w-full flex justify-between items-center flex-wrap mt-6 p-2">
+          <%= button_to "Delete", purge_attachment_path(attachment), :method => 'delete', remote: true,
+                        class: "text-sm md:text-base mt-4 py-1 px-2 transition duration-300 border text-white
+                                hover:text-orange-800 bg-orange-900 hover:bg-white cursor-pointer", data: { confirm: "Are you sure?" }%>
+          <%= link_to "Close", "#", class: "close-modal-btn", "data-action": "click->modal#close" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -132,4 +132,7 @@ Rails.application.routes.draw do
     get "/", to: "pages#homepage"
     resources :articles, only: %i[index show]
   end
+
+  # ATTACHMENTS
+  delete "attachments/:id/purge", to: "attachments#purge", as: :purge_attachment
 end
