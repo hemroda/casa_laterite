@@ -17,13 +17,13 @@
                        include_blank: false, prompt: "Please select an Account",
                        wrapper_html: { class: "mt-3" },
                        label_html: { class: "form-label" },
-                       input_html: { class: "select-input" } %>
+                       input_html: { class: "select-field" } %>
         <%= f.input :contribution_type, as: :select,
                        collection: Contribution.contribution_types.keys.collect { |ct| [ct.humanize, ct] },
                        include_blank: false, prompt: "Please select a contribution type",
                        wrapper_html: { class: "mt-3" },
                        label_html: { class: "form-label" },
-                       input_html: { class: "select-input" } %>
+                       input_html: { class: "select-field" } %>
       </div>
       <%= f.input :description, as: :rich_text_area,
                      wrapper_html: { class: "mt-4" },

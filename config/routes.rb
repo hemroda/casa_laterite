@@ -105,6 +105,7 @@ Rails.application.routes.draw do
         put :archive
       end
     end
+    resources :tickets
     resources :timers do
       member do
         put :stop

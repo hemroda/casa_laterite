@@ -1,23 +1,33 @@
 <div class="bg-slate-900 p-8 pt-7 mt-3">
-  <%= simple_form_for [:admin, object], local: true do |f| %>
+  <%= simple_form_for [:admin, ticketable, object], local: true do |f| %>
 
     <%= render "admin/shared/form_errors", object: object %>
 
-    <%= f.input :subject,
+    <%= f.input :name,
                 label_html: { class: "form-label" },
                 input_html: { class: "basic-field", autofocus: true } %>
     <div class="flex gap-x-4 mt-6">
+      <%= f.input :ticket_type, as: :select,
+                  collection: Ticket.ticket_types.keys.collect { |s| [s.humanize, s] },
+                  include_blank: false, prompt: 'Please select a ticket type',
+                  wrapper_html: { class: "w-42" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "select-field" } %>
       <%= f.input :status, as: :select,
-                  collection: Discussion.statuses.keys.collect { |s| [s.humanize, s] },
+                  collection: Task.statuses.keys.collect { |s| [s.humanize, s] },
                   include_blank: true, prompt: "Select a status",
                   wrapper_html: { class: "w-auto" },
                   label_html: { class: "form-label" },
-                  input_html: { class: "select-field w-44 h-10" } %>
+                  input_html: { class: "select-field" } %>
       <%= f.input :start_date, as: :string,
                   wrapper_html: { class: "w-26" },
                   label_html: { class: "form-label" },
                   input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
       <%= f.input :end_date, as: :string,
+                  wrapper_html: { class: "w-26" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
+      <%= f.input :completed_at, as: :string,
                   wrapper_html: { class: "w-26" },
                   label_html: { class: "form-label" },
                   input_html: { class: "basic-field", data: { controller: "flatpickr" } } %>
@@ -27,12 +37,6 @@
                 label_html: { class: "form-label" },
                 input_html: { class: "basic-field" } %>
 
-    <div class="w-full flex justify-between items-center flex-wrap mt-6">
-      <%= f.button :submit, class: "text-sm md:text-base mt-4 py-1 px-2 transition duration-300 border text-white
-                                hover:text-orange-800 bg-orange-900 hover:bg-white cursor-pointer" %>
-      <%= link_to "Close", "#",
-                  class: "close-modal-btn",
-                  "data-action": "click->modal#close" if action_name == "dashboard" %>
-    </div>
+    <%= render "admin/shared/form_submit_and_cancel_section", f: f %>
   <% end %>
 </div>

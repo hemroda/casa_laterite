@@ -1,0 +1,39 @@
+<div>
+  <div class="md:flex justify-between items-center mt-2 p-3 bg-slate-900">
+    <div><h2 class="text-slate-300 font-bold text-2xl">Tickets</h2></div>
+    <div><%= render partial: "admin/shared/search_form" %></div>
+    <div></div>
+  </div>
+  <table class="w-full table-auto text-slate-300 bg-slate-900 mt-5 px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+    <thead>
+    <tr class="text-left text-base font-medium tracking-tight">
+      <th class="p-3">Name</th>
+      <th>About</th>
+      <th>For</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @tickets.each do |ticket| %>
+      <tr class="text-sm">
+        <td class="p-3"><%= ticket.name %></td>
+        <td><%= ticket.ticketable_type %></td>
+        <td><%= ticket.ticketable_type == "Account" ? ticket.ticketable.full_name : ticket.ticketable.name %></td>
+        <td><%= ticket.status.humanize %></td>
+        <td>
+          <%= render partial: "admin/shared/actions_links",
+                     locals: { show_link: admin_ticket_path(ticket),
+                               edit_link: edit_admin_ticket_path(ticket),
+                               delete_link: admin_ticket_path(ticket),
+                               confirmation_message: "Do you want to delete this ticket?" } %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <!-- Pagy -->
+  <div class="pagy mt-2">
+    <%== pagy_nav(@pagy) %>
+  </div>
+</div>

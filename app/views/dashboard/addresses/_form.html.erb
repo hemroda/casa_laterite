@@ -6,29 +6,29 @@
 
     <div class="flex gap-x-4">
       <%= f.input :street_number, label: "#", wrapper_html: { class: "w-20" }, label_html: { class: "text-gray-800" },
-                  input_html: { class: "basic-input" }, error_html: { class: "error-input" } %>
+                  input_html: { class: "basic-field" }, error_html: { class: "error-input" } %>
       <%= f.input :street_name, as: :string, label: "Nom", wrapper_html: { class: "w-full" }, label_html: { class: "text-gray-800" },
-                  input_html: { class: "basic-input" }, error_html: { class: "error-input" } %>
+                  input_html: { class: "basic-field" }, error_html: { class: "error-input" } %>
     </div>
     <div class="mt-3">
       <div class="flex justify-between">
-        <%= f.input :floor, label: "Etage", label_html: { class: "text-gray-800" }, input_html: { class: "basic-input" } %>
-        <%= f.input :door, label: "Porte", label_html: { class: "text-gray-800" }, input_html: { class: "basic-input" } %>
-        <%= f.input :building, label: "Bâtiment", label_html: { class: "text-gray-800" }, input_html: { class: "basic-input" } %>
+        <%= f.input :floor, label: "Etage", label_html: { class: "text-gray-800" }, input_html: { class: "basic-field" } %>
+        <%= f.input :door, label: "Porte", label_html: { class: "text-gray-800" }, input_html: { class: "basic-field" } %>
+        <%= f.input :building, label: "Bâtiment", label_html: { class: "text-gray-800" }, input_html: { class: "basic-field" } %>
       </div>
     </div>
     <div class="mt-3">
       <div class="flex gap-x-4">
         <%= f.input :city, label: "Ville", label_html: { class: "text-gray-800" },
                     wrapper_html: { class: "w-full" },
-                    input_html: { class: "basic-input  w-full" }, error_html: { class: "error-input" } %>
+                    input_html: { class: "basic-field  w-full" }, error_html: { class: "error-input" } %>
         <%= f.input :zip_code, label: "Code Postal", label_html: { class: "text-gray-800" },
-                    input_html: { class: "basic-input" }, error_html: { class: "error-input" } %>
+                    input_html: { class: "basic-field" }, error_html: { class: "error-input" } %>
       </div>
       <div class="flex justify-between mt-2">
         <%= f.input :country, as: :string, label: "Pays", label_html: { class: "text-gray-800" },
                     wrapper_html: { class: "w-full" },
-                    input_html: { class: "basic-input  w-full" }, error_html: { class: "error-input" } %>
+                    input_html: { class: "basic-field  w-full" }, error_html: { class: "error-input" } %>
       </div>
     </div>
     <%= f.input :additional_information, as: :rich_text_area, wrapper_html: { class: "mt-3" } %>

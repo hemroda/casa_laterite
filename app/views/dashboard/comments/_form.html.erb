@@ -1,6 +1,6 @@
 <%= form_with(model: [ :dashboard, @commentable, object ], local: true) do |f| %>
   <div>
-    <%= f.rich_text_area :content, class: "basic-input" %>
+    <%= f.rich_text_area :content, class: "basic-field" %>
   </div>
 
   <%= f.button :submit, class: "submit-btn bg-orange-900" %>

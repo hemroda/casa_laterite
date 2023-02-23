@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_28_190929) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_29_184700) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -378,6 +378,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_28_190929) do
     t.index ["milestone_id"], name: "index_tasks_on_milestone_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.string "ticketable_type", null: false
+    t.bigint "ticketable_id", null: false
+    t.integer "ticket_type", null: false
+    t.string "name", null: false
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "completed_at"
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "discussion_id"
+    t.index ["discussion_id"], name: "index_tickets_on_discussion_id"
+    t.index ["ticketable_type", "ticketable_id"], name: "index_tickets_on_ticketable"
   end
 
   create_table "timers", force: :cascade do |t|
