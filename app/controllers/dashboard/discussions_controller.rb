@@ -10,7 +10,7 @@ module Dashboard
     before_action :authorized_account, only: %i[ show ]
 
     def index
-      @q = Discussion.for_account(current_account).includes(:comments).ransack(params[:q])
+      @q = Discussion.includes(:discussable).for_account(current_account).ransack(params[:q])
       @pagy, @discussions = pagy(@q.result(distinct: true))
       @fields_to_search_in = :subject_cont
     end

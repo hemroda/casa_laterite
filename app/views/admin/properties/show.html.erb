@@ -162,7 +162,7 @@
     <div class="bg-slate-800 px-6 py-6 ring-1 ring-slate-900/5 shadow-xl">
       <div class="pb-5"><strong>Lead Property Managers:</strong>
         <% unless @property.managers.empty? %>
-          <% @property.lead_property_managers.each do |pm| %>
+          <% @property.lead_property_managers.includes([:user]).each do |pm| %>
             <%= link_to pm.user.full_name, admin_user_path(pm.user_id), class: "px-6 py-2 border-b border-gray-200 w-full" %>
             <%= "," unless pm == @property.lead_property_managers.last %>
           <% end %>

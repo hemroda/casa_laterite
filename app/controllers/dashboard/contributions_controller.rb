@@ -8,7 +8,7 @@ class Dashboard::ContributionsController < ApplicationController
   before_action :authorized_account, only: %i[ show ]
 
   def index
-    @q = Contribution.for_account(current_account).includes(:payments).ransack(params[:q])
+    @q = Contribution.for_account(current_account).includes(:contributable).ransack(params[:q])
     @pagy, @contributions = pagy(@q.result(distinct: true))
     @fields_to_search_in = :name_cont
   end

@@ -1,5 +1,5 @@
 <% if attachments.attached? %>
-  <% attachments.each do |attachment| %>
+  <% attachments.includes(:blob).each do |attachment| %>
     <!-- Show attachment -->
     <% if attachment.image? %>
       <div data-controller="modal" data-modal-allow-background-close="false">
