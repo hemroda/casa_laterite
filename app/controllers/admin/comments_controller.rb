@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-module Dashboard
+module Admin
   class CommentsController < ApplicationController
-    layout "dashboard"
+    layout "admin"
 
-    before_action :authenticate_account!
+    before_action :authenticate_user!
     before_action :set_commentable
 
     def new
@@ -13,11 +13,11 @@ module Dashboard
 
     def create
       @comment = @commentable.comments.build(comment_params)
-      @comment.submitted_by = current_account
+      @comment.submitted_by = current_user
       if @comment.save
-        redirect_to dashboard_discussion_path(@commentable.find_top_parent), notice: "Comment created"
+        redirect_to admin_discussion_path(@commentable), notice: "Comment created"
       else
-        render :new, status: :unprocessable_entity
+        redirect_back fallback_location: @commentable, alert: "Comment NOT created"
       end
     end
 
@@ -32,7 +32,7 @@ module Dashboard
 
     private
       def comment_params
-        params.require(:comment).permit(:content).merge(submitted_by: current_account)
+        params.require(:comment).permit(:content)
       end
   end
 end

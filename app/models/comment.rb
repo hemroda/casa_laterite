@@ -1,22 +1,5 @@
 # frozen_string_literal: true
 
-# == Schema Information
-#
-# Table name: comments
-#
-#  id                :bigint           not null, primary key
-#  commentable_type  :string           not null
-#  submitted_by_type :string
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  commentable_id    :bigint           not null
-#  submitted_by_id   :bigint
-#
-# Indexes
-#
-#  index_comments_on_commentable   (commentable_type,commentable_id)
-#  index_comments_on_submitted_by  (submitted_by_type,submitted_by_id)
-#
 class Comment < ApplicationRecord
   belongs_to :commentable, polymorphic: true
   belongs_to :submitted_by, polymorphic: true, optional: true

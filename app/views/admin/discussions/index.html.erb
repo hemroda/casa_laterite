@@ -15,7 +15,7 @@
     <tbody>
     <% @discussions.each do |discussion| %>
       <tr class="text-sm">
-        <td class="p-3"><%= discussion.subject %></td>
+        <td class="p-3"><%= link_to discussion.subject, admin_discussion_path(discussion), class: "hover:text-orange-800" %></td>
         <td><%= discussion.discussable_type %></td>
         <td><%= discussion.discussable_type == "Account" ? discussion.discussable.full_name : discussion.discussable.name %></td>
         <td class="flex justify-end pt-3 pr-2">

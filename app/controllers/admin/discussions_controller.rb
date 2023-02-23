@@ -41,6 +41,7 @@ module Admin
         redirect_to admin_discussion_path(@discussion), notice: "The discussion has been updated."
       else
         render :edit, status: :unprocessable_entity
+        redirect_back fallback_location: @discussion, alert: "The discussion has not been updated"
       end
     end
 

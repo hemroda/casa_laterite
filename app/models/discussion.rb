@@ -1,23 +1,5 @@
 # frozen_string_literal: true
 
-# == Schema Information
-#
-# Table name: discussions
-#
-#  id               :bigint           not null, primary key
-#  discussable_type :string           not null
-#  end_date         :datetime
-#  start_date       :datetime
-#  status           :integer          default("not_started")
-#  subject          :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  discussable_id   :bigint           not null
-#
-# Indexes
-#
-#  index_discussions_on_discussable  (discussable_type,discussable_id)
-#
 class Discussion < ApplicationRecord
   module Statuses
     NOT_STARTED = "not_started"
@@ -47,5 +29,9 @@ class Discussion < ApplicationRecord
   def generate_ticket_incident!
     Ticket.create(ticketable_type: discussable_type, ticketable_id: discussable_id, ticket_type: :incident,
                name: "About issue mentionned in discussion ##{id}", discussion_id: id)
+  end
+
+  def find_top_parent
+    return self
   end
 end

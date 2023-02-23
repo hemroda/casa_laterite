@@ -7,7 +7,7 @@ class Admin::ContributionsController < ApplicationController
   before_action :set_contribution, only: %i[ show edit update destroy validate ]
 
   def index
-    @q = Contribution.includes(:contributable).ransack(params[:q])
+    @q = Contribution.ransack(params[:q])
     @pagy, @contributions = pagy(@q.result(distinct: true))
     @fields_to_search_in = :name_cont
   end

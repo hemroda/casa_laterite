@@ -1,16 +1,30 @@
-<h4 class="mt-3 text-white">Your are responding to: </h4>
-<div class="pt-2 px-8 pb-8">
-  <% if %w[new].include?(action_name) %>
-    <% if @commentable.is_a?(Comment) %>
-      <div class=" p-2 text-white">
-        <div class="mt-4 mb-4">
-          <p><b><%= @commentable.submitted_by.full_name %></b>
-            <span class="text-xs"><%= @commentable.created_at.strftime("%x - %X") %></span>
-          <div class="mt-1 p-2 bg-slate-900 rounded-lg"><q><%= @commentable.content %></q></div>
+<div class="bg-slate-900 mt-6 p-4">
+  <h4 class="mt-3 text-white">Your are responding to: </h4>
+  <div class="bg-slate-500 pt-2 px-8 pb-8">
+    <% if %w[new].include?(action_name) %>
+      <% if @commentable.is_a?(Comment) %>
+        <div class=" p-2 text-white">
+          <div class="mt-4 mb-4">
+            <div class="flex justify-between">
+              <div>
+                <p>
+                  <b><%= @commentable.submitted_by.full_name %></b>
+                  <span class="text-xs"><%= @commentable.created_at.strftime("%x - %X") %></span>
+                </p>
+              </div>
+              <div>
+                <%= link_to @commentable.find_top_parent.subject, admin_discussion_path(@commentable.find_top_parent.id),
+                            class: "hover:text-orange-800" %>
+              </div>
+            </div>
+            <div class="mt-1 p-2 bg-slate-900 rounded-lg">
+              <q><%= @commentable.content %></q>
+            </div>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
 
-  <%= render "admin/comments/form", object: @comment %>
+    <%= render "admin/comments/form", object: @comment %>
+  </div>
 </div>
