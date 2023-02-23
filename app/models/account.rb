@@ -18,6 +18,7 @@ class Account < ApplicationRecord
   has_many :properties_projects, :through => :properties, :source => :projects
   has_many :shared_discussions, dependent: :destroy
   has_many :payments, through: :contributions
+  has_many :tickets, -> { order(created_at: :desc) }, as: :ticketable, dependent: :destroy, inverse_of: :ticketable
 
   def full_name
     return if first_name.nil? || last_name.nil?

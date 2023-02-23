@@ -21,7 +21,13 @@ Rails.application.routes.draw do
     get "/system", to: "pages#system"
     post "check_background_jobs", to: "pages#check_background_jobs"
 
-    resources :accounts
+    resources :accounts do
+      resources :managers, only: %i[new create destroy], module: :accounts
+      member do
+        put :validate_account
+      end
+      resources :tickets, module: :accounts
+    end
     resources :addresses
     resources :articles
     resources :article_categories

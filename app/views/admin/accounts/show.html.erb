@@ -40,4 +40,183 @@
       <%= render "admin/addresses/address", object: @account %>
     </div>
   </div>
+  <!--  Account Managers -->
+  <div class="bg-slate-900 text-slate-300 mt-10 p-4">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h3>Account Managers</h3>
+      <div data-controller="modal" data-modal-allow-background-close="false">
+        <!-- Button trigger modal -->
+        <button type="button" data-action="click->modal#open"
+                class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                       border-orange-800 hover:text-orange-800 hover:bg-white">
+          + Add a account manager
+        </button>
+
+        <!-- Modal Container -->
+        <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+             class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+          <!-- Modal Inner Container -->
+          <div class="max-h-screen w-full max-w-lg relative">
+            <!-- Modal Card -->
+            <div class="m-1 bg-slate-800 shadow">
+              <%= render partial: "admin/managers/form", locals: { object: Manager.new, manageable: @account } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-slate-800 px-6 py-6 ring-1 ring-slate-900/5 shadow-xl">
+      <div class="pb-5"><strong>Lead Account Managers:</strong>
+        <% unless @account.managers.empty? %>
+          <% @account.lead_account_managers.each do |cm| %>
+            <%= link_to cm.user.full_name, admin_user_path(cm.user_id), class: "px-6 py-2 border-b border-gray-200 w-full" %>
+            <%= "," unless cm == @account.lead_account_managers.last %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="mt-5">
+        <strong>Account Managers:</strong>
+        <% unless @account.managers.empty? %>
+          <% @account.assistant_account_managers.each do |cm| %>
+            <%= link_to cm.user.full_name, admin_user_path(cm.user_id), class: "px-6 py-2 border-b border-gray-200 w-full" %>
+            <%= "," unless cm == @account.assistant_account_managers.last %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <!-- Account Managers Table -->
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full">
+            <thead class="bg-slate-900 text-slate-300 border-b">
+            <tr>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Full Name</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Assigned by</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Lead Manager</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Unassigned by</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Assignment</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Lead Assignment</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @account.managers.includes(:user).each do |cm| %>
+              <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+                  <%= link_to cm.user.full_name, admin_user_path(cm.user_id) %>
+                </td>
+                <td class="text-sm text-slate-300 font-light px-6 py-4 whitespace-nowrap">
+                  <%= cm.assigned_by.full_name unless cm.assigned_by.nil? %>
+                </td>
+                <td class="text-sm text-slate-300 font-light px-6 py-4 whitespace-nowrap">
+                  <%= cm.lead_manager == true ? "Yes" : "No" %>
+                </td>
+                <td class="text-sm text-slate-300 font-light px-6 py-4 whitespace-nowrap">
+                  <%= cm.manager_unassigny %>
+                </td>
+                <td>
+                  <% if cm.assigned_by %>
+                    <%= button_to "Remove assignment", unassign_manager_admin_manager_path(id: cm.id, account_id: @account.id), :method => 'put', remote: true,
+                                  class: "text-red-800", data: { confirm: "Are you sure?" } %>
+                  <% else %>
+                    <%= button_to "Reassign toaccount", reassign_manager_admin_manager_path(id: cm.id), :method => 'put', remote: true,
+                                  class: "text-blue-800", data: { confirm: "Are you sure you want to assign this user to this account?" } %>
+                  <% end %>
+                </td>
+                <td>
+                  <% if cm.lead_manager %>
+                    <%= button_to "Remove lead", remove_as_lead_admin_manager_path(id: cm.id), :method => "put", remote: true,
+                                  class: "text-red-800", data: { confirm: "Are you sure?" } %>
+                  <% else %>
+                    <%= button_to "Set as lead", set_as_lead_admin_manager_path(id: cm.id), :method => "put", remote: true,
+                                  class: "text-blue-800", data: { confirm: "Are you sure?" } %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Tickets -->
+  <div class="bg-slate-900 text-slate-300 mt-10 p-4">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h3>Tickets</h3>
+      <div data-controller="modal" data-modal-allow-background-close="false">
+        <!-- Button trigger modal -->
+        <button type="button" data-action="click->modal#open"
+                class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                       border-orange-800 hover:text-orange-800 hover:bg-white">
+          + Add a ticket
+        </button>
+
+        <!-- Modal Container -->
+        <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+             class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+          <!-- Modal Inner Container -->
+          <div class="max-h-screen w-full max-w-4xl relative">
+            <!-- Modal Card -->
+            <div class="m-1 bg-slate-800 shadow">
+              <%= render partial: "admin/tickets/form", locals: { object: Ticket.new, ticketable: @account } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Tickets Table -->
+  <div class="flex flex-col">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-full">
+            <thead class="bg-slate-900 text-slate-300 border-b">
+            <tr>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Name</th>
+              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @account.tickets.empty? %>
+              <p class="px-3">No tickets yet.</p>
+            <% else %>
+              <% @account.tickets.each_with_index do |ticket| %>
+                <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+                    <%= link_to ticket.name, admin_ticket_path(ticket) %>
+                  </td>
+                  <td><%= ticket.status.humanize %></td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Table Listing Properties -->
+  <div class="bg-slate-900 text-slate-300 mt-10 p-4">
+    <h2 class="mb-2">Properties</h2>
+    <table class="min-w-full">
+      <thead class="bg-slate-900 text-slate-300 border-b">
+      <tr>
+        <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Property Name</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @account.properties.each do |property| %>
+        <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+            <%= link_to property.name, admin_property_path(property) %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
