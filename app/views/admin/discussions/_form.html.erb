@@ -1,0 +1,35 @@
+<div class="bg-slate-900 p-8 pt-7 mt-3">
+  <%= simple_form_for [:admin, object], local: true do |f| %>
+
+    <%= render "admin/shared/form_errors", object: object %>
+
+    <%= f.input :subject,
+                label_html: { class: "form-label" },
+                input_html: { class: "basic-input", autofocus: true } %>
+    <div class="flex gap-x-4 mt-6">
+      <%= f.input :status, as: :select,
+                  collection: Discussion.statuses.keys.collect { |s| [s.humanize, s] },
+                  include_blank: true, prompt: "Select a status",
+                  wrapper_html: { class: "w-auto" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "select-input" } %>
+      <%= f.input :start_date, as: :string,
+                  wrapper_html: { class: "w-26" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+      <%= f.input :end_date, as: :string,
+                  wrapper_html: { class: "w-26" },
+                  label_html: { class: "form-label" },
+                  input_html: { class: "basic-input", data: { controller: "flatpickr" } } %>
+    </div>
+    <%= f.input :description, as: :rich_text_area,
+                wrapper_html: { class: "mt-4" },
+                label_html: { class: "form-label" },
+                input_html: { class: "basic-input" } %>
+
+    <div class="w-full flex justify-between items-center flex-wrap mt-6">
+      <%= render(::Atoms::Form::SaveButton::SaveButtonComponent.new(object: f, label: "Save", spacing: false)) %>
+      <%= render(::Atoms::Form::CloseModalButton::CloseModalButtonComponent.new(label: "Close")) %>
+    </div>
+  <% end %>
+</div>

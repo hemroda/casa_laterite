@@ -1,0 +1,17 @@
+<div class="w-full text-slate-800 <%= %w[new].include?(action_name) ? 'mt-32 md:px-32' : 'mt-5' %>">
+  <h4>Vous répondez à: </h4>
+  <div class="pt-2">
+    <% if %w[new].include?(action_name) %>
+      <% if @commentable.is_a?(Comment) %>
+        <div class="p-2">
+          <div class="mt-4 mb-4">
+            <p><b><%= @commentable.submitted_by.full_name %></b>
+              <span class="text-xs"><%= @commentable.created_at.strftime("%x - %X") %></span>
+            <div class="mt-1 p-2 bg-slate-100 rounded-lg"><q><%= @commentable.content %></q></div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <%= render "dashboard/comments/form", object: @comment %>
+  </div>
+</div>

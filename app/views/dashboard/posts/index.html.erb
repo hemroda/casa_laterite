@@ -27,10 +27,10 @@
           <li class="px-6 py-2 border-b border-gray-200 w-full">
             <div class="flex justify-between items-center my-2">
               <div class="flex items-center my-2">
-                <h5 class="text-gray-900 text-lg leading-tight font-medium">
+                <h5 class="text-gray-900 text-sm leading-tight font-medium">
                   <%= link_to post.account.full_name, dashboard_account_path(post.account_id) %>
                 </h5>
-                <span class="text-xs text-gray-600">&nbsp;<%= time_ago_in_words(post.created_at) %></span>
+                <span class="text-xs text-gray-600">&nbsp; - <%= time_ago_in_words(post.created_at) %></span>
               </div>
               <div>
                 <% if post.account_id == current_account.id %>
@@ -42,7 +42,7 @@
                 <% end %>
               </div>
             </div>
-            <p class="text-gray-700 text-base mb-4"><%= post.content %></p>
+            <p class="text-gray-700 text-sm mb-4"><%= post.content %></p>
           </li>
         <% end %>
       </ul>

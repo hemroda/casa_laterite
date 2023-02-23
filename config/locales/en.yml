@@ -1,33 +1,159 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   "true": "foo"
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  # ---------------------------------------------------------------
+  # SHOWROOM
+  # ---------------------------------------------------------------
+  showroom:
+    header:
+      about: About
+    hero:
+      text: The place to be for the diaspora and friends
+      login_btn: Login
+      or: or
+      register_btn: Register
+    about:
+      page_title: Our team
+
+
+  # ---------------------------------------------------------------
+  # DASHBOARD
+  # ---------------------------------------------------------------
+  dashboard:
+    header:
+      my_messages: My messages
+    microposts:
+      delete: Delete
+      confirm_delete: Are you sure?
+      deleted: Your post has been deleted.
+      not_deleted: Your post has NOT been deleted.
+      not_created: Your message has not been saved.
+    contribution:
+      you_payed: What you paid
+      payed_by_other: What others payed
+      promised: "[ What was promised ]"
+      no_payment_yet: There are no payments associated with this contribution
+    payment:
+      not_paid: Not settled
+      overdue: Overdue
+
+    # Show Pages
+    # ---------------------------------------------------------------
+    accounts:
+      section_name: Our members
+      search_btn: Find
+      search_label: Search by first name, last name or email
+    companies:
+      section_name: Companies
+    contributions:
+      section_name: Contributions
+      financial_contribution: Financial
+    milestones:
+      section_name: Milestones
+    projects:
+      section_name: Projects
+      statuses:
+        draft: Draft
+        pending: Pending
+        in_progress: In progress
+        finished: Finished
+    properties:
+      section_name: Properties
+      text: The properties in which you have invested.
+      see_more: See more
+    shareholders:
+      section_name: Shareholders
+      no_spoc: NO Single Point of Contact assigned yet.
+      role_spoc: Single Point of Contact
+      role: Shareholder
+
+    # Tables Header
+    # ---------------------------------------------------------------
+    table_header:
+      accounts:
+        name: Name
+      contributions:
+        amount: Amount
+        name: Name
+        type: Contribution Type
+        unpaid: Un-payed payments
+        validated: Validated?
+      companies:
+        name: Name
+        projects: Projects
+        shareholders: Shareholders
+      projects:
+        name: Name
+        manager: Project Manager
+        status: Status
+        type: Type
+        milestones: Milestones
+        start_date: Start Date
+        end_date: End Date
+      properties:
+        name: Name
+        price: Price
+        dimension: Square feet
+        year: Year built
+        building: Building?
+        type: Property type
+        contributions: Contributions
+      shareholders:
+        name: Name
+
+
+  # ---------------------------------------------------------------
+  # EMAILS
+  # ---------------------------------------------------------------
+  emails:
+    welcome_email:
+      subject: Welcome to Laterite
+    invite_user_email:
+      subject: "You are invited to %{project_name}"
+    project_finished_email:
+      subject: "%{project_name} finished successfully!"
+    invoice_verified_email:
+      subject: Your payment has been validated!
+    overdue_remainder_email:
+      subject: Ops! You missed the date!
+      payment_link: Link to contribution payment.
+
+
+  # ---------------------------------------------------------------
+  # System
+  # ---------------------------------------------------------------
+  devise:
+    sign_in: Sign in
+    sign_up: Sing up
+    remember: Remember me
+    password: Password
+    confirm_psw: Password confirmation
+  activerecord:
+    errors:
+      models:
+        account:
+          attributes:
+            email:
+              blank: Email cannot be empty
+              taken: This email is already in use
+            password:
+              blank: Password cannot be empty
+        user:
+          attributes:
+            email:
+              blank: Email cannot be empty
+            password:
+              blank: Password cannot be empty
+
+
+  # ---------------------------------------------------------------
+  # ERROR PAGES
+  # ---------------------------------------------------------------
+  errors:
+    back_link: Return to safety
+    404:
+      title: 404
+      sub_title: Not found! The page you are looking for does not exist.
+      explication: You may have mistyped the address or the page may have moved.
+    500:
+      title: 500
+      sub_title: Internal server error
+      explication: We had a problem loading this page.

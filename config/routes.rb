@@ -28,10 +28,19 @@ Rails.application.routes.draw do
     resources :decks do
       member { put :reset_questions_proficiency_levels }
     end
+    resources :comments, only: [] do
+      resources :comments, only: %i[new create destroy], module: :comments
+    end
     resources :contributions do
       resources :payments, only: %i[new create destroy], module: :contributions
       member do
         put :validate
+      end
+    end
+    resources :discussions do
+      resources :comments, only: %i[new create destroy], module: :discussions
+      member do
+        put :generate_ticket_incident
       end
     end
     resources :events do
@@ -120,16 +129,13 @@ Rails.application.routes.draw do
   }
 
   namespace :dashboard do
-    root "pages#index"
+    root "posts#index"
 
     resources :accounts
     resources :posts
     get "my_posts", to: "posts#my_posts"
 
     resources :accounts do
-      member do
-        get :feed
-      end
       resources :discussions, module: :accounts
     end
     resources :addresses
@@ -138,6 +144,9 @@ Rails.application.routes.draw do
     end
     resources :contributions, only: %i[index show] do
       resources :payments, only: %i[show], module: :contributions
+    end
+    resources :discussions do
+      resources :comments, only: %i[new create destroy], module: :discussions
     end
     resources :payments, only: %i[edit show update]
     resources :properties, only: %i[index show] do

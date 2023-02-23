@@ -1,5 +1,5 @@
-<div class="text-gray-800 mt-24 mb-24">
-  <div class="flex justify-between items-center mt-14 mb-2 text-sm font-medium">
+<div class="pb-24">
+  <div class="flex justify-between items-center mt-10 mb-2 text-sm font-medium">
     <div><%= @property.name %></div>
   </div>
   <div class="px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
@@ -208,7 +208,9 @@
               <p class="px-3">Pas de discussions en cours.</p>
             <% else %>
               <% @property.discussions.each_with_index do |discussion| %>
-                <%= link_to discussion.subject, dashboard_discussion_path(discussion) %>
+                <p>
+                  <%= link_to discussion.subject, dashboard_discussion_path(discussion), class: "hover:text-orange-800" %>
+                </p>
               <% end %>
             <% end %>
           </div>

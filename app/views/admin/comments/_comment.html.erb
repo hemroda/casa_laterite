@@ -1,0 +1,16 @@
+<div class="p-2 border mb-2" style="background-color: #24293d;">
+  <div class="mt-4 mb-4">
+    <p><b><%= comment.submitted_by.full_name %></b>
+      <span class="text-xs"><%= comment.created_at.strftime("%x - %X") %></span>
+    <div class="mt-1 p-2 bg-slate-900 rounded-lg"><%= comment.content %></div>
+  </div>
+
+  <%= comment.comments.count %>
+  <%= link_to "Reply", new_admin_comment_comment_path(comment) %>
+
+  <% unless comment.comments.empty? %>
+    <div class="mt-2 mb-4">
+      <%= render comment.comments %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,207 @@
+fr:
+  # ---------------------------------------------------------------
+  # SHOWROOM
+  # ---------------------------------------------------------------
+  showroom:
+    header:
+      about: À propos
+    hero:
+      text: The place to be pour la diaspora et les amis
+      login_btn: Se connecter
+      or: ou
+      register_btn: Créer un compte
+    about:
+      page_title: laterite | Notre équipe
+
+
+  # ---------------------------------------------------------------
+  # DASHBOARD
+  # ---------------------------------------------------------------
+  dashboard:
+    header:
+      my_messages: Mes messages
+    authorization:
+      message: Vous n'avez pas le droit d'accéder à cette page.
+    microposts:
+      delete: Supprimer
+      confirm_delete: Es-tu sûr?
+      deleted: Votre message a été supprimé.
+      not_deleted: Votre message n'a pas été supprimé.
+      not_created: Votre message n'a pas été sauvegardé.
+    contribution:
+      you_payed: Ce que vous avez payé
+      payed_by_other: Ce que les autres ont payé
+      promised: "[ Ce qui a été promis ]"
+      no_payment_yet: Il n'y a pas de payements associés a cette contribution
+    payment:
+      verification: Vérification de la facture en cours
+      payed: Payé
+      not_paid: Non réglé
+      overdue: En retard
+
+    # Show Pages
+    # ---------------------------------------------------------------
+    properties:
+      section_name: Propriétés
+      text: Les propriétés dans lesquelles vous avez investis.
+      see_more: Voir plus
+    companies:
+      section_name: Entreprises
+    contributions:
+      section_name: Contributions
+      financial_contribution: Financière
+    projects:
+      section_name: Projects
+      statuses:
+        draft: Brouillon
+        pending: En attente
+        in_progress: En cours
+        finished: Terminé
+    shareholders:
+      section_name: Actionnaires
+
+    # Tables Header
+    # ---------------------------------------------------------------
+    table_header:
+      accounts:
+        name: Nom
+      contributions:
+        amount: Montant
+        name: Nom
+        type: Type de Contribution
+        unpaid: Impayés
+        validated: Validée?
+      companies:
+        name: Nom
+        projects: Projets
+        shareholders: Actionnaires
+      projects:
+        name: Nom
+        manager: Chef de Projet
+        status: Etat
+        type: Type
+        milestones: Etapes importantes
+        start_date: Date de début
+        end_date: Date de fin
+      properties:
+        name: Nom
+        price: Prix
+        dimension: Mètres carrés
+        year: Année de construction
+        building: Immeuble?
+        type: Type de bien
+        contributions: Contributions
+      shareholders:
+        name: Nom
+
+
+  # ---------------------------------------------------------------
+  # EMAILS
+  # ---------------------------------------------------------------
+  emails:
+    welcome_email:
+      subject: Bienvenue sur Laterite
+    invite_user_email:
+      subject: "Tu es invité à %{project_name}"
+    project_finished_email:
+      subject: "%{project_name} terminé avec succès!"
+    invoice_verified_email:
+      subject: Votre paiement a été validé !
+    overdue_remainder_email:
+      subject: Oups! Vous avez manqué la date!
+      payment_link: Lien vers le payment de la contribution
+
+
+  # ---------------------------------------------------------------
+  # System
+  # ---------------------------------------------------------------
+  devise:
+    sign_in: Se connecter
+    sign_up: S'inscrire
+    remember: Se souvenir de moi
+    password: Mot de passe
+    confirm_psw: Confirmation mot de passe
+  activerecord:
+    errors:
+      models:
+        account:
+          attributes:
+            email:
+              blank: L'e-mail ne peut pas être vide
+              taken: Cet email est déjà utilisé
+            password:
+              blank: Le mot de passe ne peut pas être vide
+        address:
+          attributes:
+            street_number:
+              blank: Numéro de rue ne peut pas être vide
+            street_name:
+              blank: Nom de rue ne peut pas être vide
+            city:
+              blank: La ville ne peut pas être vide
+            country:
+              blank: Pays ne peut pas être vide
+            zip_code:
+              blank: Code postal ne peut pas être vide
+        user:
+          attributes:
+            email:
+              blank: L'e-mail ne peut pas être vide
+            password:
+              blank: Le mot de passe ne peut pas être vide
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: environ une heure
+        other: environ %{count} heures
+      about_x_months:
+        one: environ un mois
+        other: environ %{count} mois
+      about_x_years:
+        one: environ un an
+        other: environ %{count} ans
+      almost_x_years:
+        one: presqu'un an
+        other: presque %{count} ans
+      half_a_minute: une demi-minute
+      less_than_x_minutes:
+        zero: moins d'une minute
+        one: moins d'une minute
+        other: moins de %{count} minutes
+      less_than_x_seconds:
+        zero: moins d'une seconde
+        one: moins d'une seconde
+        other: moins de %{count} secondes
+      over_x_years:
+        one: plus d'un an
+        other: plus de %{count} ans
+      x_days:
+        one: 1 jour
+        other: "%{count} jours"
+      x_minutes:
+        one: 1 minute
+        other: "%{count} minutes"
+      x_months:
+        one: 1 mois
+        other: "%{count} mois"
+      x_years:
+        one: un an
+        other: "%{count} ans"
+      x_seconds:
+        one: 1 seconde
+        other: "%{count} secondes"
+
+
+  # ---------------------------------------------------------------
+  # ERROR PAGES
+  # ---------------------------------------------------------------
+  errors:
+    back_link: Retour en lieu sûr
+    404:
+      title: 404
+      sub_title: Pas trouvé! La page que vous recherchez n'existe pas.
+      explication: Vous avez peut-être mal tapé l'adresse ou la page a peut-être été déplacée.
+    500:
+      title: 500
+      sub_title: Erreur interne du serveur
+      explication: Nous avons rencontré un problème lors du chargement de cette page.

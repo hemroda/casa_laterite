@@ -1,21 +1,18 @@
 <div class="bg-white text-gray-800 p-8 pt-7 mt-3 rounded-lg">
   <%= simple_form_for [:dashboard, discussable, object], local: true do |f| %>
-
-    <%= render "dashboard/shared/form_errors", object: object %>
-
     <%= f.input :subject,
+                label: false,
                 label_html: { class: "text-gray-800" },
-                input_html: { class: "basic-input", autofocus: true } %>
+                input_html: { class: "basic-field", autofocus: true } %>
     <%= f.input :description, as: :rich_text_area,
-                wrapper_html: { class: "mt-4" },
+                label: false,
+                wrapper_html: { class: "mt-6" },
                 label_html: { class: "text-gray-800" },
-                input_html: { class: "basic-input" } %>
+                input_html: { class: "basic-field" } %>
 
-    <div class="w-full flex justify-between items-center flex-wrap mt-6">
-      <div class="w-full flex justify-between items-center flex-wrap mt-6 p-2">
-        <%= f.button :submit, class: "submit-btn bg-orange-900" %>
-        <%= link_to "Close", "#", class: "close-modal-btn", "data-action": "click->modal#close" %>
-      </div>
+    <div class="w-full flex justify-between items-center flex-wrap mt-4">
+      <%= f.button :submit, class: "submit-btn bg-orange-900" %>
+      <%= link_to "Close", "#", class: "close-modal-btn", "data-action": "click->modal#close" %>
     </div>
   <% end %>
 </div>

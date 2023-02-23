@@ -17,9 +17,6 @@
           </div>
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
-              <%= link_to "Dashboard", dashboard_root_path,
-                          class: "text-gray-800 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
-                                  #{params[:controller] == "dashboard/pages" ? 'bg-gray-900 text-white' : '' }" %>
               <%= link_to "Messages", dashboard_posts_path,
                           class: "text-gray-800 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
                                   #{params[:controller] == "dashboard/posts" ? 'bg-gray-900 text-white' : '' }" %>

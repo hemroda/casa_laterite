@@ -17,12 +17,10 @@
 </head>
 <body class="antialiased">
 <%= render "dashboard/shared/header" %>
-<main class="mt-10">
+<main>
   <%= render "shared/flash_message" %>
-  <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-    <div class="px-4 py-6 sm:px-0">
+  <div class="w-full max-w-5xl mx-auto mt-24 text-gray-800">
       <%= yield %>
-    </div>
   </div>
 </main>
 </body>

@@ -1,5 +1,6 @@
-<div class="md:flex justify-center gap-x-4 mt-6 pt-20">
-  <div class="block mb-6 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
+<div class="md:flex justify-center gap-x-16">
+  <!-- INFO -->
+  <div class="block p-4 max-w-sm h-fit rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
     <div class="flex flex-col items-center p-10">
       <% if false
            #@account.profile_picture TODO: Update when profile picture upload is added %>
@@ -14,19 +15,21 @@
       </div>
       <div class="flex mt-4 space-x-3 lg:mt-6">
         <%= link_to edit_dashboard_account_path(@account.id) do %>
-          <button type="button" class="py-2 px-3 hover:bg-orange-900 hover:text-white transition duration-300 border border-gray-900 rounded-lg">
+          <button
+            type="button"
+            class="py-2 px-3 hover:bg-orange-900 hover:text-white transition duration-300 border border-gray-900 rounded-lg">
             Éditer
           </button>
         <% end %>
         <%= button_to "Supprimer", dashboard_account_path(@account), :method => 'delete', remote: true,
-                      class: "py-2 px-3 hover:bg-red-700 text-red-700 hover:text-white transition duration-300 border border-red-700 rounded-lg",
+                      class: "py-2 px-3 hover:bg-red-700 text-red-700 hover:text-white transition duration-300
+                              border border-red-700 rounded-lg",
                       data: { confirm: "Voulez-vous vraiment supprimer votre compte?" } %>
       </div>
     </div>
   </div>
-
   <!-- MESSAGES -->
-  <div class="block mb-6 p-6 w-full max-w-2xl bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
+  <div class="block p-4 w-full max-w-2xl bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
     <div class="flex flex-col items-center">
       <ul class="w-full max-w-2xl bg-white text-gray-900">
         <% if @account.posts.empty? %>
@@ -38,10 +41,10 @@
           <li class="px-6 py-2 border-b border-gray-200 w-full">
             <div class="flex justify-between items-center my-2">
               <div class="flex items-center my-2">
-                <h5 class="text-gray-900 text-lg leading-tight font-medium">
+                <h5 class="text-gray-900 text-sm leading-tight font-medium">
                   <%= link_to post.account.full_name, dashboard_account_path(post.account_id) %>
                 </h5>
-                <span class="text-xs text-gray-600">&nbsp;<%= time_ago_in_words(post.created_at) %></span>
+                <span class="text-xs text-gray-600">&nbsp; - <%= time_ago_in_words(post.created_at) %></span>
               </div>
               <div>
                 <% if post.account_id == current_account.id %>
@@ -53,7 +56,7 @@
                 <% end %>
               </div>
             </div>
-            <p class="text-gray-700 text-base mb-4"><%= post.content %></p>
+            <p class="text-gray-700 text-sm mb-4"><%= post.content %></p>
           </li>
         <% end %>
         <% end %>

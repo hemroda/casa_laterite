@@ -1,0 +1,16 @@
+<div class="p-2 border mb-2">
+  <div class="mt-1 mb-4">
+    <p><b><%= comment.submitted_by.full_name %></b>
+      <span class="text-xs"><%= comment.created_at.strftime("%x - %X") %></span>
+    <div class="mt-1 p-2 bg-slate-100 rounded-lg"><%= comment.content %></div>
+  </div>
+
+  <%= link_to "Répondre", new_dashboard_comment_comment_path(comment), class: "text-amber-800" %>
+  <span class="text-xs"> ( <%= comment.comments.count %> Réponses)</span>
+
+  <% unless comment.comments.empty? %>
+    <div class="mt-2 mb-4">
+      <%= render comment.comments %>
+    </div>
+  <% end %>
+</div>
