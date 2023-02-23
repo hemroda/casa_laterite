@@ -1,0 +1,44 @@
+<div class="w-full max-w-3xl mx-auto pt-8">
+  <div class="mb-4"></div>
+
+  <!-- contributions -->
+  <div class="pt-7 mt-3">
+    <div class="flex justify-between items-center mb-6 text-sm font-medium">
+      <div>
+        <h3>Contributions</h3>
+        <p class="hidden md:flex mt-1 text-xs">List of all you contributions</p>
+      </div>
+      <div></div>
+    </div>
+  </div>
+
+  <div class="w-full">
+    <% @contributions.each do |contribution| %>
+      <!-- contribution Card -->
+      <%= link_to dashboard_contribution_path(contribution), class: "" do %>
+        <div class="w-full flex flex-col justify-center mb-4">
+          <div class="w-full relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0
+              shadow-lg p-3 md:max-w-3xl mx-auto border border-white">
+            <div class="w-full flex flex-col space-y-2 p-3">
+              <div class="flex justify-between item-center">
+                <div class="flex justify-between item-center">
+                  <p class="text-gray-500 font-medium hidden md:block">
+                    <%= contribution.contributable.name %>
+                    [<%= contribution.contributable_type.humanize %>]
+                  </p>
+                </div>
+                <div class="flex items-center">
+                  <%= heroicon "currency-euro", options: { class: "w-5 text-gray-600", disable_default_class: true } %>
+                  <p class="text-gray-600 font-bold text-sm ml-1">
+                    <span class="text-gray-900 font-normal text-xs"><%= contribution.amount_or_total_payments %></span>
+                  </p>
+                </div>
+              </div>
+              <h4 class="font-normal text-gray-800"><%= contribution.name %></h4>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
