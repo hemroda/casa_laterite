@@ -132,4 +132,42 @@
       </div>
     </div>
   </div>
+  <!-- Table Listing Articles Written -->
+  <div class="flex flex-col mt-5">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <div class="bg-slate-800 px-4 py-4 ring-1 ring-slate-900/5 shadow-xl">
+            <h2 class="mb-2">Articles Written</h2>
+            <table class="min-w-full">
+              <thead class="bg-slate-900 text-slate-300 border-b">
+              <tr>
+                <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Article title</th>
+                <th class="text-sm font-medium text-slate-300 py-4 text-left">Article's Categories</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @user.articles.each do |article| %>
+                <% unless @user.articles.empty? %>
+                  <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+                      <%= link_to article.title, admin_article_path(article) %>
+                    </td>
+                    <td>
+                      <ul class="flex">
+                        <% article.article_categories.each do |article_category| %>
+                          <li class="mr-3"><%= link_to article_category.name, admin_article_category_path(article_category) %>,</li>
+                        <% end %>
+                      </ul>
+                    </td>
+                  </tr>
+                <% end %>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

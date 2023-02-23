@@ -12,6 +12,7 @@ class User < ApplicationRecord
   enum locale: %i[fr en]
   enum role: %i[user moderator admin]
 
+  has_many :articles
   has_many :managers
   has_many :posts, dependent: :destroy
   has_many :projects, -> { order(created_at: :desc) }, as: :projectable, dependent: :destroy, inverse_of: :projectable
