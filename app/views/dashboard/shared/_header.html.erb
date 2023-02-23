@@ -26,6 +26,9 @@
               <%= link_to "Members", dashboard_accounts_path,
                           class: "text-gray-800 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
                                   #{params[:controller] == "dashboard/accounts" ? 'bg-gray-900 text-white' : '' }" %>
+              <%= link_to "Chati-chata", dashboard_discussions_path,
+                          class: "text-gray-800 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium
+                                  #{params[:controller] == "dashboard/discussions" ? 'bg-gray-900 text-white' : '' }" %>
             </div>
           </div>
         </div>

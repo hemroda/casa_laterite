@@ -1,4 +1,4 @@
-<div class="w-full max-w-3xl mt-6 pt-20">
+<div class="w-full max-w-3xl mx-auto pt-8">
   <div class="mb-4"></div>
 
   <!-- Discussions -->
@@ -6,11 +6,15 @@
     <div class="flex justify-between items-center mb-6 text-sm font-medium">
       <div>
         <h3>Discussions</h3>
-        <p class="hidden md:flex mt-1 text-xs">N'hésitez pas à nous poser vos questions</p>
+        <p class="hidden md:flex mt-1 text-xs">Do not hesistate to ask us questions</p>
       </div>
       <div data-controller="modal" data-modal-allow-background-close="false">
         <!-- Button trigger modal -->
-        <%= render(::Atoms::Button::ButtonComponent.new(label: "Nouvelle discussion", size: "lg", style: "secondary", type: "modal")) %>
+        <button type="button" data-action="click->modal#open">
+          <%= link_to "New discussion", "#",
+                      class: "text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                        border-orange-800 hover:text-orange-800 hover:bg-white" %>
+        </button>
 
         <!-- Modal Container -->
         <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
