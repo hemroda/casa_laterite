@@ -1,4 +1,4 @@
-<div class="bg-slate-900 text-slate-300 p-8 pt-7 mt-3">
+<div class="text-slate-300 p-8 pt-7 mt-3">
   <div class="flex justify-between items-center mb-2 text-sm font-medium">
     <div>Profile</div>
     <div class="flex">
@@ -10,5 +10,34 @@
     <h3 class="mt-2 text-base font-medium tracking-tight"><%= @account.full_name %></h3>
     <p class="mt-2 text-sm"><%= @account.email %></p>
     <p class="mt-2 text-sm"><%= @account.phone_number %></p>
+  </div>
+  <!-- Address -->
+  <div class="bg-slate-900 text-slate-300 mt-10 p-4">
+    <div class="flex justify-between items-center mb-2 text-sm font-medium">
+      <h4>Address</h4>
+      <div data-controller="modal" data-modal-allow-background-close="false">
+        <!-- Button trigger modal -->
+        <button type="button" data-action="click->modal#open"
+                class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+                       border-orange-800 hover:text-orange-800 hover:bg-white">
+          Address
+        </button>
+
+        <!-- Modal Container -->
+        <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
+             class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+          <!-- Modal Inner Container -->
+          <div class="max-h-screen w-full max-w-xl relative">
+            <!-- Modal Card -->
+            <div class="m-1 bg-slate-800 shadow">
+              <%= render partial: "admin/addresses/form", locals: { object: @account.address || Address.new, addressable: @account } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-slate-800 px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+      <%= render "admin/addresses/address", object: @account %>
+    </div>
   </div>
 </div>

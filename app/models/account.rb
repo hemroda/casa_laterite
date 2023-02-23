@@ -6,7 +6,8 @@ class Account < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :addresses, as: :addressable, dependent: :destroy
+  has_one :address, as: :addressable
+
   has_many :contributions
   has_many :comments, -> { order(created_at: :desc) }, as: :commentable, dependent: :destroy, inverse_of: :commentable
   has_many :discussions, as: :discussable, dependent: :destroy
