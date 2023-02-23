@@ -18,13 +18,13 @@
           <button
             type="button"
             class="py-2 px-3 hover:bg-orange-900 hover:text-white transition duration-300 border border-gray-900 rounded-lg">
-            Éditer
+            Update
           </button>
         <% end %>
-        <%= button_to "Supprimer", dashboard_account_path(@account), :method => 'delete', remote: true,
+        <%= button_to "Delete", dashboard_account_path((@account)), method: :delete,
                       class: "py-2 px-3 hover:bg-red-700 text-red-700 hover:text-white transition duration-300
                               border border-red-700 rounded-lg",
-                      data: { confirm: "Voulez-vous vraiment supprimer votre compte?" } %>
+                      form: { data: { turbo_confirm: "Are you sure you want to delete your account?" } } %>
       </div>
     </div>
   </div>

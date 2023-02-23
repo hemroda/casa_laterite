@@ -5,9 +5,9 @@
     </div>
     <div class="hover:text-amber-900">
       <% if @contribution.contributable_type == "Company" %>
-        <%= link_to "Retour à la page de l'entreprise", dashboard_company_path(@contribution.contributable) %>
+        <%= link_to "Back to the company's page", dashboard_company_path(@contribution.contributable) %>
       <% else %>
-        <%= link_to "Retour à la page de la propriété", dashboard_property_path(@contribution.contributable) %>
+        <%= link_to "Back to the property's page", dashboard_property_path(@contribution.contributable) %>
       <% end %>
     </div>
   </div>
