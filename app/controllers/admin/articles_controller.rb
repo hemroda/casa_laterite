@@ -7,7 +7,7 @@ class Admin::ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
 
   def index
-    @q = Article.ransack(params[:q])
+    @q = Article.includes([:article_categories, :user]).ransack(params[:q])
     @pagy, @articles = pagy(@q.result(distinct: true))
     @fields_to_search_in = :title_cont
   end
