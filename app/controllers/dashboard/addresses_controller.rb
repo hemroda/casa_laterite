@@ -17,15 +17,15 @@ class Dashboard::AddressesController < ApplicationController
   def create
     @address = Address.new(address_params)
     if @address.save
-      redirect_to dashboard_account_path(current_account), notice: "L'adresse a été créée!"
+      redirect_to dashboard_account_path(current_account), notice: "The address has been created!"
     else
-      redirect_to dashboard_account_path(current_account), notice: "L'adresse n'a pas été créée!"
+      redirect_to dashboard_account_path(current_account), notice: "The address has NOT been created!"
     end
   end
 
   def update
     if @address.update(address_params)
-      redirect_back fallback_location: dashboard_account_path(current_account), notice: "L'adresse a été mise à jour."
+      redirect_back fallback_location: dashboard_account_path(current_account), notice: "The address has been updated!"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -45,9 +45,22 @@ class Dashboard::AddressesController < ApplicationController
     end
 
     def address_params
-      params.require(:address).permit(:street_number, :street_name, :floor, :door, :building, :department, :city, :country,
-                                      :zip_code, :phone_number, :additional_information, :latitude, :longitude,
-                                      :addressable_id, :addressable_type
+      params.require(:address).permit(
+        :street_number,
+        :street_name,
+        :floor,
+        :door,
+        :building,
+        :department,
+        :city,
+        :country,
+        :zip_code,
+        :phone_number,
+        :additional_information,
+        :latitude,
+        :longitude,
+        :addressable_id,
+        :addressable_type
       )
     end
 end

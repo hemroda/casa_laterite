@@ -31,9 +31,9 @@ module Dashboard
       @discussion = @discussable.discussions.build(discussion_params)
       if @discussion.save
         @discussion.first_discussion_member(current_account.id, @discussion.id, current_account)
-        redirect_back fallback_location: @discussable, notice: "La discussion est créée!"
+        redirect_back fallback_location: @discussable, notice: "The discussion is created!"
       else
-        redirect_back fallback_location: @discussable, alert: "La discussion n'a pas été créée ! #{@discussion.errors.full_messages.to_sentence.capitalize}"
+        redirect_back fallback_location: @discussable, alert: "The discussion was not created! #{@discussion.errors.full_messages.to_sentence.capitalize}"
       end
     end
 

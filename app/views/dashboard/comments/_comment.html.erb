@@ -5,8 +5,8 @@
     <div class="mt-1 p-2 bg-slate-100 rounded-lg"><%= comment.content %></div>
   </div>
 
-  <%= link_to "Répondre", new_dashboard_comment_comment_path(comment), class: "text-amber-800" %>
-  <span class="text-xs"> ( <%= comment.comments.count %> Réponses)</span>
+  <%= link_to "Respond", new_dashboard_comment_comment_path(comment), class: "text-amber-800" %>
+  <span class="text-xs"> ( <%= comment.comments.count %> Responses)</span>
 
   <% unless comment.comments.empty? %>
     <div class="mt-2 mb-4">

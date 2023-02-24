@@ -7,15 +7,15 @@
       <p><strong></strong> <%= @property.headline %></p>
     </div>
     <div class="flex justify-between">
-      <div><strong>Type de bien:</strong><br> <%= @property.property_type.name %></div>
+      <div><strong>Property type:</strong><br> <%= @property.property_type.name %></div>
       <div><strong>Surface:</strong><br> <%= @property.square_feet %> m&sup2;</div>
-      <div><strong>Prix:</strong><br><%= @property.price %></div>
+      <div><strong>Price:</strong><br><%= @property.price %></div>
     </div>
     <% if @property.year_built? %>
       <div class="flex justify-between mt-8">
-        <div><strong>Année de construction:</strong><br> <%= @property.year_built.strftime("%B, %Y") %></div>
-        <div><strong>Chambre:</strong><br> <%= @property.rooms %></div>
-        <div><strong>Toilettes:</strong><br><%= @property.bathrooms %></div>
+        <div><strong>Year of construction:</strong><br> <%= @property.year_built.strftime("%B, %Y") %></div>
+        <div><strong>Room:</strong><br> <%= @property.rooms %></div>
+        <div><strong>Bathroom:</strong><br><%= @property.bathrooms %></div>
       </div>
     <% end %>
     <div class="mt-5">
@@ -27,7 +27,7 @@
   <!-- Address -->
   <div class="pt-7 mt-3">
     <div class="flex justify-between items-center mb-2 text-sm font-medium">
-      <h4>Adresse</h4>
+      <h4>Address</h4>
       <div class="flex">
       </div>
     </div>
@@ -89,10 +89,10 @@
         <table class="w-full table-auto text-slate-800 bg-white ring-1 ring-gray-800/5 shadow-xl">
           <thead class="bg-slate-100">
           <tr class="text-left">
-            <th class="p-2">Nom</th>
-            <th>Montant</th>
-            <th class="hidden md:revert">Type de Contribution</th>
-            <th>Non payé</th>
+            <th class="p-2">Name</th>
+            <th>Amount</th>
+            <th class="hidden md:revert">Contribution type</th>
+            <th>Unpaid</th>
           </tr>
           </thead>
           <tbody>
@@ -126,12 +126,12 @@
         <table class="w-full table-auto text-slate-800 bg-white ring-1 ring-gray-800/5 shadow-xl">
           <thead class="bg-slate-100">
           <tr class="text-left">
-            <th class="p-2">Nom</th>
-            <th class="hidden md:revert">Statut</th>
+            <th class="p-2">Name</th>
+            <th class="hidden md:revert">Status</th>
             <th class="hidden md:revert">Project Manager</th>
             <th class="hidden md:revert">Type de Project</th>
-            <th>Début</th>
-            <th>Fin</th>
+            <th>Start</th>
+            <th>End</th>
           </tr>
           </thead>
           <tbody>
