@@ -1,8 +1,6 @@
-<div class="w-full max-w-3xl mx-auto pt-8">
-  <div class="mb-4"></div>
-
+<div>
   <!-- contributions -->
-  <div class="pt-7 mt-3">
+  <div>
     <div class="flex justify-between items-center mb-6 text-sm font-medium">
       <div>
         <h3>Contributions</h3>
@@ -12,13 +10,13 @@
     </div>
   </div>
 
-  <div class="w-full">
+  <div>
     <% @contributions.each do |contribution| %>
       <!-- contribution Card -->
       <%= link_to dashboard_contribution_path(contribution), class: "" do %>
         <div class="w-full flex flex-col justify-center mb-4">
           <div class="w-full relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0
-              shadow-lg p-3 md:max-w-3xl mx-auto border border-white">
+              shadow-lg p-3 max-w-3xl mx-auto border border-white">
             <div class="w-full flex flex-col space-y-2 p-3">
               <div class="flex justify-between item-center">
                 <div class="flex justify-between item-center">
