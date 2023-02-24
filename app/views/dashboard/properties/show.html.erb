@@ -56,7 +56,7 @@
     </div>
     <div class="px-6 py-8 ring-1 ring-gray-800/5 shadow-xl">
       <% unless @property.managers.empty? %>
-        <% @property.lead_property_managers.each do |pm| %>
+        <% @property.lead_property_managers.includes([:user]).each do |pm| %>
           <%= pm.user.full_name %><%= "," unless pm == @property.lead_property_managers.last %>
         <% end %>
       <% end %>
