@@ -171,6 +171,11 @@ Rails.application.routes.draw do
     resources :articles, only: %i[index show]
   end
 
+  # ERROR PAGES
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
+  match "/422", to: "errors#unprocessable_entity", via: :all
+
   # ATTACHMENTS
   delete "attachments/:id/purge", to: "attachments#purge", as: :purge_attachment
 end

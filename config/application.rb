@@ -46,6 +46,8 @@ module CasaLaterite
 
     config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
 
+    config.exceptions_app = routes
+
     config.active_job.queue_adapter = :sidekiq
   end
 end
