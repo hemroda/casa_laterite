@@ -41,8 +41,6 @@
     </div>
     <div>
       <% unless @article.nil? %>
-        <%#= markdown(@article.content) %>
-        <%#= @article.content %>
         <%= advanced_markdown @article.content %>
       <% end %>
     </div>

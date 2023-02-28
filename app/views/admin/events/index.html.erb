@@ -1,9 +1,8 @@
 <div>
   <div class="md:flex justify-between items-center mt-2 p-3 bg-slate-900">
     <div><h2 class="text-slate-300 font-bold text-2xl">Events</h2></div>
-    <div><%#= render partial: "admin/shared/search_form" %></div>
+    <div><%= render partial: "admin/shared/search_form" %></div>
     <div>
-      <%#= render(::Atoms::Button::ButtonComponent.new(label: "+ New Event", href: new_admin_event_path, size: "lg", style: "primary")) %>
     </div>
   </div>
   <table class="w-full table-auto text-slate-300 bg-slate-900 mt-5 px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
