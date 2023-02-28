@@ -37,6 +37,10 @@
                 label_html: { class: "form-label" },
                 input_html: { class: "basic-field" } %>
 
-    <%= f.button :submit, class: "submit-btn bg-orange-900" %>
+    <div class="w-full flex justify-between items-center flex-wrap mt-6">
+      <%= f.button :submit, class: "text-sm md:text-base mt-4 py-1 px-2 transition duration-300 border text-white
+                                hover:text-orange-800 bg-orange-900 hover:bg-white cursor-pointer" %>
+      <%= link_to "Close", "#", class: "close-modal-btn", "data-action": "click->modal#close" %>
+    </div>
   <% end %>
 </div>

@@ -12,10 +12,10 @@
                 error_html: { class: "error-input" },
                 input_html: { class: "basic-field w-full" } %>
     <div class="mt-4 mb-4">
-      <div class="mt-4">
+      <div class="flex items-center mt-4">
         <%= f.check_box :tracked, as: :boolean, label: true,
                         input_html: { class: "basic-field" } %>
-        <label for="" class="text-slate-300">
+        <label for="" class="ml-1 text-slate-300">
           Track this project
           <small class="text-yellow-400"><i>(will be visible on the dashboard)</i></small>
         </label>
@@ -34,7 +34,7 @@
                       prompt: "Please select the access type",
                       wrapper_html: { class: "mr-4" },
                       label_html: { class: "form-label" },
-                      input_html: { class: "select-field" } %>
+                      input_html: { class: "select-field w-44" } %>
           <p>
             <small class='text-yellow-400'><i>Set this to Personal if you want to keep it to
               yourself</i> &#128521;</small>
@@ -47,7 +47,7 @@
                       prompt: "Please select a status",
                       wrapper_html: { class: "mr-4" },
                       label_html: { class: "form-label" },
-                      input_html: { class: "select-field" } %>
+                      input_html: { class: "select-field w-44" } %>
           <p>
             <small class='text-yellow-400'>
               <i>Setting to <b>Finished</b> will send an email to all managers</i>
@@ -85,6 +85,10 @@
                 label_html: { class: "form-label" },
                 input_html: { class: "basic-field" } %>
 
-    <%= f.button :submit, class: "submit-btn bg-orange-900" %>
+    <div class="w-full flex justify-between items-center flex-wrap mt-6">
+      <%= f.button :submit, class: "text-sm md:text-base mt-4 py-1 px-2 transition duration-300 border text-white
+                                hover:text-orange-800 bg-orange-900 hover:bg-white cursor-pointer" %>
+      <%= link_to "Close", "#", class: "close-modal-btn", "data-action": "click->modal#close" %>
+    </div>
   <% end %>
 </div>
