@@ -8,7 +8,7 @@ module Admin
     before_action :set_deck, only: %i[show edit update destroy reset_questions_proficiency_levels]
 
     def index
-      @q = Deck.includes(:user).ransack(params[:q])
+      @q = Deck.ransack(params[:q])
       @pagy, @decks = pagy(@q.result(distinct: true))
       @fields_to_search_in = :name_cont
     end
