@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 if Discussion.count.zero?
-  p "Seeding Discussion with shared_discussion"
+  p "Seeding Discussion with SharedDiscussion"
 
   3.times do |index|
     Discussion.create(
@@ -13,7 +13,6 @@ if Discussion.count.zero?
   end
 
   3.times do |index|
-    SharedDiscussion.create(discussion: Discussion.find(index + 1),
-                            invited_by: Account.first, account_id: Account.first.id)
+    SharedDiscussion.create(discussion: Discussion.find(index + 1), invited_by: Account.first, account_id: Account.first.id)
   end
 end

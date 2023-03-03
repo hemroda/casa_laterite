@@ -15,6 +15,36 @@
     <p class="mt-2 text-sm"><%= @user.email %></p>
     <p class="mt-2 text-sm"><%= @user.phone_number %></p>
   </div>
+  <!-- Professional Events -->
+  <div class="flex justify-between items-center mt-10 mb-2 text-sm font-medium">
+    <div>Events</div>
+    <div class="flex">
+    </div>
+  </div>
+  <div class="bg-slate-800 px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+    <div class="bg-slate-800 p-2 ring-1 ring-slate-900/5 shadow-xl">
+      <ul class="flex flex-wrap gap-x-4 max-h-72 overflow-auto">
+        <% @user.events.professional.order(:start_time).each do |event| %>
+          <%= link_to admin_event_path(event) do %>
+            <% old_event = event.old_event %>
+            <div class="w-72 group flex justify-between items-center mb-4 p-2 hover:cursor-pointer rounded-lg
+                        <%= old_event ? '' : 'bg-slate-900' %>"
+                 style="border: 1px solid <%= old_event ? 'gray' : event.color %>;">
+              <div>
+                <span class="<%= old_event ? 'line-through' : '' %>"><%= event.title %></span>
+                <p class="text-xs"><%= event.start_time.strftime("%B %d, %Y - %H:%M") %>
+                  <%= event.end_time&.strftime(" - %H:%M") %>
+                </p>
+              </div>
+              <div class="text-sm font-bold text-orange-800  hover:text-white">
+                <%= seconds_to_str(event.duration) %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
   <!-- Projects -->
   <div class="bg-slate-900 text-slate-300 mt-10 p-4">
     <div class="flex justify-between items-center text-sm font-medium">
@@ -62,7 +92,7 @@
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
                     <%= link_to project.name, admin_project_path(project) %>
                   </td>
-                  <td><%= project.status.humanize %></td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300"><%= project.status.humanize %></td>
                 </tr>
               <% end %>
             <% end %>

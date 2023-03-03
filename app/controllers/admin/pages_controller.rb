@@ -9,7 +9,7 @@ class Admin::PagesController < ApplicationController
     @events = Event.for_user(current_user).undiscarded
     @posts = Post.users_posts.includes(:user).order(created_at: :desc)
     @personal_projects = Project.for_user_personal(current_user).tracked
-    @corporate_projects = Project.includes([:milestones, :tasks]).tracked
+    @corporate_projects = Project.for_user_corporate(current_user).includes([:milestones, :tasks])
   end
 
   def system

@@ -36,13 +36,13 @@ class Property < ApplicationRecord
   def lead_property_managers
     return if managers.empty?
 
-    @lead_property_managers ||= managers.currently_assigned.where(lead_manager: true)
+    @lead_property_managers ||= managers.includes([:user]).currently_assigned.where(lead_manager: true)
   end
 
   def assistant_property_managers
     return if managers.empty?
 
-    @assistant_property_managers ||= managers.currently_assigned.where(lead_manager: false)
+    @assistant_property_managers ||= managers.includes([:user]).currently_assigned.where(lead_manager: false)
   end
 
   def total_contribution

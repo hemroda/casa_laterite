@@ -9,7 +9,7 @@ module Admin
     before_action :set_discussable, only: %i[create]
 
     def index
-      @q = Discussion.includes([:discussable]).for_account(current_account).ransack(params[:q])
+      @q = Discussion.includes([:discussable]).ransack(params[:q])
       @pagy, @discussions = pagy(@q.result(distinct: true))
       @fields_to_search_in = :subject_cont
     end

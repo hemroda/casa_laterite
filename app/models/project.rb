@@ -25,6 +25,8 @@ class Project < ApplicationRecord
   scope :tracked, -> { where(tracked: true) }
   scope :for_account, ->(account) { where("id in (?)", account.properties.pluck(:discussion_id)) }
   scope :for_user_personal, ->(user) { where("projectable_id = ? and projectable_type = ?", user.id, "User") }
+  # scope :for_user, ->(user) { where("user_id = ? or id in (?)", user.id, user.shared_projects.kept.pluck(:project_id)) }
+  scope :for_user_corporate, ->(user) { where("id in (?)", user.managers.where(manageable_type: "Project").pluck(:manageable_id))}
 
   def lead_project_managers
     return if managers.empty?
