@@ -37,10 +37,9 @@ class Admin::EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
-      redirect_to admin_root_path, notice: "The event has been updated!"
+      redirect_back fallback_location: admin_root_path, notice: "The event has been updated!"
     else
-      redirect_back fallback_location: admin_root_path,
-                    alert: "Event has not been updated!"
+      redirect_back fallback_location: admin_root_path, alert: "Event has not been updated!"
     end
   end
 
