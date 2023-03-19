@@ -32,3 +32,31 @@ class Milestone < ApplicationRecord
     self.update_columns(status: Statuses::COMPLETED, end_date: Time.current)
   end
 end
+
+# ## Schema Information
+#
+# Table name: `milestones`
+#
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`end_date`**    | `datetime`         |
+# **`name`**        | `string`           |
+# **`start_date`**  | `datetime`         |
+# **`status`**      | `integer`          | `default("not_started")`
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+# **`project_id`**  | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_milestones_on_project_id`:
+#     * **`project_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`project_id => projects.id`**
+#

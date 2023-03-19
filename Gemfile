@@ -79,6 +79,9 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 # gem "bcrypt", "~> 3.1.7"
 
 group :development do
+  # Annotates Rails Models, routes, fixtures, and others based on the database schema. (http://github.com/ctran/annotate_models)
+  gem "annotate", "~> 3.2.0"
+
   # Better error page for Rails and other Rack apps (https://github.com/BetterErrors/better_errors)
   gem "better_errors", "~> 2.9.1"
 

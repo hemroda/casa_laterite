@@ -77,3 +77,43 @@ class Task < ApplicationRecord
       self.status = "in_progress"
     end
 end
+
+# ## Schema Information
+#
+# Table name: `tasks`
+#
+# ### Columns
+#
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`completed_at`**  | `datetime`         |
+# **`description`**   | `text`             |
+# **`end_date`**      | `datetime`         |
+# **`name`**          | `string`           |
+# **`start_date`**    | `datetime`         |
+# **`status`**        | `integer`          | `default("not_started")`
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
+# **`milestone_id`**  | `bigint`           |
+# **`project_id`**    | `bigint`           |
+# **`user_id`**       | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_tasks_on_milestone_id`:
+#     * **`milestone_id`**
+# * `index_tasks_on_project_id`:
+#     * **`project_id`**
+# * `index_tasks_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`milestone_id => milestones.id`**
+# * `fk_rails_...`:
+#     * **`project_id => projects.id`**
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
+#

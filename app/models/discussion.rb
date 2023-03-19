@@ -35,3 +35,28 @@ class Discussion < ApplicationRecord
     return self
   end
 end
+
+# ## Schema Information
+#
+# Table name: `discussions`
+#
+# ### Columns
+#
+# Name                    | Type               | Attributes
+# ----------------------- | ------------------ | ---------------------------
+# **`id`**                | `bigint`           | `not null, primary key`
+# **`discussable_type`**  | `string`           | `not null`
+# **`end_date`**          | `datetime`         |
+# **`start_date`**        | `datetime`         |
+# **`status`**            | `integer`          | `default("not_started")`
+# **`subject`**           | `string`           |
+# **`created_at`**        | `datetime`         | `not null`
+# **`updated_at`**        | `datetime`         | `not null`
+# **`discussable_id`**    | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_discussions_on_discussable`:
+#     * **`discussable_type`**
+#     * **`discussable_id`**
+#

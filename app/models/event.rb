@@ -32,3 +32,37 @@ class Event < ApplicationRecord
     end
   end
 end
+
+# ## Schema Information
+#
+# Table name: `events`
+#
+# ### Columns
+#
+# Name                | Type               | Attributes
+# ------------------- | ------------------ | ---------------------------
+# **`id`**            | `bigint`           | `not null, primary key`
+# **`color`**         | `string`           |
+# **`discarded_at`**  | `datetime`         |
+# **`end_time`**      | `datetime`         |
+# **`event_type`**    | `integer`          | `default("personal")`
+# **`location`**      | `string`           |
+# **`shared`**        | `boolean`          |
+# **`start_time`**    | `datetime`         | `not null`
+# **`title`**         | `string`           | `not null`
+# **`created_at`**    | `datetime`         | `not null`
+# **`updated_at`**    | `datetime`         | `not null`
+# **`user_id`**       | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_events_on_discarded_at`:
+#     * **`discarded_at`**
+# * `index_events_on_user_id`:
+#     * **`user_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`user_id => users.id`**
+#

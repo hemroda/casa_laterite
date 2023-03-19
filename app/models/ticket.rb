@@ -1,27 +1,5 @@
 # frozen_string_literal: true
 
-# == Schema Information
-#
-# Table name: tickets
-#
-#  id              :bigint           not null, primary key
-#  completed_at    :datetime
-#  end_date        :datetime
-#  name            :string           not null
-#  start_date      :datetime
-#  status          :integer          default("not_started")
-#  ticket_type     :integer          not null
-#  ticketable_type :string           not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  discussion_id   :bigint
-#  ticketable_id   :bigint           not null
-#
-# Indexes
-#
-#  index_tickets_on_discussion_id  (discussion_id)
-#  index_tickets_on_ticketable     (ticketable_type,ticketable_id)
-#
 class Ticket < ApplicationRecord
   # Statuses includes the list of task statuses as constants.
   module Statuses
@@ -66,3 +44,34 @@ class Ticket < ApplicationRecord
       update_column(:completed_at, DateTime.now) if status_changed? && completed?
     end
 end
+
+
+# ## Schema Information
+#
+# Table name: `tickets`
+#
+# ### Columns
+#
+# Name                   | Type               | Attributes
+# ---------------------- | ------------------ | ---------------------------
+# **`id`**               | `bigint`           | `not null, primary key`
+# **`completed_at`**     | `datetime`         |
+# **`end_date`**         | `datetime`         |
+# **`name`**             | `string`           | `not null`
+# **`start_date`**       | `datetime`         |
+# **`status`**           | `integer`          | `default("not_started")`
+# **`ticket_type`**      | `integer`          | `not null`
+# **`ticketable_type`**  | `string`           | `not null`
+# **`created_at`**       | `datetime`         | `not null`
+# **`updated_at`**       | `datetime`         | `not null`
+# **`discussion_id`**    | `bigint`           |
+# **`ticketable_id`**    | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_tickets_on_discussion_id`:
+#     * **`discussion_id`**
+# * `index_tickets_on_ticketable`:
+#     * **`ticketable_type`**
+#     * **`ticketable_id`**
+#

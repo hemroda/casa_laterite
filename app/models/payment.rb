@@ -46,3 +46,47 @@ class Payment < ApplicationRecord
     PaymentMailer.with(payment: self).overdue_remainder_email(self.payable).deliver_later
   end
 end
+
+# ## Schema Information
+#
+# Table name: `payments`
+#
+# ### Columns
+#
+# Name                     | Type               | Attributes
+# ------------------------ | ------------------ | ---------------------------
+# **`id`**                 | `bigint`           | `not null, primary key`
+# **`amount`**             | `float`            | `default(0.0), not null`
+# **`canceled_by_type`**   | `string`           |
+# **`created_by_type`**    | `string`           | `not null`
+# **`discarded_at`**       | `datetime`         |
+# **`due_date`**           | `datetime`         |
+# **`message`**            | `text`             |
+# **`name`**               | `string`           | `not null`
+# **`payable_type`**       | `string`           | `not null`
+# **`status`**             | `integer`          | `default("no_invoice")`
+# **`validated_by_type`**  | `string`           |
+# **`created_at`**         | `datetime`         | `not null`
+# **`updated_at`**         | `datetime`         | `not null`
+# **`canceled_by_id`**     | `bigint`           |
+# **`created_by_id`**      | `bigint`           | `not null`
+# **`payable_id`**         | `bigint`           | `not null`
+# **`validated_by_id`**    | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_payments_on_canceled_by`:
+#     * **`canceled_by_type`**
+#     * **`canceled_by_id`**
+# * `index_payments_on_created_by`:
+#     * **`created_by_type`**
+#     * **`created_by_id`**
+# * `index_payments_on_discarded_at`:
+#     * **`discarded_at`**
+# * `index_payments_on_payable`:
+#     * **`payable_type`**
+#     * **`payable_id`**
+# * `index_payments_on_validated_by`:
+#     * **`validated_by_type`**
+#     * **`validated_by_id`**
+#

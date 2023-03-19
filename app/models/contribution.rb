@@ -39,3 +39,49 @@ class Contribution < ApplicationRecord
     save
   end
 end
+
+# ## Schema Information
+#
+# Table name: `contributions`
+#
+# ### Columns
+#
+# Name                      | Type               | Attributes
+# ------------------------- | ------------------ | ---------------------------
+# **`id`**                  | `bigint`           | `not null, primary key`
+# **`amount`**              | `float`            | `default(0.0), not null`
+# **`cancelled_by_type`**   | `string`           |
+# **`contributable_type`**  | `string`           | `not null`
+# **`contribution_type`**   | `integer`          |
+# **`description`**         | `text`             |
+# **`discarded_at`**        | `datetime`         |
+# **`name`**                | `string`           | `not null`
+# **`validated_by_type`**   | `string`           |
+# **`created_at`**          | `datetime`         | `not null`
+# **`updated_at`**          | `datetime`         | `not null`
+# **`account_id`**          | `bigint`           |
+# **`cancelled_by_id`**     | `bigint`           |
+# **`contributable_id`**    | `bigint`           | `not null`
+# **`validated_by_id`**     | `bigint`           |
+#
+# ### Indexes
+#
+# * `index_contributions_on_account_id`:
+#     * **`account_id`**
+# * `index_contributions_on_cancelled_by`:
+#     * **`cancelled_by_type`**
+#     * **`cancelled_by_id`**
+# * `index_contributions_on_contributable`:
+#     * **`contributable_type`**
+#     * **`contributable_id`**
+# * `index_contributions_on_discarded_at`:
+#     * **`discarded_at`**
+# * `index_contributions_on_validated_by`:
+#     * **`validated_by_type`**
+#     * **`validated_by_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`account_id => accounts.id`**
+#

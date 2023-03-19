@@ -5,3 +5,17 @@ class ArticleCategory < ApplicationRecord
 
   validates :name, presence: true
 end
+
+# ## Schema Information
+#
+# Table name: `article_categories`
+#
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`id`**          | `bigint`           | `not null, primary key`
+# **`name`**        | `string`           |
+# **`created_at`**  | `datetime`         | `not null`
+# **`updated_at`**  | `datetime`         | `not null`
+#

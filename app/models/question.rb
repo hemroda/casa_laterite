@@ -31,3 +31,29 @@ class Question < ApplicationRecord
       errors.add(:answers, ": A Question can't be save without an answer.") if answers.empty?
     end
 end
+
+# ## Schema Information
+#
+# Table name: `questions`
+#
+# ### Columns
+#
+# Name                     | Type               | Attributes
+# ------------------------ | ------------------ | ---------------------------
+# **`id`**                 | `bigint`           | `not null, primary key`
+# **`proficiency_level`**  | `integer`          | `default(0)`
+# **`reviewed_at`**        | `datetime`         |
+# **`created_at`**         | `datetime`         | `not null`
+# **`updated_at`**         | `datetime`         | `not null`
+# **`deck_id`**            | `bigint`           | `not null`
+#
+# ### Indexes
+#
+# * `index_questions_on_deck_id`:
+#     * **`deck_id`**
+#
+# ### Foreign Keys
+#
+# * `fk_rails_...`:
+#     * **`deck_id => decks.id`**
+#
