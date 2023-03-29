@@ -1,7 +1,6 @@
 <div class="mt-12 nested-form-wrapper-question" data-new-record="<%= f.object.new_record? %>">
   <div class="row form-group">
     <%= f.hidden_field :_destroy %>
-
     <div data-controller='toggle' class="">
       <!-- collapse trigger -->
       <div data-action='click->toggle#toggle touch->toggle#toggle' class="bg-gray-900 text-white p-6">
@@ -15,35 +14,31 @@
                 wrapper_html: { class: "mt-2" },
                 label_html: { class: "form-label" },
                 input_html: { class: "basic-field" } %>
-
         <small class="mt-2">
           <button type="button" data-action="nested-form#remove"
                   class="mt-2 text-red-500 hover:bg-red-800 hover:text-white p-1">
             Remove this question
           </button>
         </small>
-
         <div class="mt-2" data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper-answer">
           <template data-nested-form-target="template">
             <%= f.simple_fields_for :answers, Answer.new, child_index: 'NEW_RECORD' do |q| %>
-              <%= render 'admin/decks/fields/answer', f: q %>
+              <%= render 'admin/campaigns/fields/answer', f: q %>
             <% end %>
           </template>
-
           <%= f.simple_fields_for :answers do |q| %>
-            <%= render 'admin/decks/fields/answer', f: q %>
+            <%= render 'admin/campaigns/fields/answer', f: q %>
           <% end %>
-
           <!-- Inserted elements will be injected before that target. -->
           <div data-nested-form-target="target"></div>
-
           <% if f.object.answers.empty? %>
             <button type="button" data-action="nested-form#add" class="mt-2 text-orange-800 hover:bg-orange-800 hover:text-slate-300 p-1">
               Add Answer
             </button>
           <% end %>
         </div>
-      </div><!-- END collapsed content -->
+      </div>
+      <!-- END collapsed content -->
     </div>
   </div>
   <div class="p-1 bg-amber-900 mt-10"></div>

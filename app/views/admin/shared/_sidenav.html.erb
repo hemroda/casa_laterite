@@ -5,7 +5,6 @@
     <%= link_to image_tag("casa_laterite_logo.svg", alt: "Casa Laterite logo", width: "70",
                           class: "flex items-center border bg-slate-500 p-2"), admin_root_path %>
   </div>
-
   <!-- Nav -->
   <nav>
     <ul class="text-slate-300">
@@ -118,7 +117,6 @@
       <li class="border my-3"></li>
     </ul>
   </nav>
-
   <!-- Profile -->
   <nav>
     <ul>
@@ -133,13 +131,12 @@
       </li>
       <li class="border my-3"></li>
       <li class="mb-2">
-        <%= link_to "Flashcards", admin_decks_path,
-                    class: "hover:text-orange-800 #{params[:controller] == "admin/decks" ? 'text-orange-800' : '' }" %>
+        <%= link_to "Campaigns", admin_campaigns_path,
+                    class: "hover:text-orange-800 #{params[:controller] == "admin/campaigns" ? 'text-orange-800' : '' }" %>
       </li>
       <li class="border my-3"></li>
     </ul>
   </nav>
-
   <!-- System -->
   <nav>
     <ul class="text-slate-300">

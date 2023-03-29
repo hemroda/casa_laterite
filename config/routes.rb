@@ -31,9 +31,7 @@ Rails.application.routes.draw do
     resources :addresses
     resources :articles
     resources :article_categories
-    resources :decks do
-      member { put :reset_questions_proficiency_levels }
-    end
+    resources :campaigns
     resources :comments, only: [] do
       resources :comments, only: %i[new create destroy], module: :comments
     end
@@ -96,12 +94,7 @@ Rails.application.routes.draw do
     end
     resources :properties
     resources :property_types
-    resources :questions do
-      member do
-        put :proficiency_level_up
-        put :proficiency_level_down
-      end
-    end
+    resources :questions
     resources :tasks do
       member do
         put :not_started

@@ -4,7 +4,7 @@ class Admin::QuestionsController < ApplicationController
   layout "admin"
 
   before_action :authenticate_user!
-  before_action :set_question, only: %i[show edit update destroy proficiency_level_up proficiency_level_down]
+  before_action :set_question, only: %i[show edit update destroy]
 
   def index
     @questions = Question.all
@@ -34,14 +34,6 @@ class Admin::QuestionsController < ApplicationController
     else
       redirect_to admin_questions_path, alert: "The question has NOT been deleted."
     end
-  end
-
-  def proficiency_level_up
-    redirect_back fallback_location: admin_deck_path(@question.deck_id) if @question.update_proficiency_level!(10)
-  end
-
-  def proficiency_level_down
-    redirect_back fallback_location: admin_deck_path(@question.deck_id) if @question.update_proficiency_level!(-10)
   end
 
   private

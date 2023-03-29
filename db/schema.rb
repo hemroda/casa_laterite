@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_29_184700) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_29_124951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -130,6 +130,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_29_184700) do
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 
+  create_table "campaigns", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "status", default: 0
+    t.integer "access_type", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.string "commentable_type", null: false
     t.bigint "commentable_id", null: false
@@ -161,17 +169,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_29_184700) do
     t.index ["contributable_type", "contributable_id"], name: "index_contributions_on_contributable"
     t.index ["discarded_at"], name: "index_contributions_on_discarded_at"
     t.index ["validated_by_type", "validated_by_id"], name: "index_contributions_on_validated_by"
-  end
-
-  create_table "decks", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "name", null: false
-    t.integer "status", default: 0
-    t.integer "access_type", default: 0
-    t.datetime "reviewed_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_decks_on_user_id"
   end
 
   create_table "discussions", force: :cascade do |t|
@@ -340,12 +337,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_29_184700) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.bigint "deck_id", null: false
-    t.integer "proficiency_level", default: 0
     t.datetime "reviewed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["deck_id"], name: "index_questions_on_deck_id"
+    t.bigint "campaign_id", null: false
+    t.index ["campaign_id"], name: "index_questions_on_campaign_id"
   end
 
   create_table "shared_discussions", force: :cascade do |t|
@@ -451,7 +447,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_29_184700) do
   add_foreign_key "answers", "questions"
   add_foreign_key "articles", "users"
   add_foreign_key "contributions", "accounts"
-  add_foreign_key "decks", "users"
   add_foreign_key "events", "users"
   add_foreign_key "managers", "users"
   add_foreign_key "milestones", "projects"
@@ -462,7 +457,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_29_184700) do
   add_foreign_key "projects", "project_types"
   add_foreign_key "properties", "properties", column: "building_id"
   add_foreign_key "properties", "property_types"
-  add_foreign_key "questions", "decks"
+  add_foreign_key "questions", "campaigns"
   add_foreign_key "tasks", "milestones"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users"

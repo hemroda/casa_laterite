@@ -1,0 +1,17 @@
+<div id="question">
+  <div class="text-center mt-20">
+    <%= question.body %>
+  </div>
+  <div class="mt-20" data-controller="dropdown">
+    <!-- Actions -->
+    <div class="flex gap-x-10 justify-center mt-10 mb-20">
+    </div>
+    <!-- Answer -->
+    <div data-dropdown-target="menu" class="mt-2 hidden">
+      <hr>
+      <div class="dark:bg-slate-500 text-center pt-20 pb-24">
+        <%= question.answers[0].body %>
+      </div>
+    </div>
+  </div>
+</div>
