@@ -3,7 +3,7 @@
   <!-- Logo -->
   <div>
     <%= link_to image_tag("casa_laterite_logo.svg", alt: "Casa Laterite logo", width: "70",
-                          class: "flex items-center border bg-slate-500 p-2"), admin_root_path %>
+                          class: "m-auto border bg-slate-500 p-2"), admin_root_path %>
   </div>
   <!-- Nav -->
   <nav>
@@ -12,12 +12,10 @@
         <%= link_to "Events", admin_events_path,
                     class: "hover:text-orange-800 #{params[:controller] == "admin/events" ? 'text-orange-800' : '' }" %>
       </li>
-      <li class="border my-3"></li>
       <li class="mb-2">
         <%= link_to "Discussions", admin_discussions_path,
                     class: "hover:text-orange-800 #{params[:controller] == "admin/discussions" ? 'text-orange-800' : '' }" %>
       </li>
-      <li class="border my-3"></li>
       <li class="flex justify-between mb-2">
         <%= link_to "Projects", admin_projects_path,
                     class: "hover:text-orange-800 #{params[:controller] == "admin/projects" ? 'text-orange-800' : '' }" %>
@@ -41,7 +39,6 @@
           </div>
         </div>
       </li>
-      <li class="border my-3"></li>
       <li class="flex justify-between mb-2">
         <%= link_to "Properties", admin_properties_path,
                     class: "hover:text-orange-800 #{params[:controller] == "admin/properties" ? 'text-orange-800' : '' }" %>
@@ -65,22 +62,18 @@
           </div>
         </div>
       </li>
-      <li class="border my-3"></li>
       <li class="mb-2">
         <%= link_to "Contributions", admin_contributions_path,
                     class: "hover:text-orange-800 #{params[:controller] == "admin/contributions" ? 'text-orange-800' : '' }" %>
       </li>
-      <li class="border my-3"></li>
       <li class="mb-2">
         <%= link_to "Payments", admin_payments_path,
                     class: "hover:text-orange-800 #{params[:controller] == "admin/payments" ? 'text-orange-800' : '' }" %>
       </li>
-      <li class="border my-3"></li>
       <li class="mb-2">
         <%= link_to "Accounts", admin_accounts_path,
                     class: "hover:text-orange-800 #{params[:controller] == "admin/accounts" ? 'text-orange-800' : '' }" %>
       </li>
-      <li class="border my-3"></li>
       <li class="mb-2">
         <% if @user %>
           <%= link_to "Users", admin_users_path,
@@ -90,7 +83,6 @@
                       class: "hover:text-orange-800 #{ 'text-orange-800' if (%w[users].include?(controller_name) && %w[index].include?(action_name)) }" %>
         <% end %>
       </li>
-      <li class="border my-3"></li>
       <li class="flex justify-between mb-2">
         <%= link_to "Articles", admin_articles_path,
                     class: "hover:text-orange-800 #{params[:controller] == "admin/articles" ? 'text-orange-800' : '' }" %>
@@ -114,7 +106,6 @@
           </div>
         </div>
       </li>
-      <li class="border my-3"></li>
     </ul>
   </nav>
   <!-- Profile -->
@@ -124,17 +115,14 @@
         <%= link_to "My Profile", admin_user_path(current_user.id),
                     class: "hover:text-orange-800 #{current_page?(edit_admin_user_path(current_user.id)) || current_page?(admin_user_path(current_user.id)) ? 'text-orange-800' : '' }" %>
       </li>
-      <li class="border my-3"></li>
       <li class="mb-2">
         <%= link_to "My Posts", admin_my_posts_path,
                     class: "hover:text-orange-800 #{params[:controller] == "admin/posts" ? 'text-orange-800' : '' }" %>
       </li>
-      <li class="border my-3"></li>
       <li class="mb-2">
         <%= link_to "Campaigns", admin_campaigns_path,
                     class: "hover:text-orange-800 #{params[:controller] == "admin/campaigns" ? 'text-orange-800' : '' }" %>
       </li>
-      <li class="border my-3"></li>
     </ul>
   </nav>
   <!-- System -->
@@ -142,6 +130,9 @@
     <ul class="text-slate-300">
       <li class="mb-2">
         <%= link_to "Website", root_path, target: "_blank", class: "hover:text-orange-800" %>
+      </li>
+      <li class="mb-2">
+        <%= link_to "Dashboard", dashboard_root_path, target: "_blank", class: "hover:text-orange-800" %>
       </li>
       <li class="mb-2">
         <%= link_to "System", admin_system_path, class: "hover:text-orange-800" %>

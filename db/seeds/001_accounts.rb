@@ -1,5 +1,5 @@
 if Account.count.zero?
-  p "Seeding First Account"
+  puts "Seeding First Account"
   Account.create(first_name: "Rakoto",
                  last_name: "Rabezafy",
                  phone_number: "0701010101",
@@ -9,7 +9,7 @@ if Account.count.zero?
                  confirmed: true,
                  confirmed_at: Time.now)
 
-  p "Seeding Random Accounts"
+  puts "Seeding Random Accounts"
   15.times do |index|
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name

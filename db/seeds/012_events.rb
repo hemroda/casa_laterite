@@ -1,5 +1,5 @@
 if Event.count.zero?
-  p "Seeding Events For First User"
+  puts "Seeding Events For First User"
   10.times do
     Event.create(
       user_id: 1,
@@ -10,7 +10,7 @@ if Event.count.zero?
       description: Faker::Restaurant.description
     )
   end
-  p "Seeding Events For Second User"
+  puts "Seeding Events For Second User"
   1.times do
     Event.create(
       user_id: 2,

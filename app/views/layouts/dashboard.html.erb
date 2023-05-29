@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
-<head>
-  <title>Dashboard - Casa Laterite</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffb230">
-  <meta name="msapplication-TileColor" content="#ffb230">
-  <meta name="theme-color" content="#ffb230">
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-</head>
-<body class="antialiased">
-<%= render "dashboard/shared/header" %>
-<main class="w-full">
-  <%= render "shared/flash_message" %>
-  <div class="max-w-3xl mx-auto mt-32 text-gray-800">
-      <%= yield %>
-  </div>
-</main>
-</body>
+  <head>
+    <title>Dashboard - Casa Laterite</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffb230">
+    <meta name="msapplication-TileColor" content="#ffb230">
+    <meta name="theme-color" content="#ffb230">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
+  <body class="antialiased font-light">
+    <%= render "dashboard/shared/header" %>
+    <main class="w-full">
+      <%= render "shared/flash_message" %>
+      <div class="max-w-3xl mx-auto mt-32 text-gray-800">
+        <%= yield %>
+      </div>
+    </main>
+  </body>
 </html>

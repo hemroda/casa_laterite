@@ -7,7 +7,7 @@ if Property.count.zero?
   # LAND
   # ------------------------
   # land 1
-  p "Seeding Properties - land"
+  puts "Seeding Properties - land"
 
   land = Property.create(
     property_type: PropertyType.first,
@@ -33,7 +33,7 @@ if Property.count.zero?
   # FARM
   # ------------------------
   # farm 1
-  p "Seeding Properties - farm #1"
+  puts "Seeding Properties - farm #1"
 
   farm = Property.create(
     property_type: PropertyType.first,
@@ -107,7 +107,7 @@ if Property.count.zero?
 
   # APARTMENTS
   # ------------------------
-  p "Seeding Properties - apartments"
+  puts "Seeding Properties - apartments"
 
   # flat 1
   flat = Property.create(
@@ -236,7 +236,7 @@ if Property.count.zero?
 
   # RANDOM PROPERTIES
   # ------------------------
-  p "Seeding Random Properties"
+  puts "Seeding Random Properties"
   10.times do
     Property.create(
       name: Faker::Address.street_name,

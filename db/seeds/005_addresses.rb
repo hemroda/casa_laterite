@@ -22,14 +22,14 @@ addresses = [
 ]
 
 if Address.count.zero?
-  p "Seeding Addresses for properties"
+  puts "Seeding Addresses for properties"
   Property.all.each do |property|
     address = addresses[property.id]
     property.address = Address.create(line_one: "#{address[:street_number]} #{address[:street_name]}",
                                       city: address[:city], zip_code: address[:zip_code], country: address[:country])
   end
 
-  p "Seeding Address for Ferme Autonome"
+  puts "Seeding Address for Ferme Autonome"
   Property.find_by_name("Ferme autonome")
           .address.update_columns(line_one: "2 Mondehard", city: "Seulline", phone_number: "0212136542", zip_code: "14310",
                                   country: "France")

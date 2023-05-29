@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 if Contribution.count.zero?
-  p "Seeding First Contribution"
+  puts "Seeding First Contribution"
 
   Contribution.create(
     name: "Rabezafy's first contribution to Property",
@@ -20,7 +20,7 @@ if Contribution.count.zero?
     contribution_type: 0
   )
 
-  p "Seeding first Payment"
+  puts "Seeding first Payment"
   Payment.create(
     amount: 20000,
     name: "February contribution's #1 payment",

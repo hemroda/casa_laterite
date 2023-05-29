@@ -2,7 +2,7 @@
   <div class="container px-6 py-12 h-full">
     <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
       <div class="md:w-8/12 lg:w-5/12 max-w-sm">
-        <h2 class="mb-4 text-center font-bold text-2xl">Dashboard</h2>
+        <h2 class="mb-4 text-center text-2xl">Dashboard</h2>
         <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="form-inputs">
             <%= f.input :email, label: false, required: false, autofocus: true, placeholder: "nom.prenom@email.com",
@@ -21,9 +21,10 @@
                         wrapper_html: { class: "my-4 form-group form-check" },
                         label_html: { class: "form-check-label inline-block text-sm text-gray-800 cursor-pointer" },
                         input_html: {
-                          class: "form-check-input appearance-none h-4 w-4 border border-gray-300 bg-white checked:bg-orange-800
-                                  checked:border-orange-900 focus:outline-none transition duration-200 mt-1 align-top
-                                  bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer rounded-lg" } if devise_mapping.rememberable? %>
+                          class: "form-check-input appearance-none h-4 w-4 border border-gray-300 bg-white
+                                  checked:bg-orange-800 checked:border-orange-900 focus:outline-none transition
+                                  duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2
+                                  cursor-pointer rounded-lg" } if devise_mapping.rememberable? %>
           </div>
           <div class="form-actions">
             <%= f.button :submit, "#{ I18n.t('devise.sessions.sign_in')}",
@@ -35,7 +36,7 @@
         <% end %>
         <div class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5
                     after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
-          <p class="text-center font-semibold mx-4 mb-0 uppercase"><%= I18n.t("devise.or") %></p>
+          <p class="text-center mx-4 mb-0 uppercase"><%= I18n.t("devise.or") %></p>
         </div>
         <% if ENV["RAILS_ENV"] != "production" %>
           <%- if devise_mapping.registerable? && controller_name != 'registrations' %>

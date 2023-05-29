@@ -56,14 +56,13 @@
       <div data-controller="modal" data-modal-allow-background-close="false">
         <!-- Button trigger modal -->
         <button type="button" data-action="click->modal#open"
-                class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
-                       border-orange-800 hover:text-orange-800 hover:bg-white">
+          class="text-sm md:text-base py-2 px-2 bg-orange-900 text-white transition duration-300 border
+          border-orange-800 hover:text-orange-800 hover:bg-white">
           + Add a project
         </button>
-
         <!-- Modal Container -->
         <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard"
-             class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+          class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
           <!-- Modal Inner Container -->
           <div class="max-h-screen w-full max-w-4xl relative">
             <!-- Modal Card -->
@@ -82,24 +81,24 @@
         <div class="overflow-hidden">
           <table class="min-w-full">
             <thead class="bg-slate-900 text-slate-300 border-b">
-            <tr>
-              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Name</th>
-              <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Status</th>
-            </tr>
+              <tr>
+                <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Name</th>
+                <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Status</th>
+              </tr>
             </thead>
             <tbody>
-            <% if @projects.empty? %>
-              <p class="px-3">No Projects yet.</p>
-            <% else %>
-              <% @projects.each_with_index do |project| %>
-                <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
-                    <%= link_to project.name, admin_project_path(project) %>
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300"><%= project.status.humanize %></td>
-                </tr>
+              <% if @projects.empty? %>
+                <p class="px-3">No Projects yet.</p>
+              <% else %>
+                <% @projects.each_with_index do |project| %>
+                  <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+                      <%= link_to project.name, admin_project_path(project) %>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300"><%= project.status.humanize %></td>
+                  </tr>
+                <% end %>
               <% end %>
-            <% end %>
             </tbody>
           </table>
         </div>
@@ -115,20 +114,20 @@
             <h2 class="mb-2">Accounts Managed</h2>
             <table class="min-w-full">
               <thead class="bg-slate-900 text-slate-300 border-b">
-              <tr>
-                <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Account Full Name</th>
-              </tr>
+                <tr>
+                  <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Account Full Name</th>
+                </tr>
               </thead>
               <tbody>
-              <% @user.accounts_managed.each do |account| %>
-                <% unless @user.accounts_managed.empty? %>
-                  <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
-                      <%= link_to account.manageable.full_name, admin_account_path(account.manageable_id) %>
-                    </td>
-                  </tr>
+                <% @user.accounts_managed.each do |account| %>
+                  <% unless @user.accounts_managed.empty? %>
+                    <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+                        <%= link_to account.manageable.full_name, admin_account_path(account.manageable_id) %>
+                      </td>
+                    </tr>
+                  <% end %>
                 <% end %>
-              <% end %>
               </tbody>
             </table>
           </div>
@@ -145,20 +144,20 @@
             <h2 class="mb-2">Properties Managed</h2>
             <table class="min-w-full">
               <thead class="bg-slate-900 text-slate-300 border-b">
-              <tr>
-                <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Property Name</th>
-              </tr>
+                <tr>
+                  <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Property Name</th>
+                </tr>
               </thead>
               <tbody>
-              <% @properties_managed.each do |property| %>
-                <% unless @user.properties_managed.empty? %>
-                  <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
-                      <%= link_to property.manageable.name, admin_property_path(property.manageable_id) %>
-                    </td>
-                  </tr>
+                <% @properties_managed.each do |property| %>
+                  <% unless @user.properties_managed.empty? %>
+                    <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+                        <%= link_to property.manageable.name, admin_property_path(property.manageable_id) %>
+                      </td>
+                    </tr>
+                  <% end %>
                 <% end %>
-              <% end %>
               </tbody>
             </table>
           </div>
@@ -175,30 +174,30 @@
             <h2 class="mb-2">Articles Written</h2>
             <table class="min-w-full">
               <thead class="bg-slate-900 text-slate-300 border-b">
-              <tr>
-                <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Article title</th>
-                <th class="text-sm font-medium text-slate-300 py-4 text-left">Article's Categories</th>
-              </tr>
+                <tr>
+                  <th class="text-sm font-medium text-slate-300 px-6 py-4 text-left">Article title</th>
+                  <th class="text-sm font-medium text-slate-300 py-4 text-left">Article's Categories</th>
+                </tr>
               </thead>
               <tbody>
-              <% @user.articles.each do |article| %>
-                <% unless @user.articles.empty? %>
-                  <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
-                      <%= link_to article.title, admin_article_path(article) %>
-                    </td>
-                    <td>
-                      <ul class="flex">
-                        <% article.article_categories.each do |article_category| %>
-                          <li class="mr-3"><%= link_to article_category.name, admin_article_category_path(article_category) %>
-                            ,
-                          </li>
-                        <% end %>
-                      </ul>
-                    </td>
-                  </tr>
+                <% @user.articles.includes(:article_categories).each do |article| %>
+                  <% unless @user.articles.empty? %>
+                    <tr class="bg-slate-800 border-b transition duration-300 ease-in-out hover:bg-slate-700">
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-300">
+                        <%= link_to article.title, admin_article_path(article) %>
+                      </td>
+                      <td>
+                        <ul class="flex">
+                          <% article.article_categories.each do |article_category| %>
+                            <li class="mr-3"><%= link_to article_category.name, admin_article_category_path(article_category) %>
+                              ,
+                            </li>
+                          <% end %>
+                        </ul>
+                      </td>
+                    </tr>
+                  <% end %>
                 <% end %>
-              <% end %>
               </tbody>
             </table>
           </div>

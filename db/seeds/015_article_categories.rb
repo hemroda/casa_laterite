@@ -1,5 +1,5 @@
 if ArticleCategory.count.zero?
-  p "Seeding Article Categories"
+  puts "Seeding Article Categories"
   categories = [
     "Backend",
     "Frontend",

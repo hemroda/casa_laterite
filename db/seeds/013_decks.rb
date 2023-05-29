@@ -1,5 +1,5 @@
 if Campaign.count.zero?
-  p "Seeding campaigns with questions and answers"
+  puts "Seeding campaigns with questions and answers"
 
   # Campaign #1
   Campaign.create(

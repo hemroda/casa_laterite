@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 if Project.count.zero?
-  p "Seeding Projects"
+  puts "Seeding Projects"
 
-  p "Seeding First Project"
+  puts "Seeding First Project"
   Project.create(
     name: "Real Estate Market Analysis",
     description: Faker::TvShows::SiliconValley.quote,
@@ -28,7 +28,7 @@ if Project.count.zero?
     projectable: User.first,
     )
 
-  p "Seeding Random Projects"
+  puts "Seeding Random Projects"
   20.times do |index|
     Project.create(
       name: Faker::TvShows::SiliconValley.invention,

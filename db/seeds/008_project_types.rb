@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 if ProjectType.count.zero?
-  p "Seeding Project Types"
+  puts "Seeding Project Types"
 
   10.times do |index|
     ProjectType.create(name: Faker::Construction.subcontract_category) if index.odd?

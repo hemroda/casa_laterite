@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 if Discussion.count.zero?
-  p "Seeding Discussion with SharedDiscussion"
+  puts "Seeding Discussion with SharedDiscussion"
 
   3.times do |index|
     Discussion.create(

@@ -6,7 +6,7 @@ if Post.count.zero?
     )
   end
 
-  p "Seeding Random Posts"
+  puts "Seeding Random Posts"
   50.times do |index|
     if index.odd?
       Post.create(

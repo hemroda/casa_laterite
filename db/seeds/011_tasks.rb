@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 if Task.count.zero?
-  p "Seeding Tasks"
+  puts "Seeding Tasks"
 
   15.times do
     Task.create(

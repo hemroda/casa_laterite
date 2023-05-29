@@ -27,7 +27,7 @@ if User.count.zero?
     password_confirmation: "password"
   )
 
-  p "Seeding random Users"
+  puts "Seeding random Users"
   20.times do
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name

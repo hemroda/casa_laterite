@@ -1,5 +1,5 @@
 if Article.count.zero?
-  p "Seeding Articles"
+  puts "Seeding Articles"
   10.times do |index|
     Article.create(
       title: "Article ##{index}",

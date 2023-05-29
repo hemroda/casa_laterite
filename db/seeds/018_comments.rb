@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 if Comment.count.zero?
-  p "Seeding Comments for Discussions"
+  puts "Seeding Comments for Discussions"
 
   Discussion.all.each do |p|
     4.times { |index| p.comments.create(content: Faker::Lorem.paragraph, submitted_by: (index.odd? ? User.first : Account.first)) }

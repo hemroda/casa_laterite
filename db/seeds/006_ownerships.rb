@@ -2,7 +2,7 @@
 
 
 if Ownership.count.zero?
-  p "Seeding Owner"
+  puts "Seeding Owner"
 
   Property.all.each do |property|
     Ownership.create(account_id: rand(1..16), property_id: property.id, allocated_by: User.first)

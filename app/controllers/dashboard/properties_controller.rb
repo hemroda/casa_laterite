@@ -8,7 +8,7 @@ class Dashboard::PropertiesController < ApplicationController
   before_action :authorized_account, only: %i[show]
 
   def index
-    @properties = current_account.properties.includes(:property_type, :photo_attachment, :rich_text_description)
+    @properties = current_account.properties.includes(:property_type, :rich_text_description).includes(photo_attachment: :blob)
   end
 
   def show; end
